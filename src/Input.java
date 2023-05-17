@@ -10,7 +10,7 @@ public class Input {
 
         System.out.println(question);
         for (int i = 0; i < options.size(); i++) {
-            System.out.println(String.format("%-4s%s", "[" + i + "]", options.get(i)));
+            System.out.println("[" + i + "] " + options.get(i));
         }
 
         Scanner scanner = new Scanner(System.in);
@@ -120,4 +120,38 @@ public class Input {
         System.out.println(message);
         scanner.nextLine();
     }
+
+    public static void main(String[] args) {
+
+        int choice = askMultichoiceQuestion("Boobs or ass?", new ArrayList<String>(Arrays.asList("boobs", "ass")));
+        System.out.println("Choice: " + choice);
+
+        boolean wantsFries = askYesNoQuestion("Do you want fries?");
+        System.out.println(wantsFries);
+
+        String str = askForString("What's the weather like?", 3, 10);
+        System.out.println(str);
+
+        int i = askForInt("What's ur body count?", 0, 100);
+        System.out.println(i);
+
+        pause();
+        pause("Press enter to continue");
+    }
+
+	public static boolean validString(String string, int lowerBound, int upperBound) {
+
+		boolean valid = true;        
+		try {
+			if ((string.length() < lowerBound) || (string.length() > upperBound)) {
+				throw new InvalidInputException();
+		    }
+		    if (!string.matches("[a-zA-Z0-9 ]*")) {
+		    	throw new InvalidInputException();
+		    }
+		} catch (InvalidInputException e) {
+		    	valid = false;
+		}
+		return valid;
+	}
 }
