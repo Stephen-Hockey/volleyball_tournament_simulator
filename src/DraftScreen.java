@@ -1,29 +1,30 @@
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.JSpinner;
-import javax.swing.JTextPane;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class DraftScreen {
 
 	private JFrame frame;
-
+	private GameManager manager;
+	
+	int round = 1;
+	ArrayList<Athlete> usersTeam = new ArrayList<Athlete>();
+	ArrayList<Athlete> draftRound = Athlete.generateAthletes(10, 9);
+	
 	/**
 	 * Launch the application.
 	 */
@@ -43,8 +44,22 @@ public class DraftScreen {
 	/**
 	 * Create the application.
 	 */
-	public DraftScreen() {
+	public DraftScreen() {		
 		initialize();
+	}
+	
+	public DraftScreen(GameManager incomingManager) {
+		manager = incomingManager;
+		initialize();
+		frame.setVisible(true);
+	}
+	
+	public void closeWindow() {
+		frame.dispose();
+	}
+	
+	public void finishedWindow() {
+		manager.closeDraftScreen(this);
 	}
 
 	/**
@@ -56,8 +71,10 @@ public class DraftScreen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JList<Athlete> listUsersTeam = new JList<Athlete>();
-		listUsersTeam.setBounds(12, 71, 150, 170);
+		JList<String> listUsersTeam = new JList<String>();
+		DefaultListModel<String> modelUsersTeam = new DefaultListModel<String>();
+		listUsersTeam.setModel(modelUsersTeam);
+		listUsersTeam.setBounds(12, 71, 150, 200);		
 		frame.getContentPane().add(listUsersTeam);
 		
 		JPanel panelTop = new JPanel();
@@ -84,24 +101,16 @@ public class DraftScreen {
 		txtDraftWelcome.setBounds(174, 44, 246, 109);
 		frame.getContentPane().add(txtDraftWelcome);
 		
-		JList<Athlete> listDraftRound = new JList<Athlete>();
-		
-		DefaultListModel<Athlete> modelDraftRound = new DefaultListModel<Athlete>();
-		listDraftRound.setModel(modelDraftRound);
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		modelDraftRound.addElement(Athlete.generateAthlete(5));
-		listDraftRound.setBounds(433, 71, 150, 170);
+		JList<String> listDraftRound = new JList<String>();		
+		DefaultListModel<String> modelDraftRound = new DefaultListModel<String>();
+		listDraftRound.setModel(modelDraftRound);		
+		for (Athlete athlete : draftRound) {
+			modelDraftRound.addElement(athlete.getName());
+		}
+		listDraftRound.setBounds(433, 71, 150, 200);
 		frame.getContentPane().add(listDraftRound);
 		
-		JLabel lblDraftRound = new JLabel("Round X");
+		JLabel lblDraftRound = new JLabel("Round " + round);
 		lblDraftRound.setBounds(433, 44, 150, 15);
 		frame.getContentPane().add(lblDraftRound);
 		
@@ -148,21 +157,100 @@ public class DraftScreen {
 		panelAthleteInfoBox.add(txtAthleteDescription);
 		
 		JButton btnDraftAthlete = new JButton("DRAFT");
+		
 		btnDraftAthlete.setBounds(12, 161, 224, 72);
 		panelAthleteInfoBox.add(btnDraftAthlete);
 		
-		listDraftRound.addListSelectionListener(new ListSelectionListener() {
+		JButton btnFinish = new JButton("STOP DRAFTING");
+		btnFinish.setBounds(433, 370, 150, 40);
+		frame.getContentPane().add(btnFinish);
+		
+		listUsersTeam.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				Athlete selectedDraftAthlete = listDraftRound.getSelectedValue();
+				
+				if (listUsersTeam.isSelectionEmpty()) {
+					return;
+				}
+				
+				Athlete selectedDraftAthlete = usersTeam.get(listUsersTeam.getSelectedIndex());
 				lblAthleteName.setText(selectedDraftAthlete.getName());
 				txtAthleteDescription.setText(selectedDraftAthlete.getDescription());
 				pBarStamina.setValue(selectedDraftAthlete.getStats()[0]);
 				pBarOffence.setValue(selectedDraftAthlete.getStats()[1]);
 				pBarDefence.setValue(selectedDraftAthlete.getStats()[2]);
-
+				listDraftRound.clearSelection();
+				btnDraftAthlete.setEnabled(false);
 			}
 		});
 		
+		listDraftRound.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				
+				if (listDraftRound.isSelectionEmpty()) {
+					return;
+				}
+				
+				Athlete selectedDraftAthlete = draftRound.get(listDraftRound.getSelectedIndex());
+				lblAthleteName.setText(selectedDraftAthlete.getName());
+				txtAthleteDescription.setText(selectedDraftAthlete.getDescription());
+				pBarStamina.setValue(selectedDraftAthlete.getStats()[0]);
+				pBarOffence.setValue(selectedDraftAthlete.getStats()[1]);
+				pBarDefence.setValue(selectedDraftAthlete.getStats()[2]);
+				listUsersTeam.clearSelection();
+				btnDraftAthlete.setEnabled(true);
+			}
+		});
 		
+		btnDraftAthlete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (listDraftRound.getSelectedIndex() == -1) {
+					JOptionPane.showMessageDialog(null, "You haven't selected an athlete from the draft!", "Error", 0);
+					return;
+				}
+				
+				
+				usersTeam.add(draftRound.get(listDraftRound.getSelectedIndex()));
+				modelUsersTeam.addElement(draftRound.get(listDraftRound.getSelectedIndex()).getName());
+				if (round < 10) {
+					round++;
+					lblDraftRound.setText("Round " + round);
+					draftRound = Athlete.generateAthletes(10, 10-round);
+					modelDraftRound.clear();
+					for (Athlete athlete : draftRound) {
+						modelDraftRound.addElement(athlete.getName());
+					}
+				} else {
+					modelDraftRound.clear();
+					btnFinish.setText("Finish");
+					btnDraftAthlete.setVisible(false);
+				}
+			}
+		});
+		
+
+		btnFinish.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (usersTeam.size() < 10) {
+					if(JOptionPane.showConfirmDialog(null, "Stop drafting yourself and randomly select " + (10 - usersTeam.size()) + " players for your team?", "Confirm", 0) == 1) {
+						return;
+					}
+					while (usersTeam.size() < 10) {						
+						Athlete generatedAthlete = Athlete.generateAthlete(10-round);
+						usersTeam.add(generatedAthlete);
+						modelUsersTeam.addElement(generatedAthlete.getName());
+						if (round < 10) {
+							round++;
+							lblDraftRound.setText("Round 10");
+						}
+					}
+					modelDraftRound.clear();
+					btnFinish.setText("Finish");
+					btnDraftAthlete.setVisible(false);
+					return;
+				}
+				GameEnvironment.getPlayerTeam().setPlayers(usersTeam);
+				finishedWindow();
+			}
+		});
 	}
 }
