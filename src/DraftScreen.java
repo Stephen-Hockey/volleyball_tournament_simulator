@@ -231,7 +231,7 @@ public class DraftScreen {
 		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (usersTeam.size() < 10) {
-					if(JOptionPane.showConfirmDialog(null, "Stop drafting yourself and randomly select " + (10 - usersTeam.size()) + " players for your team?", "Confirm", 0) == 1) {
+					if(JOptionPane.showConfirmDialog(null, "Stop drafting and randomly select " + (10 - usersTeam.size()) + " players for your team?", "Confirm", 0) == 1) {
 						return;
 					}
 					while (usersTeam.size() < 10) {						
