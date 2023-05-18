@@ -10,7 +10,12 @@ public class GameEnvironment {
     private static int playerRating;
     private static int[] record; // wins, losses, byes without a game
     private static ArrayList<Item> inventory;
+    private static ArrayList<Athlete> currentWeekMarketAthletes;
+    private static ArrayList<Item> currentWeekMarketItems;
+    private static ArrayList<Team> currentWeekOpposingTeams;
     private static boolean gameRunning;
+    
+    public static final int MAX_PLAYERS = 12, MAX_ITEMS= 12;
 
     public static String getPlayerName() {
         return playerName;
@@ -90,5 +95,36 @@ public class GameEnvironment {
 
     public static void setGameRunning(boolean _gameRunning) {
         gameRunning = _gameRunning;
+    }
+    
+    public static ArrayList<Athlete> getCurrentWeekMarketAthletes() {
+		return currentWeekMarketAthletes;
+	}
+    
+    public static ArrayList<Item> getCurrentWeekMarketItems() {
+		return currentWeekMarketItems;
+	}
+    
+    public static ArrayList<Team> getCurrentWeekOpposingTeams() {
+		return currentWeekOpposingTeams;
+    }
+    
+    public static void setupWeek() {
+    	currentWeekMarketAthletes = new ArrayList<Athlete>();
+    	currentWeekMarketItems = new ArrayList<Item>();
+    	currentWeekOpposingTeams = new ArrayList<Team>();
+    	
+    	
+    	for (int i = 0; i < 5; i++) {
+            currentWeekMarketAthletes.add(Athlete.generateAthlete(GameEnvironment.getWeek()));
+        }
+    	
+    	for (int i = 0; i < 5; i++) {
+            currentWeekMarketItems.add(Item.generateItem());
+        }
+    	
+        for (int i = 0; i < 3; i++) {
+            currentWeekOpposingTeams.add(Team.generateTeam(GameEnvironment.getWeek() * (GameEnvironment.getDifficulty() + 1)));
+        }        
     }
 }
