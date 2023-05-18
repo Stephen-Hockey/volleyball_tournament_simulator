@@ -77,6 +77,15 @@ public class DraftScreen {
 		listUsersTeam.setBounds(12, 71, 150, 200);		
 		frame.getContentPane().add(listUsersTeam);
 		
+		JList<String> listDraftRound = new JList<String>();		
+		DefaultListModel<String> modelDraftRound = new DefaultListModel<String>();
+		listDraftRound.setModel(modelDraftRound);		
+		for (Athlete athlete : draftRound) {
+			modelDraftRound.addElement(athlete.getName());
+		}
+		listDraftRound.setBounds(433, 71, 150, 200);
+		frame.getContentPane().add(listDraftRound);
+		
 		JPanel panelTop = new JPanel();
 		panelTop.setBackground(new Color(153, 193, 241));
 		panelTop.setBounds(0, 0, 600, 32);
@@ -101,14 +110,7 @@ public class DraftScreen {
 		txtDraftWelcome.setBounds(174, 44, 246, 109);
 		frame.getContentPane().add(txtDraftWelcome);
 		
-		JList<String> listDraftRound = new JList<String>();		
-		DefaultListModel<String> modelDraftRound = new DefaultListModel<String>();
-		listDraftRound.setModel(modelDraftRound);		
-		for (Athlete athlete : draftRound) {
-			modelDraftRound.addElement(athlete.getName());
-		}
-		listDraftRound.setBounds(433, 71, 150, 200);
-		frame.getContentPane().add(listDraftRound);
+		
 		
 		JLabel lblDraftRound = new JLabel("Round " + round);
 		lblDraftRound.setBounds(433, 44, 150, 15);
@@ -161,7 +163,7 @@ public class DraftScreen {
 		btnDraftAthlete.setBounds(12, 161, 224, 72);
 		panelAthleteInfoBox.add(btnDraftAthlete);
 		
-		JButton btnFinish = new JButton("STOP DRAFTING");
+		JButton btnFinish = new JButton("AUTO-DRAFT");
 		btnFinish.setBounds(433, 370, 150, 40);
 		frame.getContentPane().add(btnFinish);
 		
@@ -249,6 +251,9 @@ public class DraftScreen {
 					return;
 				}
 				GameEnvironment.getPlayerTeam().setPlayers(usersTeam);
+				GameEnvironment.setupWeek();
+				GameEnvironment.setInventory(new ArrayList<Item>());
+				manager.launchMarketScreen();
 				finishedWindow();
 			}
 		});
