@@ -2,11 +2,11 @@
 public class GameManager {
 	
 	public void launchSetUpScreen() {
-		SetUpScreen setUpScreen = new SetUpScreen(this);
+		SetUpScreen setUpWindow = new SetUpScreen(this);
 	}
 	
-	public void closeSetUpScreen(SetUpScreen setUpScreen) {
-		setUpScreen.closeSetUpScreen();
+	public void closeSetUpScreen(SetUpScreen setUpWindow) {
+		setUpWindow.closeSetUpScreen();
 		launchDraftScreen();
 	}
 	
@@ -27,6 +27,38 @@ public class GameManager {
 		homeWindow.closeWindow();
 	}
 
+	public void launchMarketScreen() {
+		MarketScreen marketWindow = new MarketScreen(this);
+	}
+	
+	public void closeMarketScreen(MarketScreen marketWindow) {
+		marketWindow.closeWindow();
+	}
+	
+	public void launchStadiumScreen() {
+		StadiumScreen stadiumWindow = new StadiumScreen(this);
+	}
+	
+	public void closeStadiumScreen(StadiumScreen stadiumWindow) {
+		stadiumWindow.closeWindow();
+	}
+	
+	public void launchEndScreen() {
+		EndScreen endWindow = new EndScreen(this);
+	}
+	
+	public void closeEndScreen(EndScreen endWindow) {
+		endWindow.closeWindow();
+	}
+	
+	public void launchClubScreen() {
+		EndScreen endWindow = new EndScreen(this);
+	}
+	
+	public void closeClubScreen(ClubScreen clubWindow) {
+		clubWindow.closeWindow();
+	}
+	
 	
 	public static void main(String[] args) {
 		
