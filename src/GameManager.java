@@ -7,7 +7,6 @@ public class GameManager {
 	
 	public void closeSetUpScreen(SetUpScreen setUpWindow) {
 		setUpWindow.closeSetUpScreen();
-		launchDraftScreen();
 	}
 	
 	public void launchDraftScreen() {
@@ -15,8 +14,7 @@ public class GameManager {
 	}
 	
 	public void closeDraftScreen(DraftScreen draftWindow) {
-		draftWindow.closeWindow();
-		launchHomeScreen();
+		draftWindow.closeWindow();	
 	}
 	
 	public void launchHomeScreen() {
@@ -58,7 +56,6 @@ public class GameManager {
 	public void closeClubScreen(ClubScreen clubWindow) {
 		clubWindow.closeWindow();
 	}
-	
 	
 	public static void main(String[] args) {
 		
