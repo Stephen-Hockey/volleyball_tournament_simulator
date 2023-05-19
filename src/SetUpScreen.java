@@ -1,5 +1,6 @@
 package senggui;
 import java.awt.*;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -14,6 +15,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JRadioButton;
+
+import java.util.ArrayList;
 
 public class SetUpScreen {
 
@@ -132,16 +135,20 @@ public class SetUpScreen {
 		ButtonGroup difficultyButtons = new ButtonGroup();
 		
 		JRadioButton beginnerDifficultyButton = new JRadioButton("Beginner");
+		beginnerDifficultyButton.setMnemonic('0');
 		beginnerDifficultyButton.setBounds(60, 510, 105, 50);
 		frame.getContentPane().add(beginnerDifficultyButton);
 		difficultyButtons.add(beginnerDifficultyButton);
 		
 		JRadioButton intermediateDifficultyButton = new JRadioButton("Intermediate");
+		intermediateDifficultyButton.setSelected(true);
+		intermediateDifficultyButton.setMnemonic('1');
 		intermediateDifficultyButton.setBounds(165, 510, 120, 50);
 		frame.getContentPane().add(intermediateDifficultyButton);
 		difficultyButtons.add(intermediateDifficultyButton);
 		
 		JRadioButton advancedDifficultyButton = new JRadioButton("Advanced");
+		advancedDifficultyButton.setMnemonic('2');
 		advancedDifficultyButton.setBounds(285, 510, 105, 50);
 		frame.getContentPane().add(advancedDifficultyButton);
 		difficultyButtons.add(advancedDifficultyButton);
@@ -152,17 +159,49 @@ public class SetUpScreen {
 		playerNameSubmitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String playerName = playerNameField.getText();
-				boolean allValid = true;
-				if (Input.validString(playerName, 3, 999)){
-					Game.setPlayerName(playerName);
-				} else {
+				String teamName = teamNameField.getText();
+				int numWeeks = weeksSlider.getValue();
+				int difficulty = difficultyButtons.getSelection().getMnemonic();
+				
+				if (!Input.validString(playerName, 3, 999)){
 					playerNameField.setText("");
-					allValid = false;
+					JOptionPane.showMessageDialog(null, "Your name must comprise of " + 3 + " to " + 999 + " non-special characters");
+					return;
 				}
+					
+				if (!Input.validString(teamName, 3, 15)){
+					teamNameField.setText("");
+					JOptionPane.showMessageDialog(null, "Your team's name must comprise of " + 3 + " to " + 15 + " non-special characters");
+					return;
+				}
+				
+				GameEnvironment.setPlayerName(playerName);
+				GameEnvironment.setTeamName(teamName);
+				GameEnvironment.setPlayerTeam(new Team(teamName));
+				GameEnvironment.setFinalWeek(numWeeks);
+				GameEnvironment.setDifficulty(difficulty);
+				GameEnvironment.setWeek(0);
+				GameEnvironment.setMatches(new ArrayList<Match>());
+				manager.launchDraftScreen();
+				finishedSetUpScreen();
 			}
 		});
 		playerNameSubmitButton.setBounds(75, 600, 300, 50);
 		frame.getContentPane().add(playerNameSubmitButton);
+		
+		JPanel panelTop = new JPanel();
+		panelTop.setLayout(null);
+		panelTop.setBackground(new Color(153, 193, 241));
+		panelTop.setBounds(0, 0, 450, 32);
+		frame.getContentPane().add(panelTop);
+		
+		JButton btnHelp = new JButton("?");
+		btnHelp.setBounds(388, 5, 50, 25);
+		panelTop.add(btnHelp);
+		
+		JLabel lblSetup = new JLabel("Setup");
+		lblSetup.setBounds(12, 10, 70, 15);
+		panelTop.add(lblSetup);
 		
 		
 		
