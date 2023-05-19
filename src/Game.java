@@ -1,8 +1,10 @@
 package senggui;
+
 import java.util.ArrayList;
 
-public class Game {
-	private static String playerName;
+public class GameEnvironment {
+    private static String playerName;
+    private static String teamName; 
     private static int week;
     private static int finalWeek;
     private static Team playerTeam;
@@ -11,10 +13,15 @@ public class Game {
     private static int playerRating;
     private static int[] record; // wins, losses, byes without a game
     private static ArrayList<Item> inventory;
-    private static ArrayList<Team> opposingTeams;
-    private static ArrayList<Item> marketItems;
-    private static ArrayList<Athlete> marketAthletes;
+    private static ArrayList<Athlete> currentWeekMarketAthletes;
+    private static ArrayList<Item> currentWeekMarketItems;
+    private static ArrayList<Team> currentWeekOpposingTeams;
+    private static ArrayList<Match> matches;
+    private static boolean gameRunning;
+    private static boolean weeklyGamePlayed;
     
+    public static final int MAX_PLAYERS = 12, MAX_ITEMS= 12;
+
     public static String getPlayerName() {
         return playerName;
     }
@@ -23,6 +30,14 @@ public class Game {
         playerName = _playerName;
     }
 
+    public static String getTeamName() {
+		return teamName;
+	}
+    
+    public static void setTeamName(String _teamName) {
+		GameEnvironment.teamName = _teamName;
+	}
+    
     public static int getWeek() {
         return week;
     }
@@ -30,7 +45,7 @@ public class Game {
     public static void setWeek(int _week) {
         week = _week;
     }
-    
+
     public static int getFinalWeek() {
         return finalWeek;
     }
@@ -46,7 +61,7 @@ public class Game {
     public static void setPlayerTeam(Team _playerTeam) {
         playerTeam = _playerTeam;
     }
-    
+
     public static int getDifficulty() {
         return difficulty;
     }
@@ -87,40 +102,63 @@ public class Game {
         record = _record;
     }
     
-    public static boolean isRunning() {
-    	if ((week > finalWeek)) {
-    		return false;
-    	} else {
-    		return true;
-    	}
+    public static ArrayList<Match> getMatches() {
+		return matches;
+	}
+    
+    public static void setMatches(ArrayList<Match> _matches) {
+		GameEnvironment.matches = _matches;
+	}
+    
+    public static void addMatch(Match match) {
+    	GameEnvironment.matches.add(match);
+    }
+
+    public static boolean getGameRunning() {
+        return gameRunning;
+    }
+
+    public static void setGameRunning(boolean _gameRunning) {
+        gameRunning = _gameRunning;
     }
     
-    public static void generateOpposingTeams() {
-        for (int i = 0; i < 3; i++) {
-        	Team team = Team.generateTeam(week*(difficulty+1));
-            opposingTeams.add(team);
+    public static boolean getWeeklyGamePlayed() {
+    	return weeklyGamePlayed;
+    }
+    
+    public static void setWeeklyGamePlayed(boolean _weeklyGamePlayed) {
+    	weeklyGamePlayed = _weeklyGamePlayed;
+    }
+    
+    public static ArrayList<Athlete> getCurrentWeekMarketAthletes() {
+		return currentWeekMarketAthletes;
+	}
+    
+    public static ArrayList<Item> getCurrentWeekMarketItems() {
+		return currentWeekMarketItems;
+	}
+    
+    public static ArrayList<Team> getCurrentWeekOpposingTeams() {
+		return currentWeekOpposingTeams;
+    }
+    
+    public static void setUpWeek() {
+    	currentWeekMarketAthletes = new ArrayList<Athlete>();
+    	currentWeekMarketItems = new ArrayList<Item>();
+    	currentWeekOpposingTeams = new ArrayList<Team>();
+    	weeklyGamePlayed = false;
+    	week += 1;
+    	
+    	for (int i = 0; i < 5; i++) {
+            currentWeekMarketAthletes.add(Athlete.generateAthlete(GameEnvironment.getWeek()));
         }
+    	
+    	for (int i = 0; i < 5; i++) {
+            currentWeekMarketItems.add(Item.generateItem());
+        }
+    	
+        for (int i = 0; i < 3; i++) {
+            currentWeekOpposingTeams.add(Team.generateTeam(GameEnvironment.getWeek() * (GameEnvironment.getDifficulty() + 1)));
+        }        
     }
-    
-    public static void generateMarketAthletes() {
-	    marketAthletes = new ArrayList<Athlete>();
-	    for (int i = 0; i < 5; i++) {
-	    	Athlete athlete = Athlete.generateAthlete(week);
-	        marketAthletes.add(athlete);
-	    }
-    }
-    
-    public static void generateMarketItems() {
-    	marketItems = new ArrayList<Item>();
-	    for (int i = 0; i < 5; i++) {
-	    	Item item = Item.generateItem();
-	    	marketItems.add(item);
-	    }
-    }
-    
 }
-
-
-
-
-
