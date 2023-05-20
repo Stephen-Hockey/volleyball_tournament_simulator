@@ -105,4 +105,22 @@ public class Team {
 
         return new Team(teamName, players);
     }
+    
+    public static int[] getTeamAverageStats(Team team) {
+    	
+    	int avgStamina = 0, avgOffence = 0, avgDefence = 0;
+    	
+		for (Athlete athlete : team.getPlayers()) {
+			avgStamina += athlete.getStats()[0];
+			avgOffence += athlete.getStats()[1];
+			avgDefence += athlete.getStats()[2];
+		}
+		
+		avgStamina = (int) avgStamina/team.size();
+		avgOffence = (int) avgOffence/team.size();
+		avgDefence = (int) avgDefence/team.size();
+		
+		return new int[] {avgStamina, avgOffence, avgDefence};
+		
+	}
 }
