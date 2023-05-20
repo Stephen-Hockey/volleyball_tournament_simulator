@@ -2,7 +2,9 @@
 public class GameManager {
 	
 	public void launchSetUpScreen() {
+		
 		SetUpScreen setUpWindow = new SetUpScreen(this);
+		
 	}
 	
 	public void closeSetUpScreen(SetUpScreen setUpWindow) {
@@ -14,7 +16,7 @@ public class GameManager {
 	}
 	
 	public void closeDraftScreen(DraftScreen draftWindow) {
-		draftWindow.closeWindow();	
+		draftWindow.closeWindow();
 	}
 	
 	public void launchHomeScreen() {
@@ -50,29 +52,25 @@ public class GameManager {
 	}
 	
 	public void launchClubScreen() {
-		EndScreen endWindow = new EndScreen(this);
+		ClubScreen clubWindow = new ClubScreen(this);
 	}
 	
 	public void closeClubScreen(ClubScreen clubWindow) {
 		clubWindow.closeWindow();
 	}
 	
+	public void launchMatchScreen() {
+		MatchScreen matchScreen = new MatchScreen(this);
+	}
+	
+	public void closeMatchScreen(MatchScreen matchScreen) {
+		matchScreen.closeWindow();
+	}
+
+	
 	public static void main(String[] args) {
-		
 		GameManager manager = new GameManager();
 		manager.launchSetUpScreen();
-		
-		//ScreenManager.setUpGame()
-		//ScreenManager.teamDraft()
-		//ScreenManager.giveNicknames()
-		/*while (Game.isRunning()) {
-			Game.generateOpposingTeams();
-			Game.generateMarketAthletes();
-			Game.generateMarketItems();
-			
-			//ScreenManager.homeScreen()
-			int week = Game.getWeek();
-			Game.setWeek(week++);*/
 	}
 		
 }
