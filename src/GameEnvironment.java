@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class GameEnvironment {
     private static String playerName;
+    private static String teamName; 
     private static int week;
     private static int finalWeek;
     private static Team playerTeam;
@@ -13,7 +14,9 @@ public class GameEnvironment {
     private static ArrayList<Athlete> currentWeekMarketAthletes;
     private static ArrayList<Item> currentWeekMarketItems;
     private static ArrayList<Team> currentWeekOpposingTeams;
+    private static ArrayList<Match> matches;
     private static boolean gameRunning;
+    private static boolean weeklyGamePlayed;
     
     public static final int MAX_PLAYERS = 12, MAX_ITEMS= 12;
 
@@ -25,6 +28,14 @@ public class GameEnvironment {
         playerName = _playerName;
     }
 
+    public static String getTeamName() {
+		return teamName;
+	}
+    
+    public static void setTeamName(String _teamName) {
+		GameEnvironment.teamName = _teamName;
+	}
+    
     public static int getWeek() {
         return week;
     }
@@ -88,6 +99,18 @@ public class GameEnvironment {
     public static void setRecord(int[] _record) {
         record = _record;
     }
+    
+    public static ArrayList<Match> getMatches() {
+		return matches;
+	}
+    
+    public static void setMatches(ArrayList<Match> _matches) {
+		GameEnvironment.matches = _matches;
+	}
+    
+    public static void addMatch(Match match) {
+    	GameEnvironment.matches.add(match);
+    }
 
     public static boolean getGameRunning() {
         return gameRunning;
@@ -95,6 +118,14 @@ public class GameEnvironment {
 
     public static void setGameRunning(boolean _gameRunning) {
         gameRunning = _gameRunning;
+    }
+    
+    public static boolean getWeeklyGamePlayed() {
+    	return weeklyGamePlayed;
+    }
+    
+    public static void setWeeklyGamePlayed(boolean _weeklyGamePlayed) {
+    	weeklyGamePlayed = _weeklyGamePlayed;
     }
     
     public static ArrayList<Athlete> getCurrentWeekMarketAthletes() {
@@ -109,11 +140,16 @@ public class GameEnvironment {
 		return currentWeekOpposingTeams;
     }
     
-    public static void setupWeek() {
+    public static void setUpWeek() {
     	currentWeekMarketAthletes = new ArrayList<Athlete>();
     	currentWeekMarketItems = new ArrayList<Item>();
     	currentWeekOpposingTeams = new ArrayList<Team>();
+    	currentWeekMarketAthletes.clear();
+    	currentWeekMarketItems.clear();
+    	currentWeekOpposingTeams.clear();
     	
+    	weeklyGamePlayed = false;
+    	week += 1;
     	
     	for (int i = 0; i < 5; i++) {
             currentWeekMarketAthletes.add(Athlete.generateAthlete(GameEnvironment.getWeek()));
