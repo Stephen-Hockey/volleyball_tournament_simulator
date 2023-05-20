@@ -105,11 +105,6 @@ public class DraftScreen {
 		lblYourTeam.setBounds(12, 44, 150, 15);
 		frame.getContentPane().add(lblYourTeam);
 		
-		JTextArea txtDraftWelcome = new JTextArea();
-		txtDraftWelcome.setText("Welcome to the draft!");
-		txtDraftWelcome.setBounds(174, 44, 246, 109);
-		frame.getContentPane().add(txtDraftWelcome);
-		
 		
 		
 		JLabel lblDraftRound = new JLabel("Round " + round);
@@ -122,7 +117,7 @@ public class DraftScreen {
 		frame.getContentPane().add(panelAthleteInfoBox);
 		panelAthleteInfoBox.setLayout(null);
 		
-		JLabel lblAthleteName = new JLabel("(no athlete)");
+		JLabel lblAthleteName = new JLabel("");
 		lblAthleteName.setBounds(12, 12, 222, 15);
 		panelAthleteInfoBox.add(lblAthleteName);
 		
@@ -153,19 +148,22 @@ public class DraftScreen {
 		pBarDefence.setBounds(86, 78, 150, 14);
 		panelAthleteInfoBox.add(pBarDefence);
 		
-		JTextArea txtAthleteDescription = new JTextArea();
-		txtAthleteDescription.setBackground(new Color(222, 221, 218));
-		txtAthleteDescription.setBounds(12, 104, 222, 45);
-		panelAthleteInfoBox.add(txtAthleteDescription);
-		
 		JButton btnDraftAthlete = new JButton("DRAFT");
 		
 		btnDraftAthlete.setBounds(12, 161, 224, 72);
 		panelAthleteInfoBox.add(btnDraftAthlete);
 		
+		JLabel lblDescription = new JLabel("");
+		lblDescription.setBounds(12, 104, 222, 45);
+		panelAthleteInfoBox.add(lblDescription);
+		
 		JButton btnFinish = new JButton("AUTO-DRAFT");
 		btnFinish.setBounds(433, 370, 150, 40);
 		frame.getContentPane().add(btnFinish);
+		
+		JLabel lblDraftWelcome = new JLabel("<html><body style='text-align: center'>Welcome to The Draft!<br>You can pick 1 athlete per round, for 10 rounds. So choose carefully!");
+		lblDraftWelcome.setBounds(174, 44, 246, 109);
+		frame.getContentPane().add(lblDraftWelcome);
 		
 		listUsersTeam.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -176,7 +174,7 @@ public class DraftScreen {
 				
 				Athlete selectedDraftAthlete = usersTeam.get(listUsersTeam.getSelectedIndex());
 				lblAthleteName.setText(selectedDraftAthlete.getName());
-				txtAthleteDescription.setText(selectedDraftAthlete.getDescription());
+				lblDescription.setText(selectedDraftAthlete.getDescription());
 				pBarStamina.setValue(selectedDraftAthlete.getStats()[0]);
 				pBarOffence.setValue(selectedDraftAthlete.getStats()[1]);
 				pBarDefence.setValue(selectedDraftAthlete.getStats()[2]);
@@ -194,7 +192,7 @@ public class DraftScreen {
 				
 				Athlete selectedDraftAthlete = draftRound.get(listDraftRound.getSelectedIndex());
 				lblAthleteName.setText(selectedDraftAthlete.getName());
-				txtAthleteDescription.setText(selectedDraftAthlete.getDescription());
+				lblDescription.setText("<html>" + selectedDraftAthlete.getDescription().replaceAll("\n", "<br>"));
 				pBarStamina.setValue(selectedDraftAthlete.getStats()[0]);
 				pBarOffence.setValue(selectedDraftAthlete.getStats()[1]);
 				pBarDefence.setValue(selectedDraftAthlete.getStats()[2]);
@@ -251,9 +249,10 @@ public class DraftScreen {
 					return;
 				}
 				GameEnvironment.getPlayerTeam().setPlayers(usersTeam);
-				GameEnvironment.setupWeek();
+				GameEnvironment.setUpWeek();
 				GameEnvironment.setInventory(new ArrayList<Item>());
-				manager.launchMarketScreen();
+				GameEnvironment.setRecord(new int[]{0,0,0});
+				manager.launchHomeScreen();
 				finishedWindow();
 			}
 		});
