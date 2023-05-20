@@ -1,7 +1,6 @@
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -158,7 +157,17 @@ public class SetUpScreen {
 				String playerName = playerNameField.getText();
 				String teamName = teamNameField.getText();
 				int numWeeks = weeksSlider.getValue();
-				int difficulty = difficultyButtons.getSelection().getMnemonic();
+				int difficulty;
+				if (beginnerDifficultyButton.isSelected()){
+					difficulty = 0;
+				}
+				else if (advancedDifficultyButton.isSelected()){
+					difficulty = 2;
+				}
+				else {
+					difficulty = 1;
+				}
+				
 				
 				if (!Input.validString(playerName, 3, 999)){
 					playerNameField.setText("");
@@ -176,6 +185,7 @@ public class SetUpScreen {
 				GameEnvironment.setPlayerTeam(new Team(teamName));
 				GameEnvironment.setFinalWeek(numWeeks);
 				GameEnvironment.setDifficulty(difficulty);
+				manager.launchDraftScreen();
 				finishedSetUpScreen();
 			}
 		});
