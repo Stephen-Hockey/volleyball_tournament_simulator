@@ -1,4 +1,3 @@
-package senggui;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -17,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.ListSelectionModel;
 
 public class NickNameScreen {
 
@@ -81,21 +81,22 @@ public class NickNameScreen {
 		JButton btnHelp = new JButton("?");
 		btnHelp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Select a player and give them a sick new nickname.", "Error", 0);
+				JOptionPane.showMessageDialog(null, "Select a player and give them a sick new nickname.", "Info", 1);
 			}
 		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
 		JButton btnBack = new JButton("Go Back");
-		btnBack.setBounds(384, 71, 117, 25);
+		btnBack.setBounds(12, 44, 117, 25);
 		frame.getContentPane().add(btnBack);
 		
-		JLabel lblHome = new JLabel("Nickname Editor");
-		lblHome.setBounds(12, 10, 70, 15);
+		JLabel lblHome = new JLabel("Name Editor");
+		lblHome.setBounds(12, 10, 329, 15);
 		panelTop.add(lblHome);
 		
 		JList<String> teamList = new JList<String>();
+		teamList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> teamModel = new DefaultListModel<String>();
 		teamList.setModel(teamModel);
 		for (Athlete athlete : GameEnvironment.getPlayerTeam().getPlayers()) {
@@ -105,11 +106,11 @@ public class NickNameScreen {
 			teamList.setSelectedIndex(0);
 		}
 		teamList.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		teamList.setBounds(10, 44, 260, 323);
+		teamList.setBounds(328, 46, 260, 323);
 		frame.getContentPane().add(teamList);
 		
 		renameTextField = new JTextField();
-		renameTextField.setBounds(315, 145, 260, 46);
+		renameTextField.setBounds(22, 98, 260, 46);
 		frame.getContentPane().add(renameTextField);
 		renameTextField.setColumns(10);
 		if (teamModel.size() > 0) {
@@ -117,12 +118,13 @@ public class NickNameScreen {
 		}
 		
 		JButton renameButton = new JButton("Rename");
-		renameButton.setBounds(384, 301, 117, 29);
+		renameButton.setBounds(93, 213, 117, 29);
 		frame.getContentPane().add(renameButton);
 		
 		JLabel descriptionLabel = new JLabel();
+		descriptionLabel.setText("hello");
 		descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		descriptionLabel.setBounds(315, 229, 260, 60);
+		descriptionLabel.setBounds(22, 141, 260, 60);
 		frame.getContentPane().add(descriptionLabel);
 		if (teamModel.size() > 0) {
 			descriptionLabel.setText(GameEnvironment.getPlayerTeam().getPlayers().get(0).getDescription().replaceAll("\n", " "));
