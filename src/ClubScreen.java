@@ -1,4 +1,3 @@
-package senggui;
 
 import java.util.*;
 import java.awt.Color;
@@ -11,12 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.ListSelectionModel;
 
 public class ClubScreen {
 
@@ -82,6 +83,11 @@ public class ClubScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Welcome to your Clubhouse from here you can substitute players, \ngive players special items and nickname your players.", "Info", 1);
+			}
+		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -104,6 +110,7 @@ public class ClubScreen {
 		frame.getContentPane().add(playerNameLabel);
 		
 		JList<String> teamList = new JList<String>();
+		teamList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> teamModel = new DefaultListModel<String>();
 		teamList.setModel(teamModel);
 		for (int i=0; i < userPlayers.size(); i++) {
@@ -188,6 +195,7 @@ public class ClubScreen {
 		ItemInfoBox.add(clubItemsLabel);
 		
 		JList<String> clubItemsList = new JList<String>();
+		clubItemsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> clubItemsModel = new DefaultListModel<String>();
 		clubItemsList.setModel(clubItemsModel);
 		ArrayList<Item> teamItems = userItems;
@@ -198,7 +206,7 @@ public class ClubScreen {
 		clubItemsList.setBounds(6, 25, 295, 224);
 		ItemInfoBox.add(clubItemsList);
 		
-		JButton renamePlayersButton = new JButton("Rename Players");
+		JButton renamePlayersButton = new JButton("Nickname");
 		renamePlayersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				manager.launchNickNameScreen();
