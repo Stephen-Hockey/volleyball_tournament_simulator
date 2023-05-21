@@ -1,4 +1,3 @@
-package senggui;
 import java.awt.*;
 
 import javax.swing.*;
@@ -68,7 +67,7 @@ public class SetUpScreen {
 		JButton btnHelp = new JButton("?");
 		btnHelp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Welcome to 'Volleyball Mania' enter your preferences and hit 'Play' to begin!", "Error", 0);
+				JOptionPane.showMessageDialog(null, "Welcome to 'Volleyball Mania' enter your preferences and hit 'Play' to begin!", "Info", 1);
 			}
 		});
 		btnHelp.setBounds(388, 5, 50, 25);
