@@ -16,7 +16,7 @@ public class HomeScreen {
 
 	private JFrame frame;
 	private GameManager manager;
-	private Integer week;
+	private int week;
 	private String money;
 	private String rating;
 	private String teamName;
@@ -66,7 +66,7 @@ public class HomeScreen {
 		week = GameEnvironment.getWeek();
 		money = Integer.toString(GameEnvironment.getMoney());
 		rating = Integer.toString(GameEnvironment.getPlayerRating());
-		teamName = GameEnvironment.getTeamName();
+		teamName = GameEnvironment.getPlayerTeam().getTeamName();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 400);
@@ -167,7 +167,9 @@ public class HomeScreen {
 					Integer goNextWeek = JOptionPane.showConfirmDialog(null, nextWeekMessage+"?", "Confirm", 0);
 					if(goNextWeek == 0) {
 						GameEnvironment.setUpWeek();
-						GameEnvironment.getRecord()[2] += 1;
+						if (!GameEnvironment.getWeeklyGamePlayed()) {
+							GameEnvironment.getRecord()[2] += 1;
+						}						
 						week = GameEnvironment.getWeek();
 						weekDisplayLabel.setText("Week: " + week);
 						takeByeButton.setText("Take a Bye");
