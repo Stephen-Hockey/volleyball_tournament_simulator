@@ -13,7 +13,7 @@ public class Match {
     public Match(Team _opposingTeam) {
         matchStaminas = new ArrayList<Integer>();
         for (Athlete athlete : GameEnvironment.getPlayerTeam().getPlayers()) {
-            matchStaminas.add(athlete.getEffectiveStats()[0]);
+            matchStaminas.add(athlete.getStats()[0]);
         }
         opposingTeam = _opposingTeam;
         setNumber = 0;
@@ -71,13 +71,13 @@ public class Match {
         int winner = 0;
         int chanceOfWinning = 5;
 
-        if (GameEnvironment.getPlayerTeam().get(faceoffIndex).getEffectiveStats()[1] >= opposingTeam.get(faceoffIndex).getStats()[2]) {
+        if (GameEnvironment.getPlayerTeam().get(faceoffIndex).getStats()[1] >= opposingTeam.get(faceoffIndex).getStats()[2]) {
             chanceOfWinning += 3;
         } else {
             chanceOfWinning -= 1;
         }
 
-        if (GameEnvironment.getPlayerTeam().get(faceoffIndex).getEffectiveStats()[2] >= opposingTeam.get(faceoffIndex).getStats()[1]) {
+        if (GameEnvironment.getPlayerTeam().get(faceoffIndex).getStats()[2] >= opposingTeam.get(faceoffIndex).getStats()[1]) {
             chanceOfWinning += 1;
         } else {
             chanceOfWinning -= 3;
