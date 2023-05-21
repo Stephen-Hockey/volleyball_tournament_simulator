@@ -6,6 +6,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
@@ -16,6 +17,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.Font;
+import javax.swing.ListSelectionModel;
 
 public class StadiumScreen {
 
@@ -77,18 +79,20 @@ public class StadiumScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Select a team to play against by clicking one of the buttons on the left.\nYou can then see that team's average stats, and their individual stats by using the list on the right.\nAfter selecting your opponent, you can then click the big button\nto play a match against them, when you're ready. You can only play one match per week.", "Info", 1);
+			}
+		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
-		JLabel lblTopText = new JLabel("Stadium");
-		lblTopText.setBounds(80, 10, 70, 15);
+		JLabel lblTopText = new JLabel("The Stadium");
+		lblTopText.setBounds(12, 10, 400, 15);
 		panelTop.add(lblTopText);
 		
-		JButton btnUserData = new JButton("i");
-		btnUserData.setBounds(12, 5, 50, 25);
-		panelTop.add(btnUserData);
-		
 		JList<String> listOpposingTeam = new JList<String>();
+		listOpposingTeam.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> modelOpposingTeam = new DefaultListModel<String>();
 		listOpposingTeam.setModel(modelOpposingTeam);
 		listOpposingTeam.setBounds(426, 216, 150, 189);
