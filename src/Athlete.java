@@ -9,31 +9,17 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Athlete extends Purchasable {
-    private String nickname;
     private int[] stats;
-    private ArrayList<Item> items;
-    private static final int MAXITEMS = 3;
 
     public Athlete() {
         super();
     }
 
-    public Athlete(String _name, int _price, int _sellPrice, String _description, String _nickname, int[] _stats,
+    public Athlete(String _name, int _price, int _sellPrice, String _description, int[] _stats,
             ArrayList<Item> _items) {
         super(_name, _price, _sellPrice, _description);
-        nickname = _nickname;
         stats = _stats;
-        items = _items;
     }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String _nickname) {
-        nickname = _nickname;
-    }
-
     public int[] getStats() {
         return stats;
     }
@@ -42,110 +28,21 @@ public class Athlete extends Purchasable {
         stats = _stats;
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(ArrayList<Item> _items) {
-        items = _items;
-    }
-
     public int getSellPrice() {
         return (int) (getPrice() * 0.8);
     }
 
-    public int[] getEffectiveStats() {
-        int[] effectiveStats = Arrays.copyOf(stats, stats.length);
-
-        for (Item item : items) {
-            for (int i = 0; i < stats.length; i++) {
-                effectiveStats[i] += item.getEffect()[i];
-            }
-        }
-
-        return effectiveStats;
-    }
-
-    public String getNameWithNickname() {
-        if (nickname == "") {
-            return getName();
-        }
-        return getName().split(" ")[0] + " \"" + nickname + "\" " + getName().split(" ")[1];
-    }
-
-    public String getMarketString() {
-        return String.format("%24s|%6s|%7s|%7s|%7s", getName(), "$" + getPrice(), stats[0], stats[1], stats[2]);
-    }
-
-    public String getDraftString() {
-        return String.format("%24s|%7s|%7s|%7s", getName(), stats[0], stats[1], stats[2]);
-    }
-
-    public String getSellString() {
-        return String.format("%24s| %s", getName(), "$" + getSellPrice());
-    }
-
-    public String getItemsListed() {
-        if (items.isEmpty()) {
-            return "";
-        }
-        String itemsListed = items.get(0).getName();
-        for (int i = 1; i < items.size(); i++) {
-            itemsListed += ", " + items.get(i).getName();
-        }
-        return itemsListed;
-    }
-
-    public String getDetails() {
-        String details = "\nName: " + getName();
-        if (nickname != "") {
-            details += "\nNickname: " + nickname;
-        }
-        details += "\nDescription: " + getDescription();
-        for (int i = 0; i < stats.length; i++) {
-            details += "\n" + statNames[i] + ": " + stats[i];
-        }
-
-        if (!items.isEmpty()) {
-            details += "\nItems:";
-            for (Item i : items) {
-                details += "\n" + i;
-            }
-        }
-
-        return details;
-    }
-
-    public Item removeItem(int n) throws PlayerItemsException {
-
-        /* removes item from index n */
-        int length = items.size();
-        if (n > length - 1) {
-            throw new PlayerItemsException();
-        }
-        Item item = items.get(n);
-        items.remove(n);
-        return item;
-    }
-
     public void addItem(Item item) {
-        /* need to implement item cap with appropriate error handling */
-        try {
-            if (items.size() >= MAXITEMS) {
-                throw new PlayerItemsException();
-            }
-            items.add(item);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        int[] itemEffect = item.getEffect();
+    	for (int i = 0; i < itemEffect.length; i++) {
+    		if ((stats[i] + itemEffect[i]) > 99) {
+    			stats[i] = 99;
+    		} else {
+        		stats[i] += itemEffect[i];
+    		}
+    	}
     }
-    
-    @Override
-    public String toString() {
-    	// TODO Auto-generated method stub
-    	return super.toString();
-    }
-
+ 
     public static Athlete generateAthlete(int quality) {
     	
         /* name generation */
@@ -235,14 +132,11 @@ public class Athlete extends Purchasable {
 
         /* description generation */
         String description = age + " years old,\nfrom " + country;
-
-        /* nickname generation */
-        String nickname = "";
         
         /* items generation */
         ArrayList<Item> items = new ArrayList<Item>();
         
-        return new Athlete(name, price, sellPrice, description, nickname, stats, items );
+        return new Athlete(name, price, sellPrice, description, stats, items );
 
     }
     
