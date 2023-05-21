@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ListSelectionModel;
 
 public class MarketScreen {
 
@@ -79,18 +80,20 @@ public class MarketScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Here, you can BUY and SELL Items and Athletes.\nThe list on the left contains stuff of your own that you can sell,\nand the other list contains the available Items or Athletes to purchase for the week.\nYou can toggle between the item market and the athlete market using the aptly named buttons.", "Info", 1);
+			}
+		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
 		JLabel lblMarket = new JLabel("Market");
-		lblMarket.setBounds(80, 10, 70, 15);
+		lblMarket.setBounds(12, 10, 400, 15);
 		panelTop.add(lblMarket);
 		
-		JButton btnUserData = new JButton("i");
-		btnUserData.setBounds(12, 5, 50, 25);
-		panelTop.add(btnUserData);
-		
 		JList<String> listMarket = new JList<String>();
+		listMarket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> modelMarket = new DefaultListModel<String>();
 		listMarket.setModel(modelMarket);
 		for (Item item: GameEnvironment.getCurrentWeekMarketItems()) {
@@ -100,6 +103,7 @@ public class MarketScreen {
 		frame.getContentPane().add(listMarket);
 		
 		JList<String> listUser = new JList<String>();
+		listUser.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> modelUser = new DefaultListModel<String>();
 		listUser.setModel(modelUser);
 		for (Item item : GameEnvironment.getInventory()) {
