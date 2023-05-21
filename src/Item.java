@@ -1,4 +1,3 @@
-package senggui;
 
 import java.util.ArrayList;
 import java.util.Random;
