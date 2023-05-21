@@ -15,7 +15,7 @@ public class GameManager {
 	}
 	
 	public void closeDraftScreen(DraftScreen draftWindow) {
-		draftWindow.closeWindow();	
+		draftWindow.closeWindow();
 	}
 	
 	public void launchHomeScreen() {
@@ -64,6 +64,14 @@ public class GameManager {
 	
 	public void closeMatchScreen(MatchScreen matchScreen) {
 		matchScreen.closeWindow();
+	}
+	
+	public void launchNickNameScreen() {
+		NickNameScreen nickNameScreen = new NickNameScreen(this);
+	}
+	
+	public void closeNickNameScreen(NickNameScreen nickNameScreen) {
+		nickNameScreen.closeWindow();
 	}
 	
 	public static void main(String[] args) {
