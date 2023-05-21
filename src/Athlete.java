@@ -137,12 +137,6 @@ public class Athlete extends Purchasable {
         }
     }
     
-    @Override
-    public String toString() {
-    	// TODO Auto-generated method stub
-    	return super.toString();
-    }
-
     public static Athlete generateAthlete(int quality) {
     	
         /* name generation */
