@@ -68,7 +68,7 @@ public class HomeScreen {
 		week = GameEnvironment.getWeek();
 		money = Integer.toString(GameEnvironment.getMoney());
 		rating = Integer.toString(GameEnvironment.getPlayerRating());
-		teamName = GameEnvironment.getTeamName();
+		teamName = GameEnvironment.getPlayerTeam().getTeamName();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 400);
@@ -98,6 +98,10 @@ public class HomeScreen {
 		JButton visitStadiumButton = new JButton("Visit the Stadium");
 		visitStadiumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!GameEnvironment.hasFullTeam()) {
+					JOptionPane.showMessageDialog(null, "You need at least 7 healthy players to visit the Stadium.", "Error", 0);
+					return;
+				} 
 				manager.launchStadiumScreen();
 				finishedWindow();
 			}
@@ -112,6 +116,10 @@ public class HomeScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -140,39 +148,70 @@ public class HomeScreen {
 		weekDisplayLabel.setBounds(350, 80, 100, 50);
 		frame.getContentPane().add(weekDisplayLabel);
 		
+		
 		JButton takeByeButton = new JButton("Take a Bye");
-		if (GameEnvironment.getWeeklyGamePlayed()) {
+		if (week == GameEnvironment.getFinalWeek()){
+			takeByeButton.setText("Finish Game");
+		} else if (GameEnvironment.getWeeklyGamePlayed()) {
 			takeByeButton.setText("Go to Next Week");
 		}
 		takeByeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean isFinalWeek = (week == GameEnvironment.getFinalWeek());
+				String textPrompt = "Would you like to ";
+				if (isFinalWeek) {
+					textPrompt += "finish your game";
+				} else {
+					textPrompt += "advance to week " + (week + 1);
+				}
+				if (!GameEnvironment.getWeeklyGamePlayed()) {
+					textPrompt += ", without playing your weekly match";
+				}
+			
+				if (!GameEnvironment.hasFullTeam()) {
+					JOptionPane.showMessageDialog(null, "You need at least 7 healthy players to progress.", "Error", 0);
+					JOptionPane.showMessageDialog(null, "If you cannot afford enough new players, you can admit defeat and Quit.", "Error", 0);
+					return;
+				}
 				
-				if (week == GameEnvironment.getFinalWeek()) {
-					Integer finishGame = JOptionPane.showConfirmDialog(null, "Would you like to finish your game?", "Confirm", 0);
-					if (finishGame == 0) {
+				int goNextWeek = JOptionPane.showConfirmDialog(null, textPrompt+"?", "Confirm", 0);
+				
+				if (goNextWeek == 0) {
+					if (isFinalWeek) {
+						GameEnvironment.setGameSuccess(true);
 						manager.launchEndScreen();
 						finishedWindow();
-					}
-				}
-				else {
-					String nextWeekMessage = "Would you like to advance to week " + (week + 1);
-					if (!GameEnvironment.getWeeklyGamePlayed()) {
-						nextWeekMessage += ", without playing a game";
-					}
-					Integer goNextWeek = JOptionPane.showConfirmDialog(null, nextWeekMessage+"?", "Confirm", 0);
-					if(goNextWeek == 0) {
+					} else {
 						GameEnvironment.setUpWeek();
+						if (!GameEnvironment.getWeeklyGamePlayed()) {
+							GameEnvironment.getRecord()[2] += 1;
+						}
 						week = GameEnvironment.getWeek();
 						weekDisplayLabel.setText("Week: " + week);
-						takeByeButton.setText("Take a Bye");
 					}
 				}
-				
+				if (week == GameEnvironment.getFinalWeek()) {
+					takeByeButton.setText("Finish Game");
+				} else {
+					takeByeButton.setText("Take a Bye");
+				}
 			}
 		});
 		takeByeButton.setBounds(150, 310, 300, 50);
 		frame.getContentPane().add(takeByeButton);
 		
-		
+		JButton quitButton = new JButton("Quit Game");
+		quitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int quitCheck = JOptionPane.showConfirmDialog(null, "Are you sure you want to Quit?", "Confirm", 0);
+				if (quitCheck == 0) {
+					manager.launchEndScreen();
+					finishedWindow();
+				}
+			}
+		});
+		quitButton.setBounds(494, 310, 100, 50);
+		frame.getContentPane().add(quitButton);
 	}
+	
 }
