@@ -75,15 +75,6 @@ public class Team {
     public void swap(int index1, int index2) {
         Collections.swap(players, index1, index2);
     }
-
-    public String getDetails() {
-        String details = "Name: " + teamName + "\n";
-        for (Athlete athlete : players) {
-            details += "\n" + athlete.getDetails();
-        }
-        return details;
-
-    }
     
     public static Team generateTeam(int quality) {
 
@@ -122,12 +113,6 @@ public class Team {
 
         return new Team(teamName, players);
     }
-    
-    
-    public static void main(String[] args) {
-		Team t = Team.generateTeam(3);
-		
-	}
     
     
 }
