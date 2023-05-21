@@ -192,7 +192,7 @@ public class DraftScreen {
 				
 				Athlete selectedDraftAthlete = draftRound.get(listDraftRound.getSelectedIndex());
 				lblAthleteName.setText(selectedDraftAthlete.getName());
-				lblDescription.setText("<html>" + selectedDraftAthlete.getDescription().replaceAll("\n", "<br>"));
+				lblDescription.setText("<html>" + selectedDraftAthlete.getDescription().replaceAll("\n", "<br>") + "</html>");
 				pBarStamina.setValue(selectedDraftAthlete.getStats()[0]);
 				pBarOffence.setValue(selectedDraftAthlete.getStats()[1]);
 				pBarDefence.setValue(selectedDraftAthlete.getStats()[2]);
@@ -252,6 +252,7 @@ public class DraftScreen {
 				GameEnvironment.setUpWeek();
 				GameEnvironment.setInventory(new ArrayList<Item>());
 				GameEnvironment.setRecord(new int[]{0,0,0});
+				GameEnvironment.setMatches(new ArrayList<Match>());
 				manager.launchHomeScreen();
 				finishedWindow();
 			}
