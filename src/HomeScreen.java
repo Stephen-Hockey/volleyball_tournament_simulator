@@ -1,7 +1,7 @@
-package senggui;
 
 import java.awt.EventQueue;
 
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -101,7 +101,10 @@ public class HomeScreen {
 				if (!GameEnvironment.hasFullTeam()) {
 					JOptionPane.showMessageDialog(null, "You need at least 7 healthy players to visit the Stadium.", "Error", 0);
 					return;
-				} 
+				} else if (GameEnvironment.getWeeklyGamePlayed()) {
+					JOptionPane.showMessageDialog(null, "You have already played your weekly match.", "Error", 0);
+					return;
+				}
 				manager.launchStadiumScreen();
 				finishedWindow();
 			}
@@ -118,6 +121,7 @@ public class HomeScreen {
 		JButton btnHelp = new JButton("?");
 		btnHelp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "From the Home Screen you can, \nvisit your Clubhouse to see your team, \nvisit the Market to find new additions for your team, \nvisit the Stadium to play against other teams, \nor choose to move on to the next week.", "Info", 1);
 			}
 		});
 		btnHelp.setBounds(538, 5, 50, 25);
@@ -177,24 +181,63 @@ public class HomeScreen {
 				int goNextWeek = JOptionPane.showConfirmDialog(null, textPrompt+"?", "Confirm", 0);
 				
 				if (goNextWeek == 0) {
+					
+					if (!GameEnvironment.getWeeklyGamePlayed()) {
+						GameEnvironment.getRecord()[2] += 1;
+					}
 					if (isFinalWeek) {
 						GameEnvironment.setGameSuccess(true);
 						manager.launchEndScreen();
 						finishedWindow();
 					} else {
 						GameEnvironment.setUpWeek();
-						if (!GameEnvironment.getWeeklyGamePlayed()) {
-							GameEnvironment.getRecord()[2] += 1;
-						}
+						
 						week = GameEnvironment.getWeek();
 						weekDisplayLabel.setText("Week: " + week);
 					}
+					if (week == GameEnvironment.getFinalWeek()) {
+						takeByeButton.setText("Finish Game");
+					} else {
+						takeByeButton.setText("Take a Bye");
+					}
+					
+					Random rand = new Random();
+			        int eventProb = rand.nextInt(9);
+			        int numPlayers = GameEnvironment.getPlayerTeam().size();
+			        if (eventProb == 0) {
+				        int statIndex = rand.nextInt(3);
+				        int statInc = rand.nextInt(30, 100);
+				        int[] newStat = {0, 0, 0};
+				        newStat[statIndex] += statInc;
+				        Item freeItem = new Item("", 0, 0, "", newStat);
+
+				        int playerToBuff = rand.nextInt(numPlayers);
+			        	GameEnvironment.getPlayerTeam().getPlayers().get(playerToBuff).addItem(freeItem);
+			        	JOptionPane.showMessageDialog(null, "Random Event: " + GameEnvironment.getPlayerTeam().getPlayers().get(playerToBuff).getName() + " got a " + statInc + " point increase to their " + Purchasable.statNames[statIndex] + " Stat.", "Random Event", 1);
+			        } else if (eventProb == 1) {
+			        	if (numPlayers != 12) {
+			        		Athlete newAthlete = Athlete.generateAthlete(9);
+			        		GameEnvironment.getPlayerTeam().getPlayers().add(newAthlete);
+			        		JOptionPane.showMessageDialog(null, "Random Event: " + newAthlete.getName() + " has joined your team!","Random Event", 1);
+			        	}
+			        } else if (eventProb == 2) {
+			        	if (numPlayers != 0) {
+			        		int minStamina = 100;
+					        Athlete minAthlete = GameEnvironment.getPlayerTeam().getPlayers().get(0);
+					        for (Athlete athlete:GameEnvironment.getPlayerTeam().getPlayers()) {
+					        	int stamina = athlete.getStats()[0];
+					        	if (stamina <= minStamina) {
+					        		minAthlete = athlete;
+					        	}
+					        }
+					        GameEnvironment.getPlayerTeam().getPlayers().remove(minAthlete);
+					        JOptionPane.showMessageDialog(null, "Random Event: " + minAthlete.getName() + " has left your team!","Random Event", 1);
+			        	}
+				        
+			        }
+					
 				}
-				if (week == GameEnvironment.getFinalWeek()) {
-					takeByeButton.setText("Finish Game");
-				} else {
-					takeByeButton.setText("Take a Bye");
-				}
+				
 			}
 		});
 		takeByeButton.setBounds(150, 310, 300, 50);
@@ -205,12 +248,13 @@ public class HomeScreen {
 			public void actionPerformed(ActionEvent arg0) {
 				int quitCheck = JOptionPane.showConfirmDialog(null, "Are you sure you want to Quit?", "Confirm", 0);
 				if (quitCheck == 0) {
+					GameEnvironment.setGameSuccess(false);
 					manager.launchEndScreen();
 					finishedWindow();
 				}
 			}
 		});
-		quitButton.setBounds(494, 310, 100, 50);
+		quitButton.setBounds(481, 310, 107, 50);
 		frame.getContentPane().add(quitButton);
 	}
 	
