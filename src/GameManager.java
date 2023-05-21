@@ -1,4 +1,3 @@
-package senggui;
 
 public class GameManager {
 	
