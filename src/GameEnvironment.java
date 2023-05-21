@@ -18,7 +18,7 @@ public class GameEnvironment {
     private static boolean gameRunning;
     private static boolean weeklyGamePlayed;
     
-    public static final int MAX_PLAYERS = 12, MAX_ITEMS= 12;
+    public static final int MAX_PLAYERS = 12, MAX_ITEMS = 10;
 
     public static String getPlayerName() {
         return playerName;
