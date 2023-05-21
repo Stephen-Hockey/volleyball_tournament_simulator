@@ -1,4 +1,3 @@
-package senggui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -103,7 +102,7 @@ public class EndScreen {
 		String difText = "on " + difficulty + " difficulty,";
 		String scoreText = "with a score of " + score;
 		
-		String gameInfoText = "<html>" + introText + "<br>" + durText + "<br>" + manText + "<br>" + difText + "<br>" + scoreText +"<html>";
+		String gameInfoText = "<html>" + introText + "<br>" + durText + "<br>" + manText + "<br>" + difText + "<br>" + scoreText +"</html>";
 		JLabel gameInfoLabel = new JLabel(gameInfoText);
 		gameInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		gameInfoLabel.setBounds(74, 73, 287, 136);
