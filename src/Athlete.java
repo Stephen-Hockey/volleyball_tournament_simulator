@@ -1,4 +1,3 @@
-package senggui;
 
 
 import java.io.File;
@@ -131,7 +130,7 @@ public class Athlete extends Purchasable {
         }
 
         /* description generation */
-        String description = age + " years old,\nfrom " + country;
+        String description = age + " years old, \nfrom " + country;
         
         /* items generation */
         ArrayList<Item> items = new ArrayList<Item>();
