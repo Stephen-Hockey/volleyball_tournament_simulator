@@ -191,13 +191,13 @@ public class SetUpScreen {
 					difficulty = 2;
 				}
 				
-				if (validString(playerName, 3, 99)){
+				if (!validString(playerName, 3, 99)){
 					playerNameField.setText("");
 					JOptionPane.showMessageDialog(null, "Your name must comprise of " + 3 + " to " + 99 + " non-special characters");
 					return;
 				}
 					
-				if (validString(teamName, 3, 15)){
+				if (!validString(teamName, 3, 15)){
 					teamNameField.setText("");
 					JOptionPane.showMessageDialog(null, "Your team's name must comprise of " + 3 + " to " + 15 + " non-special characters");
 					return;
