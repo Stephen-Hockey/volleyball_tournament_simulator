@@ -229,6 +229,9 @@ public class StadiumScreen {
 		});
 		btnPlayMatch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GameEnvironment.addMatch(new Match(selectedTeam));
+				manager.launchMatchScreen();
+				finishedWindow();
 			}
 		});
 		
