@@ -87,6 +87,12 @@ public class MatchScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Welcome to the fun part! Here, you see how your matches go.\nYou can click the NEXT POINT button to play the next point, the SKIP SET button to skip ahead\nuntil the current set is over or until an injury occurs, or the MAKE A SUB button to make your own strategic substitution.", "Info", 1);
+
+			}
+		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -275,7 +281,7 @@ public class MatchScreen {
 					
 			        if (tooInjured) {
 			        	injuryMessageString = "Sorry, you cannot sub "
-			                            + GameEnvironment.getPlayerTeam().getPlayers().get(match.getFaceoffIndex()).getNameWithNickname()
+			                            + GameEnvironment.getPlayerTeam().getPlayers().get(match.getFaceoffIndex()).getName()
 			                            + " as you don't have any healthy reserves."
 			                            + "\nYou lose this match.";
 			        	JOptionPane.showMessageDialog(null, injuryMessageString, "Oh no!", 0);
@@ -329,9 +335,9 @@ public class MatchScreen {
 				barDefenceR.setBackground(Color.GREEN);
 				barStaminaL.setBounds(260 - match.getMatchStaminas().get(match.getFaceoffIndex())*2, 125, match.getMatchStaminas().get(match.getFaceoffIndex())*2, 14);
 				barStaminaR.setBounds(340, 125, match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]*2, 14);
-				if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0] > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
+				if (match.getMatchStaminas().get(match.getFaceoffIndex()) > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
 					barStaminaR.setBackground(Color.RED);
-				} else if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0] < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
+				} else if (match.getMatchStaminas().get(match.getFaceoffIndex()) < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
 					barStaminaL.setBackground(Color.RED);
 				}
 				barOffenceL.setBounds(260 - GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1]*2, 145, GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1]*2, 14);
@@ -393,7 +399,7 @@ public class MatchScreen {
 						
 				        if (tooInjured) {
 				        	injuryMessageString = "Sorry, you cannot sub "
-				                            + GameEnvironment.getPlayerTeam().getPlayers().get(match.getFaceoffIndex()).getNameWithNickname()
+				                            + GameEnvironment.getPlayerTeam().getPlayers().get(match.getFaceoffIndex()).getName()
 				                            + " as you don't have any healthy reserves."
 				                            + "\nYou lose this match.";
 				        	JOptionPane.showMessageDialog(null, injuryMessageString, "Oh no!", 0);
@@ -444,9 +450,9 @@ public class MatchScreen {
 				barDefenceR.setBackground(Color.GREEN);
 				barStaminaL.setBounds(260 - GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0]*2, 125, GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0]*2, 14);
 				barStaminaR.setBounds(340, 125, match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]*2, 14);
-				if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0] > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
+				if (match.getMatchStaminas().get(match.getFaceoffIndex()) > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
 					barStaminaR.setBackground(Color.RED);
-				} else if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0] < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
+				} else if (match.getMatchStaminas().get(match.getFaceoffIndex()) < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
 					barStaminaL.setBackground(Color.RED);
 				}
 				barOffenceL.setBounds(260 - GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1]*2, 145, GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1]*2, 14);
