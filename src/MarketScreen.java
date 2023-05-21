@@ -274,6 +274,7 @@ public class MarketScreen {
 				if (listMarket.isSelectionEmpty()) {
 					return;
 				}
+				
 				if (tglbtnItems.isSelected()) {
 					Item selectedItem = GameEnvironment.getCurrentWeekMarketItems().get(listMarket.getSelectedIndex());
 					lblPurchaseName.setText(selectedItem.getName());
