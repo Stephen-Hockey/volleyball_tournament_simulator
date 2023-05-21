@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class GameEnvironment {
     private static String playerName;
-    private static String teamName; 
     private static int week;
     private static int finalWeek;
     private static Team playerTeam;
@@ -19,6 +18,7 @@ public class GameEnvironment {
     private static ArrayList<Match> matches;
     private static boolean gameRunning;
     private static boolean weeklyGamePlayed;
+    private static boolean gameSuccess = false;
     
     public static final int MAX_PLAYERS = 12, MAX_ITEMS= 12;
 
@@ -30,14 +30,6 @@ public class GameEnvironment {
         playerName = _playerName;
     }
 
-    public static String getTeamName() {
-		return teamName;
-	}
-    
-    public static void setTeamName(String _teamName) {
-		GameEnvironment.teamName = _teamName;
-	}
-    
     public static int getWeek() {
         return week;
     }
@@ -130,6 +122,15 @@ public class GameEnvironment {
     	weeklyGamePlayed = _weeklyGamePlayed;
     }
     
+    public static boolean getGameSuccess() {
+    	return gameSuccess;
+    }
+    
+    public static void setGameSuccess(boolean _gameSuccess) {
+    	weeklyGamePlayed = _gameSuccess;
+    }
+    
+    
     public static ArrayList<Athlete> getCurrentWeekMarketAthletes() {
 		return currentWeekMarketAthletes;
 	}
@@ -140,6 +141,16 @@ public class GameEnvironment {
     
     public static ArrayList<Team> getCurrentWeekOpposingTeams() {
 		return currentWeekOpposingTeams;
+    }
+    
+    public static boolean hasFullTeam() {
+    	int healthyPlayers = 0;
+    	for (Athlete athlete : playerTeam.getPlayers()) {
+    		if (athlete.getStats()[0] > 0) {
+    			healthyPlayers++;
+    		}
+    	}
+    	return healthyPlayers >= 7;
     }
     
     public static void setUpWeek() {
