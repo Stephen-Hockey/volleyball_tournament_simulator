@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.ListSelectionModel;
 
 public class DraftScreen {
 
@@ -72,12 +73,14 @@ public class DraftScreen {
 		frame.getContentPane().setLayout(null);
 		
 		JList<String> listUsersTeam = new JList<String>();
+		listUsersTeam.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> modelUsersTeam = new DefaultListModel<String>();
 		listUsersTeam.setModel(modelUsersTeam);
 		listUsersTeam.setBounds(12, 71, 150, 200);		
 		frame.getContentPane().add(listUsersTeam);
 		
 		JList<String> listDraftRound = new JList<String>();		
+		listDraftRound.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> modelDraftRound = new DefaultListModel<String>();
 		listDraftRound.setModel(modelDraftRound);		
 		for (Athlete athlete : draftRound) {
@@ -93,6 +96,11 @@ public class DraftScreen {
 		panelTop.setLayout(null);
 		
 		JButton btnHelp = new JButton("?");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Click on a player in the list on the right, then click the DRAFT button to add this player to your team, which is displayed on the left.\nOr, you can click the AUTO-DRAFT button to instantly and randomly fill out the rest of your team.", "Info", 1);
+			}
+		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -174,7 +182,7 @@ public class DraftScreen {
 				
 				Athlete selectedDraftAthlete = usersTeam.get(listUsersTeam.getSelectedIndex());
 				lblAthleteName.setText(selectedDraftAthlete.getName());
-				lblDescription.setText(selectedDraftAthlete.getDescription());
+				lblDescription.setText("<html>" + selectedDraftAthlete.getDescription().replaceAll("\n", "<br>") + "</html>");
 				pBarStamina.setValue(selectedDraftAthlete.getStats()[0]);
 				pBarOffence.setValue(selectedDraftAthlete.getStats()[1]);
 				pBarDefence.setValue(selectedDraftAthlete.getStats()[2]);
@@ -253,6 +261,7 @@ public class DraftScreen {
 				GameEnvironment.setInventory(new ArrayList<Item>());
 				GameEnvironment.setRecord(new int[]{0,0,0});
 				GameEnvironment.setMatches(new ArrayList<Match>());
+				GameEnvironment.setGameSuccess(true);
 				manager.launchHomeScreen();
 				finishedWindow();
 			}
