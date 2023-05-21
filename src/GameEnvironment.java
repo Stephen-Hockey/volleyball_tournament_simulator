@@ -1,4 +1,3 @@
-package senggui;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class GameEnvironment {
     private static ArrayList<Match> matches;
     private static boolean gameRunning;
     private static boolean weeklyGamePlayed;
-    private static boolean gameSuccess = false;
+    private static boolean gameSuccess;
     
     public static final int MAX_PLAYERS = 12, MAX_ITEMS= 12;
 
@@ -127,7 +126,7 @@ public class GameEnvironment {
     }
     
     public static void setGameSuccess(boolean _gameSuccess) {
-    	weeklyGamePlayed = _gameSuccess;
+    	gameSuccess = _gameSuccess;
     }
     
     
