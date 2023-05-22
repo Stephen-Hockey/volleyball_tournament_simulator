@@ -1,5 +1,5 @@
+package main;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 
@@ -21,30 +21,35 @@ public class Match {
      * The opposing team
      */
     private Team opposingTeam;
+    
     /**
      * The current set, 0-indexed
      */
     private int setNumber;
+    
     /**
      * A 5x2 integer array that holds all five set's scores.
      * An unplayed set will be represented by the array [0, 0]
      */
     private int[][] scores;
+    
     /**
-     * The overall set score. e.g [2, 3], in which case,
+     * The overall set score e.g [2, 3], in which case,
      * the opposing team won 3 sets to 2.
      */
     private int[] setScore;
+    
     /**
      * Keeps track of what index in each team of athlete should be facing off.
      * Increments by 1 with every point.
      * Initialised to 0 at the beginning of each set.
      */
     private int faceoffIndex;
-    
+        
     /**
      * Constructs a new Match object at the beginning of the match
      * with the given opposingTeam.
+     * @param _opposingTeam the opposing team
      */
     public Match(Team _opposingTeam) {
         matchStaminas = new ArrayList<Integer>();
@@ -58,46 +63,98 @@ public class Match {
         faceoffIndex = 0;
     }
     
+    /**
+     * Getter for the opposing team
+     * @return the opposing team
+     */
     public Team getOpposingTeam() {
         return opposingTeam;
     }
-
+    
+    /**
+     * Setter for the opposing team 
+     * @param _opposingTeam the new opposing team
+     */
+    public void setOpposingTeam(Team _opposingTeam) {
+		opposingTeam = _opposingTeam;
+	}
+    
+    /**
+     * Getter for the 2D integer array of scores
+     * @return 2D integer array of scores
+     */
     public int[][] getScores() {
         return scores;
     }
 
+    /**
+     * Setter for the 2D integer array of scores
+     * @param _scores the new scores
+     */
     public void setScores(int[][] _scores) {
         scores = _scores;
     }
-
+    
+    /**
+     * Getter for the current set number
+     * @return the current set number
+     */
     public int getSetNumber() {
         return setNumber;
     }
 
+    /**
+     * Setter for the current set number
+     * @param _setNumber the new set number
+     */
     public void setSetNumber(int _setNumber) {
         setNumber = _setNumber;
     }
-
+    
+    /**
+     * Getter for the set score
+     * @return the set score
+     */
     public int[] getSetScore() {
         return setScore;
     }
-
+    
+    /**
+     * Setter for the set score
+     * @param _setScore the new set score
+     */
     public void setSetScore(int[] _setScore) {
         setScore = _setScore;
     }
     
+    /**
+     * Getter for the match stamina ArrayList
+     * @return the match stamina ArrayList
+     */
     public ArrayList<Integer> getMatchStaminas() {
 		return matchStaminas;
 	}
     
+    /**
+     * Setter for the match staminas ArrayList
+     * @param _matchStaminas the new match staminas ArrayList
+     */
     public void setMatchStaminas(ArrayList<Integer> _matchStaminas) {
 		matchStaminas = _matchStaminas;
 	}
     
+    /**
+     * Getter for the faceoff index
+     * @return the faceoff index
+     */
     public int getFaceoffIndex() {
 		return faceoffIndex;
 	}
     
+    /**
+     * Setter for the faceoff index
+     * @param _faceoffIndex the new faceoff index
+     */
     public void setFaceoffIndex(int _faceoffIndex) {
 		faceoffIndex = _faceoffIndex;
 	}
