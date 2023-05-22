@@ -30,11 +30,12 @@ public class DraftScreen {
 	 * The frame on which elements are placed
 	 */
 	private JFrame frame;
+	
 	/**
 	 * The manager of the current instance of draft screen
 	 */
 	private GameManager manager;
-	
+		
 	/**
 	 * The current round of the draft
 	 */
@@ -107,11 +108,6 @@ public class DraftScreen {
 		panelTop.setLayout(null);
 		
 		JButton btnHelp = new JButton("?");
-		btnHelp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Click on a player in the list on the right, then click the DRAFT button to add this player to your team, which is displayed on the left.\nOr, you can click the AUTO-DRAFT button to instantly and randomly fill out the rest of your team.", "Info", 1);
-			}
-		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -123,8 +119,6 @@ public class DraftScreen {
 		lblYourTeam.setLabelFor(listUsersTeam);
 		lblYourTeam.setBounds(12, 44, 150, 15);
 		frame.getContentPane().add(lblYourTeam);
-		
-		
 		
 		JLabel lblDraftRound = new JLabel("Round " + round);
 		lblDraftRound.setBounds(433, 44, 150, 15);
@@ -168,7 +162,6 @@ public class DraftScreen {
 		panelAthleteInfoBox.add(pbarDefence);
 		
 		JButton btnDraftAthlete = new JButton("DRAFT");
-		
 		btnDraftAthlete.setBounds(12, 161, 224, 72);
 		panelAthleteInfoBox.add(btnDraftAthlete);
 		
@@ -183,6 +176,8 @@ public class DraftScreen {
 		JLabel lblDraftWelcome = new JLabel("<html><body style='text-align: center'>Welcome to The Draft!<br>You can pick 1 athlete per round, for 10 rounds. So choose carefully!");
 		lblDraftWelcome.setBounds(174, 44, 246, 109);
 		frame.getContentPane().add(lblDraftWelcome);
+		
+		//Events
 		
 		listUsersTeam.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -245,7 +240,6 @@ public class DraftScreen {
 				}
 			}
 		});
-		
 
 		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -275,6 +269,12 @@ public class DraftScreen {
 				GameEnvironment.setGameSuccess(true);
 				manager.launchHomeScreen();
 				finishedWindow();
+			}
+		});
+
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Click on a player in the list on the right, then click the DRAFT button to add this player to your team, which is displayed on the left.\nOr, you can click the AUTO-DRAFT button to instantly and randomly fill out the rest of your team.", "Info", 1);
 			}
 		});
 	}
