@@ -98,7 +98,7 @@ public class EndScreen {
 		} else {
 			durText += ",";
 		}
-		String manText = "as manager of you team, '" + teamName + "',";
+		String manText = "as manager of your team, '" + teamName + "',";
 		String difText = "on " + difficulty + " difficulty,";
 		String scoreText = "with a score of " + score;
 		
