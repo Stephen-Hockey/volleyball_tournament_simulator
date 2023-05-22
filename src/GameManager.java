@@ -1,5 +1,15 @@
 package main;
 
+import screens.ClubScreen;
+import screens.DraftScreen;
+import screens.EndScreen;
+import screens.HomeScreen;
+import screens.MarketScreen;
+import screens.MatchScreen;
+import screens.NicknameScreen;
+import screens.SetUpScreen;
+import screens.StadiumScreen;
+
 /**
  * The GameManager class allows for easy control of the GUI <br>
  * i.e The launching and closing of various screens
@@ -146,6 +156,7 @@ public class GameManager {
 	
 	/**
 	 * Initialises the game manager and launches the set up screen
+	 * @param args the command-line arguments
 	 */
 	public static void main(String[] args) {
 		
