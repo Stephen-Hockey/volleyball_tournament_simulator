@@ -1,4 +1,4 @@
-package main;
+package screens;
 
 import java.util.*;
 import java.awt.Color;
@@ -15,6 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import main.Athlete;
+import main.GameEnvironment;
+import main.GameManager;
+import main.Item;
+import main.Team;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.ListSelectionModel;
