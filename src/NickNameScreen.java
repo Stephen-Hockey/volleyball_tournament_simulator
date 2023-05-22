@@ -18,11 +18,23 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 
-public class NickNameScreen {
+/**
+ * This class implements the screen for the user to give nicknames to their 
+ * athletes
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
+public class NicknameScreen {
 
+	/**
+	 * The frame on which elements are placed
+	 */
 	private JFrame frame;
+	/**
+	 * The manager of the current instance of club screen
+	 */
 	private GameManager manager;
-	private JTextField renameTextField;
 
 	/**
 	 * Launch the application.
@@ -31,7 +43,7 @@ public class NickNameScreen {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NickNameScreen window = new NickNameScreen();
+					NicknameScreen window = new NicknameScreen();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,22 +55,28 @@ public class NickNameScreen {
 	/**
 	 * Create the application.
 	 */
-	public NickNameScreen() {
+	public NicknameScreen() {
 		initialize();
 	}
-	
-	public NickNameScreen(GameManager incomingManager) {
+	/**
+	 * Create the application with a manager to oversee closing and launching the window
+	 */
+	public NicknameScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
-	
+	/**
+	 * Close the window instance
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
-	
+	/**
+	 * Runs the closeNicknameScreen method of its manager to close itself
+	 */
 	public void finishedWindow() {
-		manager.closeNickNameScreen(this);
+		manager.closeNicknameScreen(this);
 	}
 	
 	/**
@@ -109,7 +127,7 @@ public class NickNameScreen {
 		teamList.setBounds(328, 46, 260, 323);
 		frame.getContentPane().add(teamList);
 		
-		renameTextField = new JTextField();
+		JTextField renameTextField = new JTextField();
 		renameTextField.setBounds(22, 98, 260, 46);
 		frame.getContentPane().add(renameTextField);
 		renameTextField.setColumns(10);
