@@ -1,4 +1,4 @@
-package main;
+package screens;
 
 
 import java.awt.Font;
@@ -16,6 +16,11 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionListener;
+
+import main.Athlete;
+import main.GameEnvironment;
+import main.GameManager;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 
