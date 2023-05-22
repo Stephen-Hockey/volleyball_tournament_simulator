@@ -1,4 +1,4 @@
-package main;
+package screens;
 
 import javax.swing.JFrame;
 import javax.swing.DefaultListModel;
@@ -10,6 +10,13 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JProgressBar;
 import javax.swing.event.ListSelectionListener;
+
+import main.Athlete;
+import main.GameEnvironment;
+import main.GameManager;
+import main.Item;
+import main.Match;
+
 import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
