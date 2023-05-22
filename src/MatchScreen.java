@@ -90,7 +90,6 @@ public class MatchScreen {
 		btnHelp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Welcome to the fun part! Here, you see how your matches go.\nYou can click the NEXT POINT button to play the next point, the SKIP SET button to skip ahead\nuntil the current set is over or until an injury occurs, or the MAKE A SUB button to make your own strategic substitution.", "Info", 1);
-
 			}
 		});
 		btnHelp.setBounds(538, 5, 50, 25);
@@ -507,67 +506,13 @@ public class MatchScreen {
 					return;
 				}
 				
-				if (listUserStarters.isEnabled()) {
+				if ((listUserStarters.isEnabled()) && (!listUserStarters.isSelectionEmpty())) {
 					//normal sub
+					GameEnvironment.getPlayerTeam().swap(listUserStarters.getSelectedIndex(), 7 + listUserReserves.getSelectedIndex());
 					
-					if (!listUserStarters.isSelectionEmpty()) {
-						GameEnvironment.getPlayerTeam().swap(listUserStarters.getSelectedIndex(), 7 + listUserReserves.getSelectedIndex());
-						
-						lblAthleteL.setText(GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getName());
-						match.getMatchStaminas().set(listUserStarters.getSelectedIndex(), GameEnvironment.getPlayerTeam().get(listUserStarters.getSelectedIndex()).getStats()[0]);
-						
-						barStaminaL.setBounds(260 - match.getMatchStaminas().get(match.getFaceoffIndex())*2, 125, match.getMatchStaminas().get(match.getFaceoffIndex())*2, 14);
-						barStaminaL.setBackground(Color.GREEN);
-						barStaminaR.setBackground(Color.GREEN);
-						if (match.getMatchStaminas().get(match.getFaceoffIndex()) > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
-							barStaminaR.setBackground(Color.RED);
-						} else if (match.getMatchStaminas().get(match.getFaceoffIndex()) < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
-							barStaminaL.setBackground(Color.RED);
-						}
-						
-						modelUserStarters.clear();
-						for (int i = 0; i < 7; i++) {
-							modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i)));
-						}
-						modelReserves.clear();
-						for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
-							if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
-								modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i));
-							} else {
-								modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
-							}
-						}
-						listUserStarters.clearSelection();
-						listUserReserves.clearSelection();
-					}
-					
-				} else {
+				} else if (!listUserStarters.isEnabled()){
 					//injury
-					
 					GameEnvironment.getPlayerTeam().swap(match.getFaceoffIndex(), 7 + listUserReserves.getSelectedIndex());
-					
-					lblAthleteL.setText(GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getName());
-					match.getMatchStaminas().set(match.getFaceoffIndex(), GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0]);
-					barStaminaL.setBounds(260 - match.getMatchStaminas().get(match.getFaceoffIndex())*2, 125, match.getMatchStaminas().get(match.getFaceoffIndex())*2, 14);
-					barStaminaL.setBackground(Color.GREEN);
-					barStaminaR.setBackground(Color.GREEN);
-					if (match.getMatchStaminas().get(match.getFaceoffIndex()) > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
-						barStaminaR.setBackground(Color.RED);
-					} else if (match.getMatchStaminas().get(match.getFaceoffIndex()) < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
-						barStaminaL.setBackground(Color.RED);
-					}
-					modelUserStarters.clear();
-					for (int i = 1; i < 7; i++) {
-						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7)));
-					}
-					modelReserves.clear();
-					for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
-						if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
-							modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i));
-						} else {
-							modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
-						}
-					}
 					
 					listUserReserves.setEnabled(false);
 					
@@ -575,6 +520,46 @@ public class MatchScreen {
 			        btnSkipSet.setEnabled(true);
 			        btnMakeSub.setEnabled(true);
 				}
+				lblAthleteL.setText(GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getName());				
+				match.getMatchStaminas().set(match.getFaceoffIndex(), GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0]);
+				barStaminaL.setBackground(Color.GREEN);
+				barStaminaR.setBackground(Color.GREEN);
+				barOffenceL.setBackground(Color.GREEN);
+				barOffenceR.setBackground(Color.GREEN);
+				barDefenceL.setBackground(Color.GREEN);
+				barDefenceR.setBackground(Color.GREEN);
+				barStaminaL.setBounds(260 - match.getMatchStaminas().get(match.getFaceoffIndex())*2, 125, match.getMatchStaminas().get(match.getFaceoffIndex())*2, 14);
+				if (match.getMatchStaminas().get(match.getFaceoffIndex()) > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
+					barStaminaR.setBackground(Color.RED);
+				} else if (match.getMatchStaminas().get(match.getFaceoffIndex()) < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
+					barStaminaL.setBackground(Color.RED);
+				}
+				barOffenceL.setBounds(260 - GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1]*2, 145, GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1]*2, 14);
+				if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1] > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[1]) {
+					barOffenceR.setBackground(Color.RED);
+				} else if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1] < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[1]) {
+					barOffenceL.setBackground(Color.RED);
+				}
+				barDefenceL.setBounds(260 - GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[2]*2, 165, GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[2]*2, 14);
+				if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[2] > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[2]) {
+					barDefenceR.setBackground(Color.RED);
+				} else if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[2] < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[2]) {
+					barDefenceL.setBackground(Color.RED);
+				}
+				modelUserStarters.clear();
+				for (int i = 1; i < 7; i++) {
+					modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7)));
+				}
+				modelReserves.clear();
+				for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
+					if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
+						modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i));
+					} else {
+						modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
+					}
+				}				
+				listUserStarters.clearSelection();
+				listUserReserves.clearSelection();
 			}
 		});
 		
@@ -587,21 +572,35 @@ public class MatchScreen {
 				if (!listUserReserves.isSelectionEmpty()) {
 					GameEnvironment.getPlayerTeam().swap(listUserStarters.getSelectedIndex(), 7 + listUserReserves.getSelectedIndex());
 					
-					lblAthleteL.setText(GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getName());
-					match.getMatchStaminas().set(listUserStarters.getSelectedIndex(), GameEnvironment.getPlayerTeam().get(listUserStarters.getSelectedIndex()).getStats()[0]);
-					
-					barStaminaL.setBounds(260 - match.getMatchStaminas().get(match.getFaceoffIndex())*2, 125, match.getMatchStaminas().get(match.getFaceoffIndex())*2, 14);
+					lblAthleteL.setText(GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getName());				
+					match.getMatchStaminas().set(match.getFaceoffIndex(), GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0]);
 					barStaminaL.setBackground(Color.GREEN);
 					barStaminaR.setBackground(Color.GREEN);
+					barOffenceL.setBackground(Color.GREEN);
+					barOffenceR.setBackground(Color.GREEN);
+					barDefenceL.setBackground(Color.GREEN);
+					barDefenceR.setBackground(Color.GREEN);
+					barStaminaL.setBounds(260 - match.getMatchStaminas().get(match.getFaceoffIndex())*2, 125, match.getMatchStaminas().get(match.getFaceoffIndex())*2, 14);
 					if (match.getMatchStaminas().get(match.getFaceoffIndex()) > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
 						barStaminaR.setBackground(Color.RED);
 					} else if (match.getMatchStaminas().get(match.getFaceoffIndex()) < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[0]) {
 						barStaminaL.setBackground(Color.RED);
 					}
-					
+					barOffenceL.setBounds(260 - GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1]*2, 145, GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1]*2, 14);
+					if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1] > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[1]) {
+						barOffenceR.setBackground(Color.RED);
+					} else if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[1] < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[1]) {
+						barOffenceL.setBackground(Color.RED);
+					}
+					barDefenceL.setBounds(260 - GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[2]*2, 165, GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[2]*2, 14);
+					if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[2] > match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[2]) {
+						barDefenceR.setBackground(Color.RED);
+					} else if (GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[2] < match.getOpposingTeam().get(match.getFaceoffIndex()).getStats()[2]) {
+						barDefenceL.setBackground(Color.RED);
+					}
 					modelUserStarters.clear();
-					for (int i = 0; i < 7; i++) {
-						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i)));
+					for (int i = 1; i < 7; i++) {
+						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7)));
 					}
 					modelReserves.clear();
 					for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
@@ -610,7 +609,7 @@ public class MatchScreen {
 						} else {
 							modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
 						}
-					}
+					}				
 					listUserStarters.clearSelection();
 					listUserReserves.clearSelection();
 				}
