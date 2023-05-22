@@ -115,10 +115,12 @@ public class ClubScreen {
 		teamList.setModel(teamModel);
 		for (int i=0; i < userPlayers.size(); i++) {
 			String playerText = "";
-			if (i < Team.POSITION_STRINGS.length) {
+			if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
+				playerText += "Injured";
+			} else if (i < Team.POSITION_STRINGS.length) {
 				playerText += Team.POSITION_STRINGS[i];
 			} else {
-				playerText += "Sub";
+					playerText += "Sub";
 			}
 			teamModel.addElement(playerText + ": " + userPlayers.get(i));
 		}
@@ -189,7 +191,7 @@ public class ClubScreen {
 		ItemInfoBox.setBounds(281, 167, 307, 249);
 		frame.getContentPane().add(ItemInfoBox);
 		
-		JLabel clubItemsLabel = new JLabel("Club Items");
+		JLabel clubItemsLabel = new JLabel("Your Inventory");
 		clubItemsLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		clubItemsLabel.setBounds(6, 6, 289, 15);
 		ItemInfoBox.add(clubItemsLabel);
@@ -266,10 +268,12 @@ public class ClubScreen {
 					teamModel.clear();
 					for (int i=0; i < userPlayers.size(); i++) {
 						String playerText = "";
-						if (i < Team.POSITION_STRINGS.length) {
+						if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
+							playerText += "Injured";
+						} else if (i < Team.POSITION_STRINGS.length) {
 							playerText += Team.POSITION_STRINGS[i];
 						} else {
-							playerText += "Sub";
+								playerText += "Sub";
 						}
 						teamModel.addElement(playerText + ": " + userPlayers.get(i));
 					}
@@ -280,7 +284,7 @@ public class ClubScreen {
 					
 				} else if (givingItem) {
 					int receiverIndex = selectedIndex;
-					Athlete athlete = userPlayers.get(receiverIndex);
+					Athlete selectedAthlete = userPlayers.get(receiverIndex);
 					Item selectedItem = userItems.get(selectedItemIndex);
 					GameEnvironment.getPlayerTeam().getPlayers().get(receiverIndex).addItem(selectedItem);
 					GameEnvironment.getInventory().remove(selectedItemIndex);
@@ -293,6 +297,7 @@ public class ClubScreen {
 					givingItem = false;
 					moveInfoBox.setText("");
 					moveButton.setVisible(false);
+					JOptionPane.showMessageDialog(null, "Successfully used " + selectedItem + " on " + selectedAthlete);
 				}
 				
 				else {
@@ -329,7 +334,7 @@ public class ClubScreen {
 				Item selectedItem = teamItems.get(selectedItemIndex);
 				lblName.setText(selectedItem.getName());
 				descriptionLabel.setText(selectedItem.getDescription().replaceAll("\n", " "));
-				int[] effects = selectedItem.getEffect();
+				int[] effects = selectedItem.getStats();
 				pBarStamina.setValue(effects[0]);
 				pBarOffence.setValue(effects[1]);
 				pBarDefence.setValue(effects[2]);
