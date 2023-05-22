@@ -8,36 +8,27 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Athlete extends Purchasable {
-    private int[] stats;
-
+    
     public Athlete() {
         super();
     }
 
-    public Athlete(String _name, int _price, int _sellPrice, String _description, int[] _stats,
-            ArrayList<Item> _items) {
-        super(_name, _price, _sellPrice, _description);
-        stats = _stats;
+    public Athlete(String _name, int _price, int _sellPrice, String _description, int[] _stats) {
+        super(_name, _price, _sellPrice, _description, _stats);
     }
-    public int[] getStats() {
-        return stats;
-    }
-
-    public void setStats(int[] _stats) {
-        stats = _stats;
-    }
-
+    
+    @Override
     public int getSellPrice() {
         return (int) (getPrice() * 0.8);
     }
 
     public void addItem(Item item) {
-        int[] itemEffect = item.getEffect();
+        int[] itemEffect = item.getStats();
     	for (int i = 0; i < itemEffect.length; i++) {
-    		if ((stats[i] + itemEffect[i]) > 99) {
-    			stats[i] = 99;
+    		if ((getStats()[i] + itemEffect[i]) > 99) {
+    			getStats()[i] = 99;
     		} else {
-        		stats[i] += itemEffect[i];
+    			getStats()[i] += itemEffect[i];
     		}
     	}
     }
@@ -135,7 +126,7 @@ public class Athlete extends Purchasable {
         /* items generation */
         ArrayList<Item> items = new ArrayList<Item>();
         
-        return new Athlete(name, price, sellPrice, description, stats, items );
+        return new Athlete(name, price, sellPrice, description, stats);
 
     }
     
