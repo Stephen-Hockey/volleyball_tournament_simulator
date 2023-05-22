@@ -33,11 +33,11 @@ public class Athlete extends Purchasable {
     }
     
     /**
-	 * Overrides the getSellPrice method from the parent class Purchasable
+	 * Overrides the getSellPrice method from the parent class Purchasable to return a lower number
 	 */
     @Override
     public int getSellPrice() {
-        return (int) (getPrice() * 0.8);
+        return (int) (0.8 * super.getSellPrice());
     }
 
     /**
@@ -54,7 +54,7 @@ public class Athlete extends Purchasable {
     		}
     	}
     }
- 
+    
     public int getAvgStat() {
     	double avg = 0;
     	for (int stat: getStats()) {
