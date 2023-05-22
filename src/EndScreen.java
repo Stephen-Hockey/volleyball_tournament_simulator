@@ -190,8 +190,9 @@ public class EndScreen {
 		
 		String gameInfoText = "<html>" + introText + "<br>" + durText + "<br>" + manText + "<br>" + teamText + "<br>" + difText + "<br>" + scoreText + "<br>" + moneyText + "</html>";
 		JLabel gameInfoLabel = new JLabel(gameInfoText);
+		gameInfoLabel.setVerticalAlignment(SwingConstants.TOP);
 		gameInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		gameInfoLabel.setBounds(10, 44, 205, 188);
+		gameInfoLabel.setBounds(10, 83, 205, 149);
 		frame.getContentPane().add(gameInfoLabel);
 		
 		JButton closeGameButton = new JButton("Close Game");
@@ -208,6 +209,12 @@ public class EndScreen {
 		bestAthleteLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bestAthleteLabel.setBounds(248, 44, 169, 16);
 		frame.getContentPane().add(bestAthleteLabel);
+		
+		JLabel gameSummaryLabel = new JLabel("Game Summary");
+		gameSummaryLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		gameSummaryLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		gameSummaryLabel.setBounds(23, 45, 169, 16);
+		frame.getContentPane().add(gameSummaryLabel);
 		
 	}
 }
