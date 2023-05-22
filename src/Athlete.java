@@ -55,6 +55,14 @@ public class Athlete extends Purchasable {
     	}
     }
  
+    public int getAvgStat() {
+    	double avg = 0;
+    	for (int stat: getStats()) {
+    		avg += stat;
+    	}
+    	return (int) avg/3;
+    }
+    
     /**
 	 * A static method which returns a randomly generated Athlete
 	 * @param the quality of the athlete from 0-9 as an integer
