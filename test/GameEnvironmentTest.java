@@ -2,14 +2,26 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import main.Athlete;
 import main.GameEnvironment;
+import main.Match;
 import main.Team;
 
 public class GameEnvironmentTest {
 
+	@Test
+	public void addMatchTest() {
+		//GameEnvironment.setPlayerTeam(Team.generateTeam(0));
+		Match testMatch = new Match(Team.generateTeam(0));
+		GameEnvironment.setMatches(new ArrayList<Match>());
+		GameEnvironment.addMatch(testMatch);
+		assertEquals(1, GameEnvironment.getMatches().size());
+	}
+	
 	@Test
 	public void hasFullTeamSevenPlayersTest() {
 		Athlete healthyAthlete = new Athlete();
