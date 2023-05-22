@@ -1,6 +1,8 @@
+package main;
 
 /**
- * This class implements the control of all the gui screens, launching and closing
+ * The GameManager class allows for easy control of the GUI <br>
+ * i.e The launching and closing of various screens
  *
  * @author Lachlan Stewart and Stephen Hockey
  * @version 1.1, May 2023.
@@ -130,22 +132,22 @@ public class GameManager {
 	/**
 	 * Launches the Nickname Screen
 	 */
-	public void launchNickNameScreen() {
-		NickNameScreen nickNameScreen = new NickNameScreen(this);
+	public void launchNicknameScreen() {
+		NicknameScreen nicknameWindow = new NicknameScreen(this);
 	}
 	
 	/**
 	 * Closes the Nickname Screen
-	 * @param nickNameScreen window to close as a NickNameScreen object
+	 * @param nicknameWindow window to close as a NickNameScreen object
 	 */
-	public void closeNickNameScreen(NickNameScreen nickNameScreen) {
-		nickNameScreen.closeWindow();
+	public void closeNicknameScreen(NicknameScreen nicknameWindow) {
+		nicknameWindow.closeWindow();
 	}
 	
 	/**
 	 * Initialises the game manager and launches the set up screen
 	 */
-	public static void main() {
+	public static void main(String[] args) {
 		
 		GameManager manager = new GameManager();
 		manager.launchSetUpScreen();
