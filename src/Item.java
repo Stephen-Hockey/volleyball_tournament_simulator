@@ -22,9 +22,14 @@ public class Item extends Purchasable {
 
     /**
 	 * Calls the constructor of the parent class Purchasable with all parameters
+	 * @param newName the new name
+     * @param newPrice the new price
+     * @param newSellPrice the new sell price
+     * @param newDescription the new description
+     * @param newStats the new stats
 	 */
-    public Item(String _name, int _price, int _sellPrice, String _description, int[] _stats) {
-        super(_name, _price, _sellPrice, _description, _stats);
+    public Item(String newName, int newPrice, int newSellPrice, String newDescription, int[] newStats) {
+        super(newName, newPrice, newSellPrice, newDescription, newStats);
     }
     
     /**
