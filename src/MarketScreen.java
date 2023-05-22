@@ -1,4 +1,4 @@
-package main;
+package screens;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import main.Athlete;
+import main.GameEnvironment;
+import main.GameManager;
+import main.Item;
+
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
