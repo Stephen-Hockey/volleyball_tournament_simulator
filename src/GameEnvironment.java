@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * @author Lachlan Stewart and Stephen Hockey
  * @version 1.1, May 2023.
  */
-
 public class GameEnvironment {
 	
 	/**
@@ -76,8 +75,6 @@ public class GameEnvironment {
    	 */
     public static final int MAX_PLAYERS = 12, MAX_ITEMS= 12;
 
-    
-    
     /**
    	 * Returns the Player/User's name
    	 * @return the Player/User's name as a string
@@ -88,7 +85,7 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's name
-   	 * @param the Player/User's new name
+   	 * @param _playerName the Player/User's new name
    	 */
     public static void setPlayerName(String _playerName) {
         playerName = _playerName;
@@ -104,7 +101,7 @@ public class GameEnvironment {
 
     /**
    	 * Sets the current in game week
-   	 * @param the new current in game week
+   	 * @param _week the new current in game week
    	 */
     public static void setWeek(int _week) {
         week = _week;
@@ -120,7 +117,7 @@ public class GameEnvironment {
 
     /**
    	 * Sets the chosen game length
-   	 * @param the new chosen game length
+   	 * @param _finalWeek the new chosen game length
    	 */
     public static void setFinalWeek(int _finalWeek) {
         finalWeek = _finalWeek;
@@ -136,7 +133,7 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's Team
-   	 * @param the new Player/User's Team
+   	 * @param _playerTeam the new Player/User's Team
    	 */
     public static void setPlayerTeam(Team _playerTeam) {
         playerTeam = _playerTeam;
@@ -152,7 +149,7 @@ public class GameEnvironment {
 
     /**
    	 * Sets the chosen difficulty
-   	 * @param the new chosen difficulty
+   	 * @param _difficulty the new chosen difficulty
    	 */
     public static void setDifficulty(int _difficulty) {
         difficulty = _difficulty;
@@ -168,7 +165,7 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's inventory items
-   	 * @param the new Player/User's inventory items
+   	 * @param _inventory the new Player/User's inventory items
    	 */
     public static void setInventory(ArrayList<Item> _inventory) {
         inventory = _inventory;
@@ -184,7 +181,7 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's inventory items
-   	 * @param the new Player/User's inventory items
+   	 * @param _money the new Player/User's inventory items
    	 */
     public static void setMoney(int _money) {
         money = _money;
@@ -200,7 +197,7 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's rating
-   	 * @param the new Player/User's rating
+   	 * @param _playerRating the new Player/User's rating
    	 */
     public static void setPlayerRating(int _playerRating) {
         playerRating = _playerRating;
@@ -216,7 +213,7 @@ public class GameEnvironment {
     
     /**
    	 * Sets the current game's wins, losses and byes
-   	 * @param the new current game's wins, losses and byes
+   	 * @param _record the new current game's wins, losses and byes
    	 */
     public static void setRecord(int[] _record) {
         record = _record;
@@ -232,7 +229,7 @@ public class GameEnvironment {
     
     /**
    	 * Sets the Player/User's past match record
-   	 * @param the new Player/User's past match record
+   	 * @param _matches the new Player/User's past match record
    	 */
     public static void setMatches(ArrayList<Match> _matches) {
 		GameEnvironment.matches = _matches;
@@ -256,7 +253,7 @@ public class GameEnvironment {
     
     /**
    	 * Sets the value of the weekly game played
-   	 * @param the new value of the weekly game played
+   	 * @param _weeklyGamePlayed the new value of the weekly game played
    	 */
     public static void setWeeklyGamePlayed(boolean _weeklyGamePlayed) {
     	weeklyGamePlayed = _weeklyGamePlayed;
@@ -272,7 +269,7 @@ public class GameEnvironment {
     
     /**
    	 * Sets the Player/User successfully completed the game
-   	 * @param the new game success value
+   	 * @param _gameSuccess the new game success value
    	 */
     public static void setGameSuccess(boolean _gameSuccess) {
     	gameSuccess = _gameSuccess;
