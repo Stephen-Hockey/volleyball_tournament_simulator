@@ -1,5 +1,6 @@
+package main;
 
-import java.awt.EventQueue;
+
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -19,9 +20,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 
 /**
- * This class implements the screen for the user to give nicknames to their 
- * athletes
- *
+ * The NicknameScreen is where the user can nickname their players<br>
+ * Launched from ClubScreen<br>
+ * Launches ClubScreen upon closing
+ * 
  * @author Lachlan Stewart and Stephen Hockey
  * @version 1.1, May 2023.
  */
@@ -31,35 +33,15 @@ public class NicknameScreen {
 	 * The frame on which elements are placed
 	 */
 	private JFrame frame;
+	
 	/**
 	 * The manager of the current instance of club screen
 	 */
 	private GameManager manager;
-
+	
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NicknameScreen window = new NicknameScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public NicknameScreen() {
-		initialize();
-	}
-	/**
-	 * Create the application with a manager to oversee closing and launching the window
+	 * Create the window with a GameManager object to oversee closing and launching the window
+	 * @param incomingManager the GameManager object
 	 */
 	public NicknameScreen(GameManager incomingManager) {
 		manager = incomingManager;
@@ -67,7 +49,7 @@ public class NicknameScreen {
 		frame.setVisible(true);
 	}
 	/**
-	 * Close the window instance
+	 * Close the window
 	 */
 	public void closeWindow() {
 		frame.dispose();
@@ -109,54 +91,53 @@ public class NicknameScreen {
 		btnBack.setBounds(12, 44, 117, 25);
 		frame.getContentPane().add(btnBack);
 		
-		JLabel lblHome = new JLabel("Name Editor");
-		lblHome.setBounds(12, 10, 329, 15);
-		panelTop.add(lblHome);
+		JLabel lblTopText = new JLabel("Name Editor");
+		lblTopText.setBounds(12, 10, 329, 15);
+		panelTop.add(lblTopText);
 		
-		JList<String> teamList = new JList<String>();
-		teamList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		JList<String> listTeam = new JList<String>();
+		listTeam.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> teamModel = new DefaultListModel<String>();
-		teamList.setModel(teamModel);
+		listTeam.setModel(teamModel);
 		for (Athlete athlete : GameEnvironment.getPlayerTeam().getPlayers()) {
 			teamModel.addElement(athlete.getName());
 		}
 		if (teamModel.size() > 0) {
-			teamList.setSelectedIndex(0);
+			listTeam.setSelectedIndex(0);
 		}
-		teamList.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		teamList.setBounds(328, 46, 260, 323);
-		frame.getContentPane().add(teamList);
+		listTeam.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		listTeam.setBounds(328, 46, 260, 323);
+		frame.getContentPane().add(listTeam);
 		
-		JTextField renameTextField = new JTextField();
-		renameTextField.setBounds(22, 98, 260, 46);
-		frame.getContentPane().add(renameTextField);
-		renameTextField.setColumns(10);
+		JTextField textRename = new JTextField();
+		textRename.setBounds(22, 98, 260, 46);
+		frame.getContentPane().add(textRename);
+		textRename.setColumns(10);
 		if (teamModel.size() > 0) {
-			renameTextField.setText(GameEnvironment.getPlayerTeam().getPlayers().get(0).getName());
+			textRename.setText(GameEnvironment.getPlayerTeam().getPlayers().get(0).getName());
 		}
 		
-		JButton renameButton = new JButton("Rename");
-		renameButton.setBounds(93, 213, 117, 29);
-		frame.getContentPane().add(renameButton);
+		JButton btnRename = new JButton("Rename");
+		btnRename.setBounds(93, 213, 117, 29);
+		frame.getContentPane().add(btnRename);
 		
-		JLabel descriptionLabel = new JLabel();
-		descriptionLabel.setText("hello");
-		descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		descriptionLabel.setBounds(22, 141, 260, 60);
-		frame.getContentPane().add(descriptionLabel);
+		JLabel lblDescription = new JLabel();
+		lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDescription.setBounds(22, 141, 260, 60);
+		frame.getContentPane().add(lblDescription);
 		if (teamModel.size() > 0) {
-			descriptionLabel.setText(GameEnvironment.getPlayerTeam().getPlayers().get(0).getDescription().replaceAll("\n", " "));
+			lblDescription.setText(GameEnvironment.getPlayerTeam().getPlayers().get(0).getDescription().replaceAll("\n", " "));
 		}
 		
-		teamList.addListSelectionListener(new ListSelectionListener() {
+		listTeam.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				if (teamList.isSelectionEmpty()) {
+				if (listTeam.isSelectionEmpty()) {
 					return ;
 				}
-				int selectedIndex = teamList.getSelectedIndex();
+				int selectedIndex = listTeam.getSelectedIndex();
 				Athlete selectedAthlete = GameEnvironment.getPlayerTeam().getPlayers().get(selectedIndex);
-				descriptionLabel.setText(selectedAthlete.getDescription().replaceAll("\n", " "));
-				renameTextField.setText(selectedAthlete.getName());
+				lblDescription.setText(selectedAthlete.getDescription().replaceAll("\n", " "));
+				textRename.setText(selectedAthlete.getName());
 			}
 		});
 		
@@ -167,19 +148,19 @@ public class NicknameScreen {
 			}
 		});
 		
-		renameButton.addActionListener(new ActionListener() {
+		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nickName = renameTextField.getText();
+				String nickName = textRename.getText();
 				if (!nickName.matches(".*\\w.*")) {
 					JOptionPane.showMessageDialog(null, "Your player's Nickname cannot be empty.", "Error", 0);
 				}
-				int selectedIndex = teamList.getSelectedIndex();
+				int selectedIndex = listTeam.getSelectedIndex();
 				GameEnvironment.getPlayerTeam().getPlayers().get(selectedIndex).setName(nickName);
 				teamModel.clear();
 				for (Athlete athlete : GameEnvironment.getPlayerTeam().getPlayers()) {
 					teamModel.addElement(athlete.getName());
 				}
-				teamList.setSelectedIndex(selectedIndex);
+				listTeam.setSelectedIndex(selectedIndex);
 			}
 		});
 		
