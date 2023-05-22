@@ -1,17 +1,15 @@
+package main;
 
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 
 /**
- * This class implements an Athlete with certain stats,
- * name, age, and nationality.
- * Athlete extends the class Purchasable
+ * The Athlete class describes an athlete with certain stats, name, age, and nationality.
  *
  * @author Lachlan Stewart and Stephen Hockey
  * @version 1.1, May 2023.
@@ -19,30 +17,22 @@ import java.util.Scanner;
 public class Athlete extends Purchasable {
     
 	/**
-	 * Calls the constructor of the parent class Purchasable with a blank input
+	 * Calls the constructor of the parent class Purchasable with no given parameters
 	 */
     public Athlete() {
         super();
     }
 
     /**
-	 * Calls the constructor of the parent class Purchasable with values input
+	 * Calls the constructor of the parent class Purchasable with all parameters
 	 */
     public Athlete(String _name, int _price, int _sellPrice, String _description, int[] _stats) {
         super(_name, _price, _sellPrice, _description, _stats);
     }
-    
-    /**
-	 * Overrides the getSellPrice method from the parent class Purchasable to return a lower number
-	 */
-    @Override
-    public int getSellPrice() {
-        return (int) (0.8 * super.getSellPrice());
-    }
 
     /**
 	 * Applies an Item to the player, increasing the relevant stats while bounding the stat at 99
-	 * @param the item to be applied as an Item object
+	 * @param item the item to be applied as an Item object
 	 */
     public void addItem(Item item) {
         int[] itemEffect = item.getStats();
@@ -55,6 +45,10 @@ public class Athlete extends Purchasable {
     	}
     }
     
+    /**
+     * Gets the average of the athlete's stats
+     * @return the average of the athlete's stats
+     */
     public int getAvgStat() {
     	double avg = 0;
     	for (int stat: getStats()) {
@@ -64,8 +58,9 @@ public class Athlete extends Purchasable {
     }
     
     /**
-	 * A static method which returns a randomly generated Athlete
-	 * @param the quality of the athlete from 0-9 as an integer
+	 * Generates a new Athlete object with randomized properties based on the given quality
+	 * @param quality how good the athlete's stats should be, the higher number the better
+	 * @return randomly generated Athlete object
 	 */
     public static Athlete generateAthlete(int quality) {
     	
@@ -131,7 +126,7 @@ public class Athlete extends Purchasable {
         int price = (int) (total * 10 / 3);
 
         /* sellPrice generation */
-        int sellPrice = (int) (price*0.5);
+        int sellPrice = (int) (price*0.8);
 
         /* age generation */
         double a = rand.nextGaussian() + 3;
@@ -166,9 +161,10 @@ public class Athlete extends Purchasable {
     }
     
     /**
-	 * A static method which returns a randomly generated Arraylist of Athletes
-	 * @param quantity the number of athletes wanted in the returned list as an integer
-	 * @param the quality of the athletes from 0-9 as an integer
+	 * Calls generateAthlete to make an ArrayList of random athletes
+	 * @param quantity desired length of the Athlete ArrayList
+	 * @param quality how good the athlete's stats should be, the higher number the better
+	 * @return ArrayList of randomly generated Athletes
 	 */
     public static ArrayList<Athlete> generateAthletes(int quantity, int quality) {
         ArrayList<Athlete> athletes = new ArrayList<Athlete>();
