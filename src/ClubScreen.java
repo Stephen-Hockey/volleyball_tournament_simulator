@@ -52,7 +52,6 @@ public class ClubScreen {
 	public ClubScreen() {
 		initialize();
 	}
-	
 	public ClubScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
@@ -294,10 +293,22 @@ public class ClubScreen {
 					for (Item item: teamItems) {
 						clubItemsModel.addElement(item.getName());
 					}
+					teamModel.clear();
+					for (int i=0; i < userPlayers.size(); i++) {
+						String playerText = "";
+						if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
+							playerText += "Injured";
+						} else if (i < Team.POSITION_STRINGS.length) {
+							playerText += Team.POSITION_STRINGS[i];
+						} else {
+								playerText += "Sub";
+						}
+						teamModel.addElement(playerText + ": " + userPlayers.get(i));
+					}
 					givingItem = false;
 					moveInfoBox.setText("");
 					moveButton.setVisible(false);
-					JOptionPane.showMessageDialog(null, "Successfully used " + selectedItem + " on " + selectedAthlete);
+					JOptionPane.showMessageDialog(null, "Successfully used " + selectedItem + " on " + selectedAthlete + ".");
 				}
 				
 				else {
