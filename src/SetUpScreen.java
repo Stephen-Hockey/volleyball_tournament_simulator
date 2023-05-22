@@ -1,4 +1,4 @@
-package main;
+package screens;
 import java.awt.*;
 
 import javax.swing.*;
@@ -6,6 +6,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.event.ChangeListener;
+
+import main.GameEnvironment;
+import main.GameManager;
+import main.Match;
+import main.Team;
+
 import javax.swing.event.ChangeEvent;
 
 import java.util.ArrayList;
