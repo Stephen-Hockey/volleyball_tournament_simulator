@@ -4,35 +4,23 @@ import java.util.Random;
 
 public class Item extends Purchasable {
 
-    private int[] effect;
-
     public Item() {
         super();
     }
 
-    public Item(String _name, int _price, int _sellPrice, String _description, int[] _effect) {
-        super(_name, _price, _sellPrice, _description);
-        effect = _effect;
+    public Item(String _name, int _price, int _sellPrice, String _description, int[] _stats) {
+        super(_name, _price, _sellPrice, _description, _stats);
     }
-
-    public int[] getEffect() {
-        return effect;
-    }
-
-    public void setEffect(int[] _effect) {
-        effect = _effect;
-    }
-
+    
+    @Override
     public int getSellPrice() {
         return (int) (0.5 * getPrice());
     }
     
-    
-    
     public static Item generateItem() {
         String[] names = { "Shoes", "Headband", "Playbook", "Tape", "Water Bottle", "Ankle Brace", "Preworkout" };
         int[][] buffs = { { 1, 1, 1 }, { 1, 0, 1 }, { 0, 1, 1 }, { 1, 1, 0 }, { 1, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 } };
-        String[] descriptions = { "Da shoes", "Sick headband dude", "Good to know", "Very sticky", "Stay hydrated",
+        String[] descriptions = { "A nice pair of kicks", "Absorbent AND rad", "Knowledge is power", "Very sticky", "Stay hydrated",
                 "For those glass ankles", "Get Hype" };
 
         Random rand = new Random();
