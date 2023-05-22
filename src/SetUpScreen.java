@@ -82,11 +82,6 @@ public class SetUpScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
-		btnHelp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Welcome to 'Volleyball Mania' enter your preferences and hit 'Play' to begin!", "Info", 1);
-			}
-		});
 		btnHelp.setBounds(388, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -94,13 +89,10 @@ public class SetUpScreen {
 		lblTopText.setBounds(12, 10, 70, 15);
 		panelTop.add(lblTopText);
 		
-		
-		
 		JLabel lblWelcome = new JLabel("Kia ora new player and welcome to... ");
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcome.setBounds(75, 28, 300, 40);
 		frame.getContentPane().add(lblWelcome);
-		
 
 		JLabel lblTitle = new JLabel("Volleyball Mania");
 		lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
@@ -119,9 +111,6 @@ public class SetUpScreen {
 		frame.getContentPane().add(textPlayerName);
 		textPlayerName.setColumns(10);
 		
-		
-		
-		
 		JLabel lblTeamName = new JLabel("What would you like to call your team?");
 		lblTeamName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTeamName.setBounds(75, 210, 300, 40);
@@ -132,9 +121,6 @@ public class SetUpScreen {
 		textTeamName.setBounds(75, 260, 300, 40);
 		frame.getContentPane().add(textTeamName);
 		textTeamName.setColumns(10);
-		
-		
-		
 		
 		JLabel lblWeeks = new JLabel("How many weeks will your season last?");
 		lblWeeks.setHorizontalAlignment(SwingConstants.CENTER);
@@ -149,20 +135,11 @@ public class SetUpScreen {
 		
 		JSlider sliderWeeks = new JSlider();
 		sliderWeeks.setValue(5);
-		sliderWeeks.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				String sliderValue = Integer.toString(sliderWeeks.getValue());
-				weeksSliderLabel.setText(sliderValue);
-			}
-		});
 		sliderWeeks.setSnapToTicks(true);
 		sliderWeeks.setMaximum(15);
 		sliderWeeks.setMinimum(5);
 		sliderWeeks.setBounds(75, 410, 300, 40);
 		frame.getContentPane().add(sliderWeeks);
-		
-		
-		
 		
 		JLabel lblDifficulty = new JLabel("At what skill level are you going to play?");
 		lblDifficulty.setHorizontalAlignment(SwingConstants.CENTER);
@@ -190,9 +167,19 @@ public class SetUpScreen {
 		frame.getContentPane().add(rdbtnAdvanced);
 		difficultyButtons.add(rdbtnAdvanced);
 		
-		
-		
 		JButton btnSubmit = new JButton("Play");
+		btnSubmit.setBounds(75, 600, 300, 50);
+		frame.getContentPane().add(btnSubmit);
+
+		//Events
+		
+		sliderWeeks.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				String sliderValue = Integer.toString(sliderWeeks.getValue());
+				weeksSliderLabel.setText(sliderValue);
+			}
+		});
+		
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String playerName = textPlayerName.getText();
@@ -230,19 +217,11 @@ public class SetUpScreen {
 				finishedSetUpScreen();
 			}
 		});
-		btnSubmit.setBounds(75, 600, 300, 50);
-		frame.getContentPane().add(btnSubmit);
-	
-		
-		
-		
-		
-		
-		
-		
 
-		
-		
-	
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Welcome to 'Volleyball Mania' enter your preferences and hit 'Play' to begin!", "Info", 1);
+			}
+		});
 	}
 }
