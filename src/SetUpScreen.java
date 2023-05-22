@@ -1,7 +1,6 @@
 import java.awt.*;
 
 import javax.swing.*;
-import java.awt.event.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -10,13 +9,27 @@ import javax.swing.event.ChangeEvent;
 
 import java.util.ArrayList;
 
-import java.util.ArrayList;
+/**
+ * This class implements the screen for the set up of the game,
+ * recieving the user's name, team name, prefered game length, and difficulty
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class SetUpScreen {
 
+	/**
+	 * The frame on which elements are placed
+	 */
 	private JFrame frame;
+	/**
+	 * The manager of the current instance of club screen
+	 */
 	private GameManager manager;
 
-	
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -30,28 +43,47 @@ public class SetUpScreen {
 		});
 	}
 	
+	/**
+	 * Create the application.
+	 */
 	public SetUpScreen() {
 		initialize();
 	}
 	
-	public boolean validString(String input, int lowerBound, int upperBound) {
-		return (input.length() >= lowerBound)&&(input.length() <= upperBound)&&(input.matches("[a-zA-Z0-9 ]*"));
-	}
-	
+	/**
+	 * Create the application with a manager to oversee closing and launching the window
+	 */
 	public SetUpScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
-	
+	/**
+	 * Close the window instance
+	 */
 	public void closeSetUpScreen() {
 		frame.dispose();
 	}
-	
+	/**
+	 * Runs the closeClubScreen method of its manager to close itself
+	 */
 	public void finishedSetUpScreen() {
 		manager.closeSetUpScreen(this);
 	}
-
+	/**
+	 * Checks if string is valid for given bounds and hard coded regex
+	 * @param input string to test as a String
+	 * @param lowerBound the smallest valid string size as an integer
+	 * @param upperBound the largest valid string size as an integer
+	 * @return if the string meets the given size and regex criteria as a boolean
+	 */
+	public boolean validString(String input, int lowerBound, int upperBound) {
+		return (input.length() >= lowerBound)&&(input.length() <= upperBound)&&(input.matches("[a-zA-Z0-9 ]*"));
+	}
+	
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 700);
