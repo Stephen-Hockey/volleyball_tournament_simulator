@@ -80,11 +80,6 @@ public class StadiumScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
-		btnHelp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Select a team to play against by clicking one of the buttons on the left.\nYou can then see that team's average stats, and their individual stats by using the list on the right.\nAfter selecting your opponent, you can then click the big button\nto play a match against them, when you're ready. You can only play one match per week.", "Info", 1);
-			}
-		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -170,7 +165,7 @@ public class StadiumScreen {
 		lblRecord.setBounds(170, 44, 150, 64);
 		frame.getContentPane().add(lblRecord);
 		
-		
+		//Events
 		
 		btnOpposingTeam1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -192,6 +187,7 @@ public class StadiumScreen {
 				btnPlayMatch.setVisible(true);
 			}
 		});
+		
 		btnOpposingTeam2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedTeam = GameEnvironment.getCurrentWeekOpposingTeams().get(1);
@@ -212,6 +208,7 @@ public class StadiumScreen {
 				btnPlayMatch.setVisible(true);
 			}
 		});
+		
 		btnOpposingTeam3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedTeam = GameEnvironment.getCurrentWeekOpposingTeams().get(2);
@@ -232,6 +229,7 @@ public class StadiumScreen {
 				btnPlayMatch.setVisible(true);
 			}
 		});
+		
 		btnPlayMatch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GameEnvironment.addMatch(new Match(selectedTeam));
@@ -262,8 +260,11 @@ public class StadiumScreen {
 				finishedWindow();
 			}
 		});
-		
-		
-		
+
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Select a team to play against by clicking one of the buttons on the left.\nYou can then see that team's average stats, and their individual stats by using the list on the right.\nAfter selecting your opponent, you can then click the big button\nto play a match against them, when you're ready. You can only play one match per week.", "Info", 1);
+			}
+		});
 	}
 }
