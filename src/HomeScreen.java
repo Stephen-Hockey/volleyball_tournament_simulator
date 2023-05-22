@@ -1,4 +1,4 @@
-package main;
+package screens;
 
 import java.util.Random;
 import javax.swing.JFrame;
@@ -11,6 +11,12 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import main.Athlete;
+import main.GameEnvironment;
+import main.GameManager;
+import main.Item;
+import main.Purchasable;
 
 /**
  * The HomeScreen is where the user can choose between visiting the club house, 
