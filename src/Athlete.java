@@ -1,12 +1,7 @@
 package main;
 
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
-
 
 /**
  * The Athlete class describes an athlete with certain stats, name, age, and nationality.
@@ -25,9 +20,14 @@ public class Athlete extends Purchasable {
 
     /**
 	 * Calls the constructor of the parent class Purchasable with all parameters
+	 * @param newName the new name
+     * @param newPrice the new price
+     * @param newSellPrice the new sell price
+     * @param newDescription the new description
+     * @param newStats the new stats
 	 */
-    public Athlete(String _name, int _price, int _sellPrice, String _description, int[] _stats) {
-        super(_name, _price, _sellPrice, _description, _stats);
+    public Athlete(String newName, int newPrice, int newSellPrice, String newDescription, int[] newStats) {
+        super(newName, newPrice, newSellPrice, newDescription, newStats);
     }
 
     /**
@@ -72,32 +72,12 @@ public class Athlete extends Purchasable {
         Random rand = new Random();
         int nameA = rand.nextInt(1000);
         int nameB = rand.nextInt(1000);
-        String name = "";
-        String firstName = "";
-        String lastName = "";
-        try {
 
-            File firstNames = new File("src/data/firstNames.txt");
-            Scanner firstNameScanner = new Scanner(firstNames);
+    	FileHandler fileHandler = new FileHandler();
+    	String firstName = fileHandler.getLine("/data/firstNames.txt", nameA);
+    	String lastName = fileHandler.getLine("/data/lastNames.txt", nameB);
 
-            for (int i = 0; i <= nameA; i++) {
-                firstName = firstNameScanner.nextLine();
-            }
-            firstNameScanner.close();
-
-            File lastNames = new File("src/data/lastNames.txt");
-            Scanner lastNameScanner = new Scanner(lastNames);
-
-            for (int i = 0; i <= nameB; i++) {
-                lastName = lastNameScanner.nextLine();
-            }
-            lastNameScanner.close();
-
-        } catch (FileNotFoundException e) {
-
-            System.out.println("An error occurred.");
-        }
-        name = firstName + " " + lastName;
+    	String name = firstName + " " + lastName;
 
         /* stat generation */
         int[] stats = { 0, 0, 0 };
@@ -139,20 +119,8 @@ public class Athlete extends Purchasable {
 
         /* country generation */
         int countryA = rand.nextInt(195);
-        String country = "";
-        try {
-            File countries = new File("src/data/countries.txt");
-            Scanner countryScanner = new Scanner(countries);
-            for (int i = 0; i <= countryA; i++) {
-                country = countryScanner.nextLine();
-            }
-            countryScanner.close();
-
-        } catch (FileNotFoundException e) {
-
-            System.out.println(e);
-        }
-
+        String country = fileHandler.getLine("/data/countries.txt", countryA);
+        
         /* description generation */
         String description = age + " years old, \nfrom " + country;
         
@@ -173,4 +141,14 @@ public class Athlete extends Purchasable {
         }
         return athletes;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
