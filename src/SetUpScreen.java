@@ -206,6 +206,7 @@ public class SetUpScreen {
 				GameEnvironment.setPlayerTeam(new Team(teamName));
 				GameEnvironment.setFinalWeek(numWeeks);
 				GameEnvironment.setDifficulty(difficulty);
+				GameEnvironment.setMoney(250*(2-difficulty));
 				GameEnvironment.setWeek(0);
 				GameEnvironment.setMatches(new ArrayList<Match>());
 				manager.launchDraftScreen();
