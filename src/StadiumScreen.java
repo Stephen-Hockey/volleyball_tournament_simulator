@@ -1,4 +1,4 @@
-package main;
+package screens;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +12,13 @@ import javax.swing.JProgressBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import main.Athlete;
+import main.GameEnvironment;
+import main.GameManager;
+import main.Match;
+import main.Team;
+
 import javax.swing.event.ListSelectionEvent;
 import java.awt.Font;
 import javax.swing.ListSelectionModel;
