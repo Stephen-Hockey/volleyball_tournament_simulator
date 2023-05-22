@@ -1,4 +1,4 @@
-import java.awt.EventQueue;
+package main;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,56 +9,57 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JProgressBar;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.Font;
 import javax.swing.ListSelectionModel;
-
+/**
+ * The StadiumScreen is where the user chooses an opposing team to play against<br>
+ * Launched from HomeScreen<br>
+ * Launches HomeScreen upon closing
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class StadiumScreen {
 
+	/**
+	 * The frame on which elements are placed
+	 */
 	private JFrame frame;
+	
+	/**
+	 * The manager of the current instance of draft screen
+	 */
 	private GameManager manager;
 	
+	/**
+	 * The team that the user currently has selected
+	 */
 	private Team selectedTeam;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StadiumScreen window = new StadiumScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
-	 * Create the application.
+	 * Create the application with a GameManager object to oversee closing and launching the window
+	 * @param incomingManager the GameManager object
 	 */
-	public StadiumScreen() {
-		initialize();
-	}
-
 	public StadiumScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
-	
+
+	/**
+	 * Close the window
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Runs the closeMarketScreen method of its manager to close itself
+	 */
 	public void finishedWindow() {
 		manager.closeStadiumScreen(this);
 	}
@@ -112,28 +113,28 @@ public class StadiumScreen {
 		lblDefence.setBounds(12, 78, 70, 15);
 		panelAthleteInfoBox.add(lblDefence);
 		
-		JProgressBar pBarStamina = new JProgressBar();
-		pBarStamina.setMaximum(99);
-		pBarStamina.setBounds(86, 39, 150, 14);
-		panelAthleteInfoBox.add(pBarStamina);
+		JProgressBar pbarStamina = new JProgressBar();
+		pbarStamina.setMaximum(99);
+		pbarStamina.setBounds(86, 39, 150, 14);
+		panelAthleteInfoBox.add(pbarStamina);
 		
 		JLabel lblStamina = new JLabel("Stamina");
 		lblStamina.setBounds(12, 38, 70, 15);
 		panelAthleteInfoBox.add(lblStamina);
 		
-		JProgressBar pBarOffence = new JProgressBar();
-		pBarOffence.setMaximum(99);
-		pBarOffence.setBounds(86, 58, 150, 14);
-		panelAthleteInfoBox.add(pBarOffence);
+		JProgressBar pbarOffence = new JProgressBar();
+		pbarOffence.setMaximum(99);
+		pbarOffence.setBounds(86, 58, 150, 14);
+		panelAthleteInfoBox.add(pbarOffence);
 		
 		JLabel lblOffence = new JLabel("Offence");
 		lblOffence.setBounds(12, 58, 70, 15);
 		panelAthleteInfoBox.add(lblOffence);
 		
-		JProgressBar pBarDefence = new JProgressBar();
-		pBarDefence.setMaximum(99);
-		pBarDefence.setBounds(86, 78, 150, 14);
-		panelAthleteInfoBox.add(pBarDefence);
+		JProgressBar pbarDefence = new JProgressBar();
+		pbarDefence.setMaximum(99);
+		pbarDefence.setBounds(86, 78, 150, 14);
+		panelAthleteInfoBox.add(pbarDefence);
 		
 		JLabel lblDescription = new JLabel("");
 		lblDescription.setBounds(12, 105, 222, 45);
@@ -181,11 +182,11 @@ public class StadiumScreen {
 				}
 				lblName.setText("Team Averages");
 				
-				int[] teamAverageStats = Team.getTeamAverageStats(selectedTeam);
+				int[] teamAverageStats = selectedTeam.getTeamAverageStats();
 				
-				pBarStamina.setValue(teamAverageStats[0]);
-				pBarOffence.setValue(teamAverageStats[1]);
-				pBarDefence.setValue(teamAverageStats[2]);
+				pbarStamina.setValue(teamAverageStats[0]);
+				pbarOffence.setValue(teamAverageStats[1]);
+				pbarDefence.setValue(teamAverageStats[2]);
 				
 				lblDescription.setText("");
 				btnPlayMatch.setVisible(true);
@@ -201,11 +202,11 @@ public class StadiumScreen {
 				}
 				lblName.setText("Team Averages");
 				
-				int[] teamAverageStats = Team.getTeamAverageStats(selectedTeam);
+				int[] teamAverageStats = selectedTeam.getTeamAverageStats();
 				
-				pBarStamina.setValue(teamAverageStats[0]);
-				pBarOffence.setValue(teamAverageStats[1]);
-				pBarDefence.setValue(teamAverageStats[2]);								
+				pbarStamina.setValue(teamAverageStats[0]);
+				pbarOffence.setValue(teamAverageStats[1]);
+				pbarDefence.setValue(teamAverageStats[2]);								
 				
 				lblDescription.setText("");
 				btnPlayMatch.setVisible(true);
@@ -221,11 +222,11 @@ public class StadiumScreen {
 				}
 				lblName.setText("Team Averages");
 				
-				int[] teamAverageStats = Team.getTeamAverageStats(selectedTeam);
+				int[] teamAverageStats = selectedTeam.getTeamAverageStats();
 				
-				pBarStamina.setValue(teamAverageStats[0]);
-				pBarOffence.setValue(teamAverageStats[1]);
-				pBarDefence.setValue(teamAverageStats[2]);								
+				pbarStamina.setValue(teamAverageStats[0]);
+				pbarOffence.setValue(teamAverageStats[1]);
+				pbarDefence.setValue(teamAverageStats[2]);								
 				
 				lblDescription.setText("");
 				btnPlayMatch.setVisible(true);
@@ -248,9 +249,9 @@ public class StadiumScreen {
 				Athlete selectedAthlete = selectedTeam.get(listOpposingTeam.getSelectedIndex());
 				lblName.setText(selectedAthlete.getName());
 				lblDescription.setText("<html>" + selectedAthlete.getDescription().replaceAll("\n", "<br>") + "</html>");
-				pBarStamina.setValue(selectedAthlete.getStats()[0]);
-				pBarOffence.setValue(selectedAthlete.getStats()[1]);
-				pBarDefence.setValue(selectedAthlete.getStats()[2]);
+				pbarStamina.setValue(selectedAthlete.getStats()[0]);
+				pbarOffence.setValue(selectedAthlete.getStats()[1]);
+				pbarDefence.setValue(selectedAthlete.getStats()[2]);
 				
 			}
 		});
