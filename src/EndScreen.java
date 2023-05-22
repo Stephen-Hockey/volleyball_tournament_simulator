@@ -93,9 +93,6 @@ public class EndScreen {
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
-		
-		
-		
 		JPanel panelAthleteInfoBox = new JPanel();
 		panelAthleteInfoBox.setLayout(null);
 		panelAthleteInfoBox.setBackground(Color.WHITE);
@@ -129,7 +126,6 @@ public class EndScreen {
 		lblDefence.setBounds(12, 75, 70, 15);
 		panelAthleteInfoBox.add(lblDefence);
 		
-		
 		JProgressBar pbarDefence = new JProgressBar();
 		pbarDefence.setMaximum(99);
 		pbarDefence.setBounds(86, 75, 108, 15);
@@ -149,7 +145,6 @@ public class EndScreen {
 			lblName.setText("No Athlete");
 			
 		}
-		
 		
 		JLabel lblTopText = new JLabel(playerName + "'s Journey");
 		lblTopText.setBounds(12, 10, 366, 15);
@@ -180,11 +175,6 @@ public class EndScreen {
 		frame.getContentPane().add(lblGameInfo);
 		
 		JButton btnCloseGame = new JButton("Close Game");
-		btnCloseGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				finishedWindow();
-			}
-		});
 		btnCloseGame.setBounds(165, 237, 117, 29);
 		frame.getContentPane().add(btnCloseGame);
 		
@@ -199,6 +189,13 @@ public class EndScreen {
 		lblGameSummary.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblGameSummary.setBounds(23, 45, 169, 16);
 		frame.getContentPane().add(lblGameSummary);
+
+		//Events
 		
+		btnCloseGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				finishedWindow();
+			}
+		});
 	}
 }
