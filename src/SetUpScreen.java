@@ -1,3 +1,4 @@
+package main;
 import java.awt.*;
 
 import javax.swing.*;
@@ -10,9 +11,11 @@ import javax.swing.event.ChangeEvent;
 import java.util.ArrayList;
 
 /**
- * This class implements the screen for the set up of the game,
- * recieving the user's name, team name, prefered game length, and difficulty
- *
+ * The SetUpScreen is where the user enters their name, team name, 
+ * preferred game length, and difficulty<br>
+ * Launched upon execution<br>
+ * Launches DraftScreen upon closing
+ * 
  * @author Lachlan Stewart and Stephen Hockey
  * @version 1.1, May 2023.
  */
@@ -22,54 +25,36 @@ public class SetUpScreen {
 	 * The frame on which elements are placed
 	 */
 	private JFrame frame;
+	
 	/**
 	 * The manager of the current instance of club screen
 	 */
 	private GameManager manager;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SetUpScreen window = new SetUpScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	/**
-	 * Create the application.
-	 */
-	public SetUpScreen() {
-		initialize();
-	}
-	
-	/**
-	 * Create the application with a manager to oversee closing and launching the window
+	 * Create the window with a GameManager object to oversee closing and launching the window
+	 * @param incomingManager the GameManager object
 	 */
 	public SetUpScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
+	
 	/**
-	 * Close the window instance
+	 * Close the window
 	 */
 	public void closeSetUpScreen() {
 		frame.dispose();
 	}
+	
 	/**
 	 * Runs the closeClubScreen method of its manager to close itself
 	 */
 	public void finishedSetUpScreen() {
 		manager.closeSetUpScreen(this);
 	}
+	
 	/**
 	 * Checks if string is valid for given bounds and hard coded regex
 	 * @param input string to test as a String
@@ -105,56 +90,56 @@ public class SetUpScreen {
 		btnHelp.setBounds(388, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
-		JLabel lblSetup = new JLabel("Setup");
-		lblSetup.setBounds(12, 10, 70, 15);
-		panelTop.add(lblSetup);
+		JLabel lblTopText = new JLabel("Setup");
+		lblTopText.setBounds(12, 10, 70, 15);
+		panelTop.add(lblTopText);
 		
 		
 		
-		JLabel welcomeLabel = new JLabel("Kia ora new player and welcome to... ");
-		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		welcomeLabel.setBounds(75, 28, 300, 40);
-		frame.getContentPane().add(welcomeLabel);
+		JLabel lblWelcome = new JLabel("Kia ora new player and welcome to... ");
+		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcome.setBounds(75, 28, 300, 40);
+		frame.getContentPane().add(lblWelcome);
 		
 
-		JLabel titleLogo = new JLabel("Volleyball Mania");
-		titleLogo.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-		titleLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLogo.setBounds(85, 62, 290, 50);
-		frame.getContentPane().add(titleLogo);
+		JLabel lblTitle = new JLabel("Volleyball Mania");
+		lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 30));
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setBounds(85, 62, 290, 50);
+		frame.getContentPane().add(lblTitle);
 		
-		JLabel playerNameLabel = new JLabel("What is your name?");
-		playerNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		playerNameLabel.setBounds(75, 110, 300, 40);
-		frame.getContentPane().add(playerNameLabel);
+		JLabel lblPlayerName = new JLabel("What is your name?");
+		lblPlayerName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPlayerName.setBounds(75, 110, 300, 40);
+		frame.getContentPane().add(lblPlayerName);
 		
-		JTextField playerNameField = new JTextField();
-		playerNameField.setHorizontalAlignment(SwingConstants.CENTER);
-		playerNameField.setBounds(75, 160, 300, 40);
-		frame.getContentPane().add(playerNameField);
-		playerNameField.setColumns(10);
-		
-		
-		
-		
-		JLabel teamNameLabel = new JLabel("What would you like to call your team?");
-		teamNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		teamNameLabel.setBounds(75, 210, 300, 40);
-		frame.getContentPane().add(teamNameLabel);
-		
-		JTextField teamNameField = new JTextField();
-		teamNameField.setHorizontalAlignment(SwingConstants.CENTER);
-		teamNameField.setBounds(75, 260, 300, 40);
-		frame.getContentPane().add(teamNameField);
-		teamNameField.setColumns(10);
+		JTextField textPlayerName = new JTextField();
+		textPlayerName.setHorizontalAlignment(SwingConstants.CENTER);
+		textPlayerName.setBounds(75, 160, 300, 40);
+		frame.getContentPane().add(textPlayerName);
+		textPlayerName.setColumns(10);
 		
 		
 		
 		
-		JLabel weeksLabel = new JLabel("How many weeks will your season last?");
-		weeksLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		weeksLabel.setBounds(75, 310, 300, 40);
-		frame.getContentPane().add(weeksLabel);
+		JLabel lblTeamName = new JLabel("What would you like to call your team?");
+		lblTeamName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTeamName.setBounds(75, 210, 300, 40);
+		frame.getContentPane().add(lblTeamName);
+		
+		JTextField textTeamName = new JTextField();
+		textTeamName.setHorizontalAlignment(SwingConstants.CENTER);
+		textTeamName.setBounds(75, 260, 300, 40);
+		frame.getContentPane().add(textTeamName);
+		textTeamName.setColumns(10);
+		
+		
+		
+		
+		JLabel lblWeeks = new JLabel("How many weeks will your season last?");
+		lblWeeks.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWeeks.setBounds(75, 310, 300, 40);
+		frame.getContentPane().add(lblWeeks);
 		
 
 		JLabel weeksSliderLabel = new JLabel("5");
@@ -162,74 +147,74 @@ public class SetUpScreen {
 		weeksSliderLabel.setBounds(75, 360, 300, 40);
 		frame.getContentPane().add(weeksSliderLabel);
 		
-		JSlider weeksSlider = new JSlider();
-		weeksSlider.setValue(5);
-		weeksSlider.addChangeListener(new ChangeListener() {
+		JSlider sliderWeeks = new JSlider();
+		sliderWeeks.setValue(5);
+		sliderWeeks.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				String sliderValue = Integer.toString(weeksSlider.getValue());
+				String sliderValue = Integer.toString(sliderWeeks.getValue());
 				weeksSliderLabel.setText(sliderValue);
 			}
 		});
-		weeksSlider.setSnapToTicks(true);
-		weeksSlider.setMaximum(15);
-		weeksSlider.setMinimum(5);
-		weeksSlider.setBounds(75, 410, 300, 40);
-		frame.getContentPane().add(weeksSlider);
+		sliderWeeks.setSnapToTicks(true);
+		sliderWeeks.setMaximum(15);
+		sliderWeeks.setMinimum(5);
+		sliderWeeks.setBounds(75, 410, 300, 40);
+		frame.getContentPane().add(sliderWeeks);
 		
 		
 		
 		
-		JLabel difficultyLabel = new JLabel("At what skill level are you going to play?");
-		difficultyLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		difficultyLabel.setBounds(75, 460, 300, 40);
-		frame.getContentPane().add(difficultyLabel);
+		JLabel lblDifficulty = new JLabel("At what skill level are you going to play?");
+		lblDifficulty.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDifficulty.setBounds(75, 460, 300, 40);
+		frame.getContentPane().add(lblDifficulty);
 		
 		ButtonGroup difficultyButtons = new ButtonGroup();
 		
-		JRadioButton beginnerDifficultyButton = new JRadioButton("Beginner");
-		beginnerDifficultyButton.setMnemonic('0');
-		beginnerDifficultyButton.setBounds(60, 510, 105, 40);
-		frame.getContentPane().add(beginnerDifficultyButton);
-		difficultyButtons.add(beginnerDifficultyButton);
+		JRadioButton rdbtnBeginner = new JRadioButton("Beginner");
+		rdbtnBeginner.setMnemonic('0');
+		rdbtnBeginner.setBounds(60, 510, 105, 40);
+		frame.getContentPane().add(rdbtnBeginner);
+		difficultyButtons.add(rdbtnBeginner);
 		
-		JRadioButton intermediateDifficultyButton = new JRadioButton("Intermediate");
-		intermediateDifficultyButton.setSelected(true);
-		intermediateDifficultyButton.setMnemonic('1');
-		intermediateDifficultyButton.setBounds(165, 510, 120, 40);
-		frame.getContentPane().add(intermediateDifficultyButton);
-		difficultyButtons.add(intermediateDifficultyButton);
+		JRadioButton rdbtnIntermediate = new JRadioButton("Intermediate");
+		rdbtnIntermediate.setSelected(true);
+		rdbtnIntermediate.setMnemonic('1');
+		rdbtnIntermediate.setBounds(165, 510, 120, 40);
+		frame.getContentPane().add(rdbtnIntermediate);
+		difficultyButtons.add(rdbtnIntermediate);
 		
-		JRadioButton advancedDifficultyButton = new JRadioButton("Advanced");
-		advancedDifficultyButton.setMnemonic('2');
-		advancedDifficultyButton.setBounds(285, 510, 105, 40);
-		frame.getContentPane().add(advancedDifficultyButton);
-		difficultyButtons.add(advancedDifficultyButton);
+		JRadioButton rdbtnAdvanced = new JRadioButton("Advanced");
+		rdbtnAdvanced.setMnemonic('2');
+		rdbtnAdvanced.setBounds(285, 510, 105, 40);
+		frame.getContentPane().add(rdbtnAdvanced);
+		difficultyButtons.add(rdbtnAdvanced);
 		
 		
 		
-		JButton playerNameSubmitButton = new JButton("Play");
-		playerNameSubmitButton.addActionListener(new ActionListener() {
+		JButton btnSubmit = new JButton("Play");
+		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String playerName = playerNameField.getText();
-				String teamName = teamNameField.getText();
-				int numWeeks = weeksSlider.getValue();
+				String playerName = textPlayerName.getText();
+				String teamName = textTeamName.getText();
+				int numWeeks = sliderWeeks.getValue();
 				int difficulty;
-				if (beginnerDifficultyButton.isSelected()) {
+				if (rdbtnBeginner.isSelected()) {
 					difficulty = 0;
-				} else if (intermediateDifficultyButton.isSelected()) {
+				} else if (rdbtnIntermediate.isSelected()) {
 					difficulty = 1;
 				} else {
 					difficulty = 2;
 				}
 				
 				if (!validString(playerName, 3, 99)){
-					playerNameField.setText("");
+					textPlayerName.setText("");
 					JOptionPane.showMessageDialog(null, "Your name must comprise of " + 3 + " to " + 99 + " non-special characters");
 					return;
 				}
 					
 				if (!validString(teamName, 3, 15)){
-					teamNameField.setText("");
+					textTeamName.setText("");
 					JOptionPane.showMessageDialog(null, "Your team's name must comprise of " + 3 + " to " + 15 + " non-special characters");
 					return;
 				}
@@ -245,8 +230,8 @@ public class SetUpScreen {
 				finishedSetUpScreen();
 			}
 		});
-		playerNameSubmitButton.setBounds(75, 600, 300, 50);
-		frame.getContentPane().add(playerNameSubmitButton);
+		btnSubmit.setBounds(75, 600, 300, 50);
+		frame.getContentPane().add(btnSubmit);
 	
 		
 		
