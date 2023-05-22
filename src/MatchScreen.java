@@ -1,4 +1,4 @@
-package main;
+package screens;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -13,6 +13,12 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionListener;
+
+import main.GameEnvironment;
+import main.GameManager;
+import main.Match;
+import main.Team;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 /**
