@@ -1,4 +1,4 @@
-import java.awt.EventQueue;
+package main;
 
 import javax.swing.JFrame;
 import javax.swing.DefaultListModel;
@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JProgressBar;
-import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.event.ActionListener;
@@ -17,48 +16,60 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
 
+/**
+ * The DraftScreen is where the user drafts their starting team<br>
+ * Launched from SetupScreen<br>
+ * Launches HomeScreen upon closing
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class DraftScreen {
 
+	/**
+	 * The frame on which elements are placed
+	 */
 	private JFrame frame;
+	/**
+	 * The manager of the current instance of draft screen
+	 */
 	private GameManager manager;
 	
-	int round = 1;
-	ArrayList<Athlete> usersTeam = new ArrayList<Athlete>();
-	ArrayList<Athlete> draftRound = Athlete.generateAthletes(10, 9);
+	/**
+	 * The current round of the draft
+	 */
+	private int round = 1;
 	
 	/**
-	 * Launch the application.
+	 * The ArrayList of Athletes that the user picks from the draft
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DraftScreen window = new DraftScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public DraftScreen() {		
-		initialize();
-	}
+	private ArrayList<Athlete> usersTeam = new ArrayList<Athlete>();
 	
+	/**
+	 * The ArrayList of Athletes that are available to pick in the current round
+	 */
+	private ArrayList<Athlete> draftRound = Athlete.generateAthletes(10, 9);
+	
+	/**
+	 * Create the window with a GameManager object to oversee closing and launching the window
+	 * @param incomingManager the GameManager object
+	 */
 	public DraftScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Close the window
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Runs the closeDraftScreen method of its manager to close itself
+	 */
 	public void finishedWindow() {
 		manager.closeDraftScreen(this);
 	}
@@ -133,28 +144,28 @@ public class DraftScreen {
 		lblDefence.setBounds(12, 78, 70, 15);
 		panelAthleteInfoBox.add(lblDefence);
 		
-		JProgressBar pBarStamina = new JProgressBar();
-		pBarStamina.setMaximum(99);
-		pBarStamina.setBounds(86, 39, 150, 14);
-		panelAthleteInfoBox.add(pBarStamina);
+		JProgressBar pbarStamina = new JProgressBar();
+		pbarStamina.setMaximum(99);
+		pbarStamina.setBounds(86, 39, 150, 14);
+		panelAthleteInfoBox.add(pbarStamina);
 		
 		JLabel lblStamina = new JLabel("Stamina");
 		lblStamina.setBounds(12, 38, 70, 15);
 		panelAthleteInfoBox.add(lblStamina);
 		
-		JProgressBar pBarOffence = new JProgressBar();
-		pBarOffence.setMaximum(99);
-		pBarOffence.setBounds(86, 58, 150, 14);
-		panelAthleteInfoBox.add(pBarOffence);
+		JProgressBar pbarOffence = new JProgressBar();
+		pbarOffence.setMaximum(99);
+		pbarOffence.setBounds(86, 58, 150, 14);
+		panelAthleteInfoBox.add(pbarOffence);
 		
 		JLabel lblOffence = new JLabel("Offence");
 		lblOffence.setBounds(12, 58, 70, 15);
 		panelAthleteInfoBox.add(lblOffence);
 		
-		JProgressBar pBarDefence = new JProgressBar();
-		pBarDefence.setMaximum(99);
-		pBarDefence.setBounds(86, 78, 150, 14);
-		panelAthleteInfoBox.add(pBarDefence);
+		JProgressBar pbarDefence = new JProgressBar();
+		pbarDefence.setMaximum(99);
+		pbarDefence.setBounds(86, 78, 150, 14);
+		panelAthleteInfoBox.add(pbarDefence);
 		
 		JButton btnDraftAthlete = new JButton("DRAFT");
 		
@@ -183,9 +194,9 @@ public class DraftScreen {
 				Athlete selectedDraftAthlete = usersTeam.get(listUsersTeam.getSelectedIndex());
 				lblAthleteName.setText(selectedDraftAthlete.getName());
 				lblDescription.setText("<html>" + selectedDraftAthlete.getDescription().replaceAll("\n", "<br>") + "</html>");
-				pBarStamina.setValue(selectedDraftAthlete.getStats()[0]);
-				pBarOffence.setValue(selectedDraftAthlete.getStats()[1]);
-				pBarDefence.setValue(selectedDraftAthlete.getStats()[2]);
+				pbarStamina.setValue(selectedDraftAthlete.getStats()[0]);
+				pbarOffence.setValue(selectedDraftAthlete.getStats()[1]);
+				pbarDefence.setValue(selectedDraftAthlete.getStats()[2]);
 				listDraftRound.clearSelection();
 				btnDraftAthlete.setEnabled(false);
 			}
@@ -201,9 +212,9 @@ public class DraftScreen {
 				Athlete selectedDraftAthlete = draftRound.get(listDraftRound.getSelectedIndex());
 				lblAthleteName.setText(selectedDraftAthlete.getName());
 				lblDescription.setText("<html>" + selectedDraftAthlete.getDescription().replaceAll("\n", "<br>") + "</html>");
-				pBarStamina.setValue(selectedDraftAthlete.getStats()[0]);
-				pBarOffence.setValue(selectedDraftAthlete.getStats()[1]);
-				pBarDefence.setValue(selectedDraftAthlete.getStats()[2]);
+				pbarStamina.setValue(selectedDraftAthlete.getStats()[0]);
+				pbarOffence.setValue(selectedDraftAthlete.getStats()[1]);
+				pbarDefence.setValue(selectedDraftAthlete.getStats()[2]);
 				listUsersTeam.clearSelection();
 				btnDraftAthlete.setEnabled(true);
 			}
