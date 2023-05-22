@@ -1,3 +1,4 @@
+package main;
 
 import java.util.*;
 import java.awt.Color;
@@ -19,15 +20,48 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.ListSelectionModel;
 
+
+/**
+ * This class implements the screen for the club house, 
+ * allowing the user to substitute athletes, give out items, 
+ * rename and view the stats of their athletes
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class ClubScreen {
 
+	/**
+	 * The frame on which elements are placed
+	 */
 	private JFrame frame;
+	/**
+	 * The manager of the current instance of club screen
+	 */
 	private GameManager manager;
+	/**
+	 * Boolean for if the user is in the process of a substitution
+	 */
 	private boolean substitution = false;
+	/**
+	 * Boolean for if the user is in the process of giving an item to an athlete
+	 */
 	private boolean givingItem = false;
+	/**
+	 * index of the athlete selected by the user, if not selected is -1
+	 */
 	private int selectedAthleteIndex = -1;
+	/**
+	 * index of the item selected by the user, if not selected is -1
+	 */
 	private int selectedItemIndex = -1;
-	private ArrayList<Athlete> userPlayers = GameEnvironment.getPlayerTeam().getPlayers();
+	/**
+	 * The list of Athletes in the users team 
+	 */
+	private ArrayList<Athlete> userAthletes = GameEnvironment.getPlayerTeam().getPlayers();
+	/**
+	 * The list of Items in the users inventory 
+	 */
 	private ArrayList<Item> userItems = GameEnvironment.getInventory();
 
 	/**
@@ -52,16 +86,25 @@ public class ClubScreen {
 	public ClubScreen() {
 		initialize();
 	}
+	/**
+	 * Create the application with a manager to oversee closing and launching the window
+	 */
 	public ClubScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Close the window instance
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Runs the closeClubScreen method of its manager to close itself
+	 */
 	public void finishedWindow() {
 		manager.closeClubScreen(this);
 	}
@@ -112,7 +155,7 @@ public class ClubScreen {
 		teamList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> teamModel = new DefaultListModel<String>();
 		teamList.setModel(teamModel);
-		for (int i=0; i < userPlayers.size(); i++) {
+		for (int i=0; i < userAthletes.size(); i++) {
 			String playerText = "";
 			if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
 				playerText += "Injured";
@@ -121,7 +164,7 @@ public class ClubScreen {
 			} else {
 					playerText += "Sub";
 			}
-			teamModel.addElement(playerText + ": " + userPlayers.get(i));
+			teamModel.addElement(playerText + ": " + userAthletes.get(i));
 		}
 		teamList.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		teamList.setBounds(10, 112, 260, 255);
@@ -210,7 +253,7 @@ public class ClubScreen {
 		JButton renamePlayersButton = new JButton("Nickname");
 		renamePlayersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				manager.launchNickNameScreen();
+				manager.launchNicknameScreen();
 				finishedWindow();
 			}
 		});
@@ -250,22 +293,23 @@ public class ClubScreen {
 		});
 		
 		teamList.addListSelectionListener(new ListSelectionListener() {
+			
 			public void valueChanged(ListSelectionEvent e) {
 				if (teamList.isSelectionEmpty()) {
 					return ;
 				}
 				clubItemsList.clearSelection();
-				userPlayers = GameEnvironment.getPlayerTeam().getPlayers();
+				userAthletes = GameEnvironment.getPlayerTeam().getPlayers();
 				int selectedIndex = teamList.getSelectedIndex();
-				if (selectedIndex > userPlayers.size()) {
+				if (selectedIndex > userAthletes.size()) {
 					return ;
 				}
 				if (substitution) {
 					int subIndex = selectedIndex;
-					Collections.swap(userPlayers, subIndex, selectedAthleteIndex);
-					GameEnvironment.getPlayerTeam().setPlayers(userPlayers);
+					Collections.swap(userAthletes, subIndex, selectedAthleteIndex);
+					GameEnvironment.getPlayerTeam().setPlayers(userAthletes);
 					teamModel.clear();
-					for (int i=0; i < userPlayers.size(); i++) {
+					for (int i=0; i < userAthletes.size(); i++) {
 						String playerText = "";
 						if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
 							playerText += "Injured";
@@ -274,7 +318,7 @@ public class ClubScreen {
 						} else {
 								playerText += "Sub";
 						}
-						teamModel.addElement(playerText + ": " + userPlayers.get(i));
+						teamModel.addElement(playerText + ": " + userAthletes.get(i));
 					}
 					substitution = false;
 					moveInfoBox.setText("");
@@ -283,18 +327,18 @@ public class ClubScreen {
 					
 				} else if (givingItem) {
 					int receiverIndex = selectedIndex;
-					Athlete selectedAthlete = userPlayers.get(receiverIndex);
+					Athlete selectedAthlete = userAthletes.get(receiverIndex);
 					Item selectedItem = userItems.get(selectedItemIndex);
 					GameEnvironment.getPlayerTeam().getPlayers().get(receiverIndex).addItem(selectedItem);
 					GameEnvironment.getInventory().remove(selectedItemIndex);
-					userPlayers = GameEnvironment.getPlayerTeam().getPlayers();
+					userAthletes = GameEnvironment.getPlayerTeam().getPlayers();
 					userItems = GameEnvironment.getInventory();
 					clubItemsModel.clear();
 					for (Item item: teamItems) {
 						clubItemsModel.addElement(item.getName());
 					}
 					teamModel.clear();
-					for (int i=0; i < userPlayers.size(); i++) {
+					for (int i=0; i < userAthletes.size(); i++) {
 						String playerText = "";
 						if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
 							playerText += "Injured";
@@ -303,7 +347,7 @@ public class ClubScreen {
 						} else {
 								playerText += "Sub";
 						}
-						teamModel.addElement(playerText + ": " + userPlayers.get(i));
+						teamModel.addElement(playerText + ": " + userAthletes.get(i));
 					}
 					givingItem = false;
 					moveInfoBox.setText("");
@@ -314,7 +358,7 @@ public class ClubScreen {
 				else {
 					selectedAthleteIndex = selectedIndex;
 					selectedItemIndex = -1;
-					Athlete selectedAthlete = userPlayers.get(selectedAthleteIndex);
+					Athlete selectedAthlete = userAthletes.get(selectedAthleteIndex);
 					String selectAthleteName = selectedAthlete.getName();
 					lblName.setText(selectAthleteName);
 					descriptionLabel.setText(selectedAthlete.getDescription().replaceAll("\n", " "));
