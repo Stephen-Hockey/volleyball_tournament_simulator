@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JProgressBar;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
@@ -84,11 +83,6 @@ public class MatchScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
-		btnHelp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Welcome to the fun part! Here, you see how your matches go.\nYou can click the NEXT POINT button to play the next point, the SKIP SET button to skip ahead\nuntil the current set is over or until an injury occurs, or the MAKE A SUB button to make your own strategic substitution.", "Info", 1);
-			}
-		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -503,7 +497,7 @@ public class MatchScreen {
 					GameEnvironment.getPlayerTeam().swap(listUserStarters.getSelectedIndex(), 7 + listUserReserves.getSelectedIndex());
 					
 				} else if (!listUserStarters.isEnabled()){
-					//injury
+					//injury-forced sub
 					GameEnvironment.getPlayerTeam().swap(match.getFaceoffIndex(), 7 + listUserReserves.getSelectedIndex());
 					
 					listUserReserves.setEnabled(false);
@@ -511,6 +505,8 @@ public class MatchScreen {
 					btnNextPoint.setEnabled(true);
 			        btnSkipSet.setEnabled(true);
 			        btnMakeSub.setEnabled(true);
+				} else {
+					return;
 				}
 				lblAthleteL.setText(GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getName());				
 				match.getMatchStaminas().set(match.getFaceoffIndex(), GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getStats()[0]);
@@ -539,7 +535,7 @@ public class MatchScreen {
 					barDefenceL.setBackground(Color.RED);
 				}
 				modelUserStarters.clear();
-				for (int i = 1; i < 7; i++) {
+				for (int i = 0; i < 7; i++) {
 					modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7)));
 				}
 				modelReserves.clear();
@@ -591,7 +587,7 @@ public class MatchScreen {
 						barDefenceL.setBackground(Color.RED);
 					}
 					modelUserStarters.clear();
-					for (int i = 1; i < 7; i++) {
+					for (int i = 0; i < 7; i++) {
 						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7)));
 					}
 					modelReserves.clear();
@@ -639,6 +635,13 @@ public class MatchScreen {
 		        listUserStarters.setEnabled(true);
 				listUserReserves.setEnabled(true);
 				btnMakeSub.setText("Continue");
+			}
+		});
+		
+
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Welcome to the fun part! Here, you see how your matches go.\nYou can click the NEXT POINT button to play the next point, the SKIP SET button to skip ahead\nuntil the current set is over or until an injury occurs, or the MAKE A SUB button to make your own strategic substitution.", "Info", 1);
 			}
 		});
 	}
