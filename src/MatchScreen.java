@@ -204,7 +204,7 @@ public class MatchScreen {
 		DefaultListModel<String> modelUserStarters = new DefaultListModel<String>();
 		listUserStarters.setModel(modelUserStarters);
 		for (int i = 1; i < 7; i++) {
-			modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i).getName()));
+			modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i)));
 		}
 		listUserStarters.setEnabled(false);
 		listUserStarters.setBounds(12, 204, 248, 116);
@@ -216,7 +216,7 @@ public class MatchScreen {
 		DefaultListModel<String> modelOpposingStarters = new DefaultListModel<String>();
 		listOpposingStarters.setModel(modelOpposingStarters);
 		for (int i = 1; i < 7; i++) {
-			modelOpposingStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", match.getOpposingTeam().get(i).getName()));
+			modelOpposingStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", match.getOpposingTeam().get(i)));
 		}
 		listOpposingStarters.setEnabled(false);
 		listOpposingStarters.setBounds(340, 204, 248, 116);
@@ -227,8 +227,12 @@ public class MatchScreen {
 		listUserReserves.setFont(new Font("FreeMono", Font.BOLD, 12));
 		DefaultListModel<String> modelReserves = new DefaultListModel<String>();
 		listUserReserves.setModel(modelReserves);
-		for(int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
-			modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
+		for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
+			if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
+				modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i));
+			} else {
+				modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
+			}
 		}
 		listUserReserves.setEnabled(false);
 		listUserReserves.setBounds(12, 332, 150, 80);
@@ -267,8 +271,8 @@ public class MatchScreen {
 				if (!match.playPoint()) {
 					lblScore.setText(match.getScoreString());
 					
-					String injuryMessageString = GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getName() 
-							+ " got injured facing off against " + match.getOpposingTeam().get(match.getFaceoffIndex()).getName() 
+					String injuryMessageString = GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()) 
+							+ " got injured facing off against " + match.getOpposingTeam().get(match.getFaceoffIndex())
 							+ "\nYou have to sub a new player on!";
 					JOptionPane.showMessageDialog(null, injuryMessageString, "Oh no!", 0);
 					
@@ -281,7 +285,7 @@ public class MatchScreen {
 					
 			        if (tooInjured) {
 			        	injuryMessageString = "Sorry, you cannot sub "
-			                            + GameEnvironment.getPlayerTeam().getPlayers().get(match.getFaceoffIndex()).getName()
+			                            + GameEnvironment.getPlayerTeam().getPlayers().get(match.getFaceoffIndex())
 			                            + " as you don't have any healthy reserves."
 			                            + "\nYou lose this match.";
 			        	JOptionPane.showMessageDialog(null, injuryMessageString, "Oh no!", 0);
@@ -358,16 +362,16 @@ public class MatchScreen {
 				
 				modelUserStarters.clear();
 				for (int i = 1; i < 7; i++) {
-					modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7).getName()));
+					modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7)));
 				}
 				modelOpposingStarters.clear();
 				for (int i = 1; i < 7; i++) {
-					modelOpposingStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", match.getOpposingTeam().get((match.getFaceoffIndex() + i) % 7).getName()));
+					modelOpposingStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", match.getOpposingTeam().get((match.getFaceoffIndex() + i) % 7)));
 				}
 				modelReserves.clear();
 				for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
 					if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
-						modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i).getName());
+						modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i));
 					} else {
 						modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
 					}
@@ -385,8 +389,8 @@ public class MatchScreen {
 						lblScore.setText(match.getScoreString());
 					
 						injuryOccurred = true;
-						String injuryMessageString = GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex()).getName() 
-								+ " got injured facing off against " + match.getOpposingTeam().get(match.getFaceoffIndex()).getName() 
+						String injuryMessageString = GameEnvironment.getPlayerTeam().get(match.getFaceoffIndex())
+								+ " got injured facing off against " + match.getOpposingTeam().get(match.getFaceoffIndex()) 
 								+ "\nYou have to sub a new player on!";
 						JOptionPane.showMessageDialog(null, injuryMessageString, "Oh no!", 0);
 						
@@ -399,7 +403,7 @@ public class MatchScreen {
 						
 				        if (tooInjured) {
 				        	injuryMessageString = "Sorry, you cannot sub "
-				                            + GameEnvironment.getPlayerTeam().getPlayers().get(match.getFaceoffIndex()).getName()
+				                            + GameEnvironment.getPlayerTeam().getPlayers().get(match.getFaceoffIndex())
 				                            + " as you don't have any healthy reserves."
 				                            + "\nYou lose this match.";
 				        	JOptionPane.showMessageDialog(null, injuryMessageString, "Oh no!", 0);
@@ -472,16 +476,16 @@ public class MatchScreen {
 				
 				modelUserStarters.clear();
 				for (int i = 1; i < 7; i++) {
-					modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7).getName()));
+					modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7)));
 				}
 				modelOpposingStarters.clear();
 				for (int i = 1; i < 7; i++) {
-					modelOpposingStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", match.getOpposingTeam().get((match.getFaceoffIndex() + i) % 7).getName()));
+					modelOpposingStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", match.getOpposingTeam().get((match.getFaceoffIndex() + i) % 7)));
 				}
 				modelReserves.clear();
 				for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
 					if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
-						modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i).getName());
+						modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i));
 					} else {
 						modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
 					}
@@ -523,12 +527,12 @@ public class MatchScreen {
 						
 						modelUserStarters.clear();
 						for (int i = 0; i < 7; i++) {
-							modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i).getName()));
+							modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i)));
 						}
 						modelReserves.clear();
 						for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
 							if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
-								modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i).getName());
+								modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i));
 							} else {
 								modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
 							}
@@ -554,12 +558,12 @@ public class MatchScreen {
 					}
 					modelUserStarters.clear();
 					for (int i = 1; i < 7; i++) {
-						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7).getName()));
+						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7)));
 					}
 					modelReserves.clear();
 					for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
 						if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
-							modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i).getName());
+							modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i));
 						} else {
 							modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
 						}
@@ -597,12 +601,12 @@ public class MatchScreen {
 					
 					modelUserStarters.clear();
 					for (int i = 0; i < 7; i++) {
-						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i).getName()));
+						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i)));
 					}
 					modelReserves.clear();
 					for (int i = 7; i < GameEnvironment.getPlayerTeam().size(); i++) {
 						if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
-							modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i).getName());
+							modelReserves.addElement("(INJ) " + GameEnvironment.getPlayerTeam().get(i));
 						} else {
 							modelReserves.addElement(GameEnvironment.getPlayerTeam().get(i).getName());
 						}
@@ -628,7 +632,7 @@ public class MatchScreen {
 			        
 					modelUserStarters.clear();
 					for (int i = 1; i < 7; i++) {
-						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7).getName()));
+						modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[(match.getFaceoffIndex() + i) % 7] + ")", GameEnvironment.getPlayerTeam().get((match.getFaceoffIndex() + i) % 7)));
 					}
 			        
 					return;
@@ -636,7 +640,7 @@ public class MatchScreen {
 				
 				modelUserStarters.clear();
 				for (int i = 0; i < 7; i++) {
-					modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i).getName()));
+					modelUserStarters.addElement(String.format("%-12s%s", "(" + Team.POSITION_STRINGS[i] + ")", GameEnvironment.getPlayerTeam().get(i)));
 				}
 				
 				btnNextPoint.setEnabled(false);
