@@ -5,7 +5,6 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,14 +13,27 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+/**
+ * This class implements the home screen, from where a user can visit their club house,
+ * visit the market, visit the stadium, take a bye/move to next week or quit the game
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class HomeScreen {
 
+	/**
+	 * The frame on which elements are placed
+	 */
 	private JFrame frame;
+	/**
+	 * The manager of the current instance of club screen
+	 */
 	private GameManager manager;
+	/**
+	 * The current in game week
+	 */
 	private Integer week;
-	private String money;
-	private String rating;
-	private String teamName;
 
 	/**
 	 * Launch the application.
@@ -45,17 +57,23 @@ public class HomeScreen {
 	public HomeScreen() {
 		initialize();
 	}
-	
+	/**
+	 * Create the application with a manager to oversee closing and launching the window
+	 */
 	public HomeScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
-	
+	/**
+	 * Close the window instance
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
-	
+	/**
+	 * Runs the closeHomeScreen method of its manager to close itself
+	 */
 	public void finishedWindow() {
 		manager.closeHomeScreen(this);
 	}
@@ -66,9 +84,9 @@ public class HomeScreen {
 	private void initialize() {
 		
 		week = GameEnvironment.getWeek();
-		money = Integer.toString(GameEnvironment.getMoney());
-		rating = Integer.toString(GameEnvironment.getPlayerRating());
-		teamName = GameEnvironment.getPlayerTeam().getTeamName();
+		String money = Integer.toString(GameEnvironment.getMoney());
+		String rating = Integer.toString(GameEnvironment.getPlayerRating());
+		String teamName = GameEnvironment.getPlayerTeam().getTeamName();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 400);
