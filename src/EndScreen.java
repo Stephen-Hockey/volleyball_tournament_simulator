@@ -1,4 +1,4 @@
-package main;
+package screens;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,6 +12,10 @@ import javax.swing.JProgressBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+
+import main.Athlete;
+import main.GameEnvironment;
+import main.GameManager;
 
 
 /**
