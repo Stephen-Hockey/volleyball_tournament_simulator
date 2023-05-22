@@ -254,9 +254,9 @@ public class MarketScreen {
 					Item selectedItem = GameEnvironment.getInventory().get(listUser.getSelectedIndex());
 					lblPurchaseName.setText(selectedItem.getName());
 					lblDescription.setText("<html>" + selectedItem.getDescription().replaceAll("\n", "<br>"));
-					pBarStamina.setValue(selectedItem.getEffect()[0]);
-					pBarOffence.setValue(selectedItem.getEffect()[1]);
-					pBarDefence.setValue(selectedItem.getEffect()[2]);
+					pBarStamina.setValue(selectedItem.getStats()[0]);
+					pBarOffence.setValue(selectedItem.getStats()[1]);
+					pBarDefence.setValue(selectedItem.getStats()[2]);
 					lblPrice.setText("Sell Price: $" + selectedItem.getSellPrice());
 				} else {
 					Athlete selectedAthlete = GameEnvironment.getPlayerTeam().get(listUser.getSelectedIndex());
@@ -283,9 +283,9 @@ public class MarketScreen {
 					Item selectedItem = GameEnvironment.getCurrentWeekMarketItems().get(listMarket.getSelectedIndex());
 					lblPurchaseName.setText(selectedItem.getName());
 					lblDescription.setText("<html>" + selectedItem.getDescription().replaceAll("\n", "<br>"));
-					pBarStamina.setValue(selectedItem.getEffect()[0]);
-					pBarOffence.setValue(selectedItem.getEffect()[1]);
-					pBarDefence.setValue(selectedItem.getEffect()[2]);
+					pBarStamina.setValue(selectedItem.getStats()[0]);
+					pBarOffence.setValue(selectedItem.getStats()[1]);
+					pBarDefence.setValue(selectedItem.getStats()[2]);
 					lblPrice.setText("Cost: $" + selectedItem.getPrice());
 				} else {
 					Athlete selectedAthlete = GameEnvironment.getCurrentWeekMarketAthletes().get(listMarket.getSelectedIndex());
