@@ -49,14 +49,14 @@ public class Match {
     /**
      * Constructs a new Match object at the beginning of the match
      * with the given opposingTeam.
-     * @param _opposingTeam the opposing team
+     * @param newOpposingTeam the opposing team
      */
-    public Match(Team _opposingTeam) {
+    public Match(Team newOpposingTeam) {
         matchStaminas = new ArrayList<Integer>();
         for (Athlete athlete : GameEnvironment.getPlayerTeam().getPlayers()) {
             matchStaminas.add(athlete.getStats()[0]);
         }
-        opposingTeam = _opposingTeam;
+        opposingTeam = newOpposingTeam;
         setNumber = 0;
         scores = new int[5][2];
         setScore = new int[2];
@@ -73,10 +73,10 @@ public class Match {
     
     /**
      * Setter for the opposing team 
-     * @param _opposingTeam the new opposing team
+     * @param newOpposingTeam the new opposing team
      */
-    public void setOpposingTeam(Team _opposingTeam) {
-		opposingTeam = _opposingTeam;
+    public void setOpposingTeam(Team newOpposingTeam) {
+		opposingTeam = newOpposingTeam;
 	}
     
     /**
@@ -89,10 +89,10 @@ public class Match {
 
     /**
      * Setter for the 2D integer array of scores
-     * @param _scores the new scores
+     * @param newScores the new scores
      */
-    public void setScores(int[][] _scores) {
-        scores = _scores;
+    public void setScores(int[][] newScores) {
+        scores = newScores;
     }
     
     /**
@@ -105,10 +105,10 @@ public class Match {
 
     /**
      * Setter for the current set number
-     * @param _setNumber the new set number
+     * @param newSetNumber the new set number
      */
-    public void setSetNumber(int _setNumber) {
-        setNumber = _setNumber;
+    public void setSetNumber(int newSetNumber) {
+        setNumber = newSetNumber;
     }
     
     /**
@@ -121,10 +121,10 @@ public class Match {
     
     /**
      * Setter for the set score
-     * @param _setScore the new set score
+     * @param newSetScore the new set score
      */
-    public void setSetScore(int[] _setScore) {
-        setScore = _setScore;
+    public void setSetScore(int[] newSetScore) {
+        setScore = newSetScore;
     }
     
     /**
@@ -137,10 +137,10 @@ public class Match {
     
     /**
      * Setter for the match staminas ArrayList
-     * @param _matchStaminas the new match staminas ArrayList
+     * @param newMatchStaminas the new match staminas ArrayList
      */
-    public void setMatchStaminas(ArrayList<Integer> _matchStaminas) {
-		matchStaminas = _matchStaminas;
+    public void setMatchStaminas(ArrayList<Integer> newMatchStaminas) {
+		matchStaminas = newMatchStaminas;
 	}
     
     /**
@@ -153,10 +153,10 @@ public class Match {
     
     /**
      * Setter for the faceoff index
-     * @param _faceoffIndex the new faceoff index
+     * @param newFaceoffIndex the new faceoff index
      */
-    public void setFaceoffIndex(int _faceoffIndex) {
-		faceoffIndex = _faceoffIndex;
+    public void setFaceoffIndex(int newFaceoffIndex) {
+		faceoffIndex = newFaceoffIndex;
 	}
     
     /**
