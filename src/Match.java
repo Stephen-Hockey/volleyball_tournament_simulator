@@ -256,7 +256,7 @@ public class Match {
      * @return the match rating
      */
     public int getMatchRating() {
-        int playerRating = (100 * GameEnvironment.getDifficulty() + 1) * (setScore[0] - setScore[1]);
+        int playerRating = (100 * (GameEnvironment.getDifficulty() + 1)) * (setScore[0] - setScore[1]);
 
         if (playerRating < 0) {
             playerRating = 0;
@@ -274,14 +274,14 @@ public class Match {
     }
 
     /**
-     * Gets a rating value for the match that depends on game difficulty,
-     * and how well the match went.
+     * Gets the money won from the match. $0 if match lost. If match won, the amount depends on game difficulty,
+     * and how good the set score is.
      * @return money won
      */
     public int getMoneyWon() {
 
         if (!matchWon()) {
-            return 50;
+            return 0;
         }
         return 150 + 10 * GameEnvironment.getWeek() - 20 * GameEnvironment.getDifficulty();
     }
