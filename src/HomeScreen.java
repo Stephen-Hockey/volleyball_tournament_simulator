@@ -1,5 +1,4 @@
-
-import java.awt.EventQueue;
+package main;
 
 import java.util.Random;
 import javax.swing.JFrame;
@@ -14,9 +13,11 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 /**
- * This class implements the home screen, from where a user can visit their club house,
- * visit the market, visit the stadium, take a bye/move to next week or quit the game
- *
+ * The HomeScreen is where the user can choose between visiting the club house, 
+ * visiting the market, visiting the stadium, moving to the next week, and quitting<br>
+ * Launched from DraftScreen, or ClubScreen, or MarketScreen, or StadiumScreen, or MatchScreen<br>
+ * Launches ClubScreen, or MarketScreen, or StadiumScreen, or EndScreen
+ * 
  * @author Lachlan Stewart and Stephen Hockey
  * @version 1.1, May 2023.
  */
@@ -26,51 +27,34 @@ public class HomeScreen {
 	 * The frame on which elements are placed
 	 */
 	private JFrame frame;
+	
 	/**
 	 * The manager of the current instance of club screen
 	 */
 	private GameManager manager;
+	
 	/**
 	 * The current in game week
 	 */
 	private Integer week;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HomeScreen window = new HomeScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public HomeScreen() {
-		initialize();
-	}
-	/**
-	 * Create the application with a manager to oversee closing and launching the window
+	 * Create the window with a GameManager object to oversee closing and launching the window
+	 * @param incomingManager the GameManager object
 	 */
 	public HomeScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
+	
 	/**
-	 * Close the window instance
+	 * Close the window
 	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
+	
 	/**
 	 * Runs the closeHomeScreen method of its manager to close itself
 	 */
@@ -93,28 +77,28 @@ public class HomeScreen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton VisitClubhouseButton = new JButton("Visit " + teamName + "'s Clubhouse");
-		VisitClubhouseButton.addActionListener(new ActionListener() {
+		JButton btnVisitClubhouse = new JButton("Visit " + teamName + "'s Clubhouse");
+		btnVisitClubhouse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				manager.launchClubScreen();
 				finishedWindow();
 			}
 		});
-		VisitClubhouseButton.setBounds(150, 130, 300, 50);
-		frame.getContentPane().add(VisitClubhouseButton);
+		btnVisitClubhouse.setBounds(150, 130, 300, 50);
+		frame.getContentPane().add(btnVisitClubhouse);
 		
-		JButton visitMarketButton = new JButton("Visit the Market");
-		visitMarketButton.addActionListener(new ActionListener() {
+		JButton btnVisitMarket = new JButton("Visit the Market");
+		btnVisitMarket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				manager.launchMarketScreen();
 				finishedWindow();
 			}
 		});
-		visitMarketButton.setBounds(150, 190, 300, 50);
-		frame.getContentPane().add(visitMarketButton);
+		btnVisitMarket.setBounds(150, 190, 300, 50);
+		frame.getContentPane().add(btnVisitMarket);
 		
-		JButton visitStadiumButton = new JButton("Visit the Stadium");
-		visitStadiumButton.addActionListener(new ActionListener() {
+		JButton btnVisitStadium = new JButton("Visit the Stadium");
+		btnVisitStadium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!GameEnvironment.hasHealthyStarters()) {
 					JOptionPane.showMessageDialog(null, "You need at least 7 healthy players in your starting lineup to visit the Stadium.", "Error", 0);
@@ -127,8 +111,8 @@ public class HomeScreen {
 				finishedWindow();
 			}
 		});
-		visitStadiumButton.setBounds(150, 250, 300, 50);
-		frame.getContentPane().add(visitStadiumButton);
+		btnVisitStadium.setBounds(150, 250, 300, 50);
+		frame.getContentPane().add(btnVisitStadium);
 		
 		JPanel panelTop = new JPanel();
 		panelTop.setLayout(null);
@@ -145,39 +129,39 @@ public class HomeScreen {
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
-		JLabel lblHome = new JLabel("Home");
-		lblHome.setBounds(12, 10, 70, 15);
-		panelTop.add(lblHome);
+		JLabel lblTopText = new JLabel("Home");
+		lblTopText.setBounds(12, 10, 70, 15);
+		panelTop.add(lblTopText);
 		
-		JLabel teamNameLabel = new JLabel(teamName);
-		teamNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		teamNameLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		teamNameLabel.setBounds(150, 40, 300, 50);
-		frame.getContentPane().add(teamNameLabel);
+		JLabel lblTeamName = new JLabel(teamName);
+		lblTeamName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTeamName.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		lblTeamName.setBounds(150, 40, 300, 50);
+		frame.getContentPane().add(lblTeamName);
 		
-		JLabel moneyLabel = new JLabel("Money: $" + money);
-		moneyLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		moneyLabel.setBounds(150, 80, 100, 50);
-		frame.getContentPane().add(moneyLabel);
+		JLabel lblMoney = new JLabel("Money: $" + money);
+		lblMoney.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMoney.setBounds(150, 80, 100, 50);
+		frame.getContentPane().add(lblMoney);
 		
-		JLabel scoreLabel = new JLabel("Rating: " + rating);
-		scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		scoreLabel.setBounds(250, 80, 100, 50);
-		frame.getContentPane().add(scoreLabel);
+		JLabel lblPlayerRating = new JLabel("Rating: " + rating);
+		lblPlayerRating.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPlayerRating.setBounds(250, 80, 100, 50);
+		frame.getContentPane().add(lblPlayerRating);
 		
-		JLabel weekDisplayLabel = new JLabel("Week: " + week);
-		weekDisplayLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		weekDisplayLabel.setBounds(350, 80, 100, 50);
-		frame.getContentPane().add(weekDisplayLabel);
+		JLabel lblWeek = new JLabel("Week: " + week);
+		lblWeek.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWeek.setBounds(350, 80, 100, 50);
+		frame.getContentPane().add(lblWeek);
 		
 		
-		JButton takeByeButton = new JButton("Take a Bye");
+		JButton btnTakeBye = new JButton("Take a Bye");
 		if (week == GameEnvironment.getFinalWeek()){
-			takeByeButton.setText("Finish Game");
+			btnTakeBye.setText("Finish Game");
 		} else if (GameEnvironment.getWeeklyGamePlayed()) {
-			takeByeButton.setText("Go to Next Week");
+			btnTakeBye.setText("Go to Next Week");
 		}
-		takeByeButton.addActionListener(new ActionListener() {
+		btnTakeBye.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean isFinalWeek = (week == GameEnvironment.getFinalWeek());
 				String textPrompt = "Would you like to ";
@@ -211,12 +195,12 @@ public class HomeScreen {
 						GameEnvironment.setUpWeek();
 						
 						week = GameEnvironment.getWeek();
-						weekDisplayLabel.setText("Week: " + week);
+						lblWeek.setText("Week: " + week);
 					}
 					if (week == GameEnvironment.getFinalWeek()) {
-						takeByeButton.setText("Finish Game");
+						btnTakeBye.setText("Finish Game");
 					} else {
-						takeByeButton.setText("Take a Bye");
+						btnTakeBye.setText("Take a Bye");
 					}
 					
 					Random rand = new Random();
@@ -258,11 +242,11 @@ public class HomeScreen {
 				
 			}
 		});
-		takeByeButton.setBounds(150, 310, 300, 50);
-		frame.getContentPane().add(takeByeButton);
+		btnTakeBye.setBounds(150, 310, 300, 50);
+		frame.getContentPane().add(btnTakeBye);
 		
-		JButton quitButton = new JButton("Quit Game");
-		quitButton.addActionListener(new ActionListener() {
+		JButton btnQuit = new JButton("Quit Game");
+		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int quitCheck = JOptionPane.showConfirmDialog(null, "Are you sure you want to Quit?", "Confirm", 0);
 				if (quitCheck == 0) {
@@ -272,8 +256,8 @@ public class HomeScreen {
 				}
 			}
 		});
-		quitButton.setBounds(481, 310, 107, 50);
-		frame.getContentPane().add(quitButton);
+		btnQuit.setBounds(481, 310, 107, 50);
+		frame.getContentPane().add(btnQuit);
 	}
 	
 }
