@@ -152,6 +152,15 @@ public class GameEnvironment {
     	return healthyPlayers >= 7;
     }
     
+    public static boolean hasHealthyStarters() {
+    	for (int i = 0; i < 7; i++) {
+    		if (playerTeam.get(i).getStats()[0] == 0) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
     public static void setUpWeek() {
     	currentWeekMarketAthletes = new ArrayList<Athlete>();
     	currentWeekMarketItems = new ArrayList<Item>();
