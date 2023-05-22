@@ -2,7 +2,6 @@ package main;
 
 import java.util.*;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,9 +21,10 @@ import javax.swing.ListSelectionModel;
 
 
 /**
- * This class implements the screen for the club house, 
- * allowing the user to substitute athletes, give out items, 
- * rename and view the stats of their athletes
+ * The ClubScreen is where the user can substitute athletes, use items on players,
+ * give nicknames to their players and view their players' stats<br>
+ * Launched from HomeScreen<br>
+ * Launches HomeScreen, or NicknameScreen
  *
  * @author Lachlan Stewart and Stephen Hockey
  * @version 1.1, May 2023.
@@ -35,59 +35,45 @@ public class ClubScreen {
 	 * The frame on which elements are placed
 	 */
 	private JFrame frame;
+	
 	/**
 	 * The manager of the current instance of club screen
 	 */
 	private GameManager manager;
+	
 	/**
 	 * Boolean for if the user is in the process of a substitution
 	 */
 	private boolean substitution = false;
+	
 	/**
 	 * Boolean for if the user is in the process of giving an item to an athlete
 	 */
 	private boolean givingItem = false;
+	
 	/**
 	 * index of the athlete selected by the user, if not selected is -1
 	 */
 	private int selectedAthleteIndex = -1;
+	
 	/**
 	 * index of the item selected by the user, if not selected is -1
 	 */
 	private int selectedItemIndex = -1;
+	
 	/**
 	 * The list of Athletes in the users team 
 	 */
 	private ArrayList<Athlete> userAthletes = GameEnvironment.getPlayerTeam().getPlayers();
+	
 	/**
 	 * The list of Items in the users inventory 
 	 */
 	private ArrayList<Item> userItems = GameEnvironment.getInventory();
-
+	
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ClubScreen window = new ClubScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public ClubScreen() {
-		initialize();
-	}
-	/**
-	 * Create the application with a manager to oversee closing and launching the window
+	 * Create the window with a GameManager object to oversee closing and launching the window
+	 * @param incomingManager the GameManager object
 	 */
 	public ClubScreen(GameManager incomingManager) {
 		manager = incomingManager;
@@ -96,7 +82,7 @@ public class ClubScreen {
 	}
 	
 	/**
-	 * Close the window instance
+	 * Close the window
 	 */
 	public void closeWindow() {
 		frame.dispose();
@@ -134,9 +120,9 @@ public class ClubScreen {
 		panelTop.add(btnHelp);
 		
 		String teamName = GameEnvironment.getPlayerTeam().getTeamName();
-		JLabel lblHome = new JLabel(teamName + "'s Clubhouse");
-		lblHome.setBounds(12, 10, 366, 15);
-		panelTop.add(lblHome);
+		JLabel lblTopText = new JLabel(teamName + "'s Clubhouse");
+		lblTopText.setBounds(12, 10, 366, 15);
+		panelTop.add(lblTopText);
 		
 		JButton btnBack = new JButton("Go Back");
 		btnBack.setBounds(10, 44, 117, 25);
@@ -144,17 +130,17 @@ public class ClubScreen {
 		
 		
 		String playerName = GameEnvironment.getPlayerName();
-		JLabel playerNameLabel = new JLabel("Manager: " + playerName);
-		playerNameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		playerNameLabel.setBackground(new Color(255, 255, 255));
-		playerNameLabel.setOpaque(true);
-		playerNameLabel.setBounds(10, 75, 260, 25);
-		frame.getContentPane().add(playerNameLabel);
+		JLabel lblPlayerName = new JLabel("Manager: " + playerName);
+		lblPlayerName.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblPlayerName.setBackground(new Color(255, 255, 255));
+		lblPlayerName.setOpaque(true);
+		lblPlayerName.setBounds(10, 75, 260, 25);
+		frame.getContentPane().add(lblPlayerName);
 		
-		JList<String> teamList = new JList<String>();
-		teamList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		JList<String> listTeam = new JList<String>();
+		listTeam.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> teamModel = new DefaultListModel<String>();
-		teamList.setModel(teamModel);
+		listTeam.setModel(teamModel);
 		for (int i=0; i < userAthletes.size(); i++) {
 			String playerText = "";
 			if (GameEnvironment.getPlayerTeam().get(i).getStats()[0] == 0) {
@@ -166,9 +152,9 @@ public class ClubScreen {
 			}
 			teamModel.addElement(playerText + ": " + userAthletes.get(i));
 		}
-		teamList.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		teamList.setBounds(10, 112, 260, 255);
-		frame.getContentPane().add(teamList);
+		listTeam.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		listTeam.setBounds(10, 112, 260, 255);
+		frame.getContentPane().add(listTeam);
 		
 	
 		JPanel panelAthleteInfoBox = new JPanel();
@@ -186,79 +172,79 @@ public class ClubScreen {
 		lblStamina.setBounds(12, 35, 70, 15);
 		panelAthleteInfoBox.add(lblStamina);
 		
-		JProgressBar pBarStamina = new JProgressBar();
-		pBarStamina.setMaximum(99);
-		pBarStamina.setBounds(86, 35, 150, 15);
-		panelAthleteInfoBox.add(pBarStamina);
+		JProgressBar pbarStamina = new JProgressBar();
+		pbarStamina.setMaximum(99);
+		pbarStamina.setBounds(86, 35, 150, 15);
+		panelAthleteInfoBox.add(pbarStamina);
 		
 		JLabel lblOffence = new JLabel("Offence");
 		lblOffence.setBounds(12, 55, 70, 15);
 		panelAthleteInfoBox.add(lblOffence);
 		
-		JProgressBar pBarOffence = new JProgressBar();
-		pBarOffence.setMaximum(99);
-		pBarOffence.setBounds(86, 55, 150, 15);
-		panelAthleteInfoBox.add(pBarOffence);
+		JProgressBar pbarOffence = new JProgressBar();
+		pbarOffence.setMaximum(99);
+		pbarOffence.setBounds(86, 55, 150, 15);
+		panelAthleteInfoBox.add(pbarOffence);
 		
 		JLabel lblDefence = new JLabel("Defence");
 		lblDefence.setBounds(12, 75, 70, 15);
 		panelAthleteInfoBox.add(lblDefence);
 		
-		JProgressBar pBarDefence = new JProgressBar();
-		pBarDefence.setMaximum(99);
-		pBarDefence.setBounds(86, 75, 150, 15);
-		panelAthleteInfoBox.add(pBarDefence);
+		JProgressBar pbarDefence = new JProgressBar();
+		pbarDefence.setMaximum(99);
+		pbarDefence.setBounds(86, 75, 150, 15);
+		panelAthleteInfoBox.add(pbarDefence);
 		
-		JLabel descriptionLabel = new JLabel("");
-		descriptionLabel.setBounds(12, 95, 328, 15);
-		panelAthleteInfoBox.add(descriptionLabel);
+		JLabel lblDescription = new JLabel("");
+		lblDescription.setBounds(12, 95, 328, 15);
+		panelAthleteInfoBox.add(lblDescription);
 		
 		
 		
-		JButton moveButton = new JButton();
-		moveButton.setBounds(10, 370, 260, 30);
-		moveButton.setVisible(false);
-		frame.getContentPane().add(moveButton);
+		JButton btnMove = new JButton();
+		btnMove.setBounds(10, 370, 260, 30);
+		btnMove.setVisible(false);
+		frame.getContentPane().add(btnMove);
 
-		JLabel moveInfoBox = new JLabel();
-		moveInfoBox.setHorizontalAlignment(SwingConstants.CENTER);
-		moveInfoBox.setBounds(10, 400, 260, 20);
-		frame.getContentPane().add(moveInfoBox);
+		JLabel lblMoveInfo = new JLabel();
+		lblMoveInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMoveInfo.setBounds(10, 400, 260, 20);
+		frame.getContentPane().add(lblMoveInfo);
 		
 		
 		
-		JPanel ItemInfoBox = new JPanel();
-		ItemInfoBox.setLayout(null);
-		ItemInfoBox.setBackground(Color.WHITE);
-		ItemInfoBox.setBounds(281, 167, 307, 249);
-		frame.getContentPane().add(ItemInfoBox);
+		JPanel panelItemInfo = new JPanel();
+		panelItemInfo.setLayout(null);
+		panelItemInfo.setBackground(Color.WHITE);
+		panelItemInfo.setBounds(281, 167, 307, 249);
+		frame.getContentPane().add(panelItemInfo);
 		
-		JLabel clubItemsLabel = new JLabel("Your Inventory");
-		clubItemsLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		clubItemsLabel.setBounds(6, 6, 289, 15);
-		ItemInfoBox.add(clubItemsLabel);
+		JLabel lblInventory = new JLabel("Your Inventory");
+		lblInventory.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblInventory.setBounds(6, 6, 289, 15);
+		panelItemInfo.add(lblInventory);
 		
-		JList<String> clubItemsList = new JList<String>();
-		clubItemsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		JList<String> listClubItems = new JList<String>();
+		listClubItems.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> clubItemsModel = new DefaultListModel<String>();
-		clubItemsList.setModel(clubItemsModel);
+		listClubItems.setModel(clubItemsModel);
 		ArrayList<Item> teamItems = userItems;
 		for (Item item: teamItems) {
 			clubItemsModel.addElement(item.getName());
 		}
-		clubItemsList.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		clubItemsList.setBounds(6, 25, 295, 224);
-		ItemInfoBox.add(clubItemsList);
+		listClubItems.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		listClubItems.setBounds(6, 25, 295, 224);
+		panelItemInfo.add(listClubItems);
 		
-		JButton renamePlayersButton = new JButton("Nickname");
-		renamePlayersButton.addActionListener(new ActionListener() {
+		JButton btnRenamePlayers = new JButton("Nickname");
+		btnRenamePlayers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				manager.launchNicknameScreen();
 				finishedWindow();
 			}
 		});
-		renamePlayersButton.setBounds(139, 44, 131, 25);
-		frame.getContentPane().add(renamePlayersButton);
+		btnRenamePlayers.setBounds(139, 44, 131, 25);
+		frame.getContentPane().add(btnRenamePlayers);
 		
 		
 		btnBack.addActionListener(new ActionListener() {
@@ -268,39 +254,39 @@ public class ClubScreen {
 			}
 		});
 		
-		moveButton.addActionListener(new ActionListener() {
+		btnMove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!substitution && (selectedAthleteIndex != -1)) {
-					clubItemsList.clearSelection();
-					moveButton.setText("Cancel Subsitution");
-					moveInfoBox.setText("Select Player to Substitute");
+					listClubItems.clearSelection();
+					btnMove.setText("Cancel Subsitution");
+					lblMoveInfo.setText("Select Player to Substitute");
 					substitution = true;
 					givingItem = false;
 					
 				} else if (!givingItem && (selectedItemIndex != -1)) {
-					teamList.clearSelection();
-					moveButton.setText("Cancel Item Give");
-					moveInfoBox.setText("Select Receiving Player");
+					listTeam.clearSelection();
+					btnMove.setText("Cancel Item Give");
+					lblMoveInfo.setText("Select Receiving Player");
 					givingItem = true;
 					substitution = false;
 					
 				} else {
 					substitution = false;
-					moveInfoBox.setText("");
-					moveButton.setVisible(false);
+					lblMoveInfo.setText("");
+					btnMove.setVisible(false);
 				}
 			}
 		});
 		
-		teamList.addListSelectionListener(new ListSelectionListener() {
+		listTeam.addListSelectionListener(new ListSelectionListener() {
 			
 			public void valueChanged(ListSelectionEvent e) {
-				if (teamList.isSelectionEmpty()) {
+				if (listTeam.isSelectionEmpty()) {
 					return ;
 				}
-				clubItemsList.clearSelection();
+				listClubItems.clearSelection();
 				userAthletes = GameEnvironment.getPlayerTeam().getPlayers();
-				int selectedIndex = teamList.getSelectedIndex();
+				int selectedIndex = listTeam.getSelectedIndex();
 				if (selectedIndex > userAthletes.size()) {
 					return ;
 				}
@@ -321,8 +307,8 @@ public class ClubScreen {
 						teamModel.addElement(playerText + ": " + userAthletes.get(i));
 					}
 					substitution = false;
-					moveInfoBox.setText("");
-					moveButton.setVisible(false);
+					lblMoveInfo.setText("");
+					btnMove.setVisible(false);
 				
 					
 				} else if (givingItem) {
@@ -350,8 +336,8 @@ public class ClubScreen {
 						teamModel.addElement(playerText + ": " + userAthletes.get(i));
 					}
 					givingItem = false;
-					moveInfoBox.setText("");
-					moveButton.setVisible(false);
+					lblMoveInfo.setText("");
+					btnMove.setVisible(false);
 					JOptionPane.showMessageDialog(null, "Successfully used " + selectedItem + " on " + selectedAthlete + ".");
 				}
 				
@@ -361,40 +347,40 @@ public class ClubScreen {
 					Athlete selectedAthlete = userAthletes.get(selectedAthleteIndex);
 					String selectAthleteName = selectedAthlete.getName();
 					lblName.setText(selectAthleteName);
-					descriptionLabel.setText(selectedAthlete.getDescription().replaceAll("\n", " "));
-					pBarStamina.setValue(selectedAthlete.getStats()[0]);
-					pBarOffence.setValue(selectedAthlete.getStats()[1]);
-					pBarDefence.setValue(selectedAthlete.getStats()[2]);
+					lblDescription.setText(selectedAthlete.getDescription().replaceAll("\n", " "));
+					pbarStamina.setValue(selectedAthlete.getStats()[0]);
+					pbarOffence.setValue(selectedAthlete.getStats()[1]);
+					pbarDefence.setValue(selectedAthlete.getStats()[2]);
 					String moveButtonPre = "";
 					if (selectedAthleteIndex > 6) {
 						moveButtonPre += "Sub on ";
 					} else {
 						moveButtonPre += "Sub off ";
 					}
-					moveButton.setText(moveButtonPre + selectAthleteName);
-					moveButton.setVisible(true);
+					btnMove.setText(moveButtonPre + selectAthleteName);
+					btnMove.setVisible(true);
 				}
 			}
 		});
 		
-		clubItemsList.addListSelectionListener(new ListSelectionListener() {
+		listClubItems.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				if (clubItemsList.isSelectionEmpty()) {
+				if (listClubItems.isSelectionEmpty()) {
 					return ;
 				}
-				teamList.clearSelection();
-				selectedItemIndex = clubItemsList.getSelectedIndex();
+				listTeam.clearSelection();
+				selectedItemIndex = listClubItems.getSelectedIndex();
 				selectedAthleteIndex = -1;
 				ArrayList<Item> teamItems = GameEnvironment.getInventory();
 				Item selectedItem = teamItems.get(selectedItemIndex);
 				lblName.setText(selectedItem.getName());
-				descriptionLabel.setText(selectedItem.getDescription().replaceAll("\n", " "));
+				lblDescription.setText(selectedItem.getDescription().replaceAll("\n", " "));
 				int[] effects = selectedItem.getStats();
-				pBarStamina.setValue(effects[0]);
-				pBarOffence.setValue(effects[1]);
-				pBarDefence.setValue(effects[2]);
-				moveButton.setText("Use Item on Player");
-				moveButton.setVisible(true);
+				pbarStamina.setValue(effects[0]);
+				pbarOffence.setValue(effects[1]);
+				pbarDefence.setValue(effects[2]);
+				btnMove.setText("Use Item on Player");
+				btnMove.setVisible(true);
 			}
 		});
 	}
