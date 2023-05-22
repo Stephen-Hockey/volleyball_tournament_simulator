@@ -14,9 +14,22 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 
+/**
+ * This class implements the end screen where the user views a summary of their game and 
+ * their best athlete is one exists, and has the option to close the game
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class EndScreen {
 
+	/**
+	 * The frame on which elements are placed
+	 */
 	private JFrame frame;
+	/**
+	 * The manager of the current instance of club screen
+	 */
 	private GameManager manager;
 
 	/**
@@ -42,16 +55,25 @@ public class EndScreen {
 		initialize();
 	}
 	
+	/**
+	 * Create the application with a manager to oversee closing and launching the window
+	 */
 	public EndScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Close the window instance
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Runs the closeClubScreen method of its manager to close itself
+	 */
 	public void finishedWindow() {
 		manager.closeEndScreen(this);
 	}
@@ -96,7 +118,7 @@ public class EndScreen {
 		panelAthleteInfoBox.setBounds(227, 67, 217, 165);
 		frame.getContentPane().add(panelAthleteInfoBox);
 		
-		JLabel lblName = new JLabel(bestAthlete.getName());
+		JLabel lblName = new JLabel();
 		lblName.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblName.setBounds(12, 6, 289, 15);
 		panelAthleteInfoBox.add(lblName);
@@ -106,7 +128,6 @@ public class EndScreen {
 		panelAthleteInfoBox.add(lblStamina);
 		
 		JProgressBar pBarStamina = new JProgressBar();
-		pBarStamina.setValue(bestAthlete.getStats()[0]);
 		pBarStamina.setMaximum(99);
 		pBarStamina.setBounds(86, 35, 108, 15);
 		panelAthleteInfoBox.add(pBarStamina);
@@ -116,7 +137,6 @@ public class EndScreen {
 		panelAthleteInfoBox.add(lblOffence);
 		
 		JProgressBar pBarOffence = new JProgressBar();
-		pBarOffence.setValue(bestAthlete.getStats()[1]);
 		pBarOffence.setMaximum(99);
 		pBarOffence.setBounds(86, 55, 108, 15);
 		panelAthleteInfoBox.add(pBarOffence);
@@ -127,15 +147,24 @@ public class EndScreen {
 		
 		
 		JProgressBar pBarDefence = new JProgressBar();
-		pBarDefence.setValue(bestAthlete.getStats()[2]);
 		pBarDefence.setMaximum(99);
 		pBarDefence.setBounds(86, 75, 108, 15);
 		panelAthleteInfoBox.add(pBarDefence);
 		
-		JLabel descriptionLabel = new JLabel(bestAthlete.getDescription().replaceAll("\n", " "));
+		JLabel descriptionLabel = new JLabel();
 		descriptionLabel.setBounds(12, 95, 199, 64);
 		panelAthleteInfoBox.add(descriptionLabel);
 		
+		if (bestAthlete != null) {
+			lblName.setText(bestAthlete.getName());
+			pBarStamina.setValue(bestAthlete.getStats()[0]);
+			pBarOffence.setValue(bestAthlete.getStats()[1]);
+			pBarDefence.setValue(bestAthlete.getStats()[2]);
+			descriptionLabel.setText(bestAthlete.getDescription().replaceAll("\n", " "));
+		} else {
+			lblName.setText("No Athlete");
+			
+		}
 		
 		
 		JLabel lblHome = new JLabel(playerName + "'s Journey");
