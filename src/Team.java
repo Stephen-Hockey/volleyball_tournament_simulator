@@ -75,6 +75,20 @@ public class Team {
         Collections.swap(players, index1, index2);
     }
     
+    public Athlete getBestAthlete() {
+    	if (players.size() == 0) {
+    		return null;
+    	}
+        Athlete currBestAthlete = players.get(0);
+    	int currBestStats = currBestAthlete.getAvgStat();
+        for (Athlete athlete: players) {
+        	if (currBestStats < athlete.getAvgStat()) {
+        		currBestAthlete = athlete;
+        	}
+        }
+        return currBestAthlete;
+    }
+    
     public static Team generateTeam(int quality) {
 
         Random rand = new Random();
