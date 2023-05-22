@@ -1,11 +1,8 @@
 package main;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Scanner;
 /**
  * The Team class describes a named team of 0-12 athletes
  * It contains a static method for randomly generating a new team.
@@ -40,22 +37,22 @@ public class Team {
     
     /**
      * Constructs a new Team object with an initialized team name and empty players ArrayList
-     * @param _teamName the new team name
+     * @param newTeamName the new team name
      */
-    public Team(String _teamName) {
-        teamName = _teamName;
+    public Team(String newTeamName) {
+        teamName = newTeamName;
         players = new ArrayList<Athlete>();
 
     }
     
     /**
      * Constructs a new Team object with an initialized team name and a given players ArrayList
-     * @param _teamName the new team name
-     * @param _players the new players ArrayList
+     * @param newTeamName the new team name
+     * @param newPlayers the new players ArrayList
      */
-    public Team(String _teamName, ArrayList<Athlete> _players) {
-        teamName = _teamName;
-        players = _players;
+    public Team(String newTeamName, ArrayList<Athlete> newPlayers) {
+        teamName = newTeamName;
+        players = newPlayers;
     }
 
     /**
@@ -68,10 +65,10 @@ public class Team {
     
     /**
      * Setter for the team name
-     * @param _teamName the new team name
+     * @param newTeamName the new team name
      */
-    public void setTeamName(String _teamName) {
-        teamName = _teamName;
+    public void setTeamName(String newTeamName) {
+        teamName = newTeamName;
     }
     
     /**
@@ -84,10 +81,10 @@ public class Team {
     
     /**
      * Setter for the players
-     * @param _players the new players
+     * @param newPlayers the new players
      */
-    public void setPlayers(ArrayList<Athlete> _players) {
-        players = _players;
+    public void setPlayers(ArrayList<Athlete> newPlayers) {
+        players = newPlayers;
     }
 
     /**
@@ -198,32 +195,11 @@ public class Team {
 
         Random rand = new Random();
         int n = rand.nextInt(100);
-        String animal = "";
-        try {
-            File animals = new File("src/data/animals.txt");
-            Scanner animalScanner = new Scanner(animals);
-            for (int i = 0; i <= n; i++) {
-                animal = animalScanner.nextLine();
-            }
-            animalScanner.close();
-
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-        }
-        
         int countryA = rand.nextInt(195);
-        String country = "";
-        try {
-            File countries = new File("src/data/countries.txt");
-            Scanner countryScanner = new Scanner(countries);
-            for (int i = 0; i <= countryA; i++) {
-                country = countryScanner.nextLine();
-            }
-            countryScanner.close();
-
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
+        
+        FileHandler fileHandler = new FileHandler();
+        String animal = fileHandler.getLine("/data/animals.txt", n);
+        String country = fileHandler.getLine("/data/countries.txt", countryA);
         
         String teamName = "The " + country + " " + animal;
 
