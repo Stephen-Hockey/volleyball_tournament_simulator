@@ -47,18 +47,18 @@ public class Purchasable {
     
     /**
      * Constructs a new Purchasable object with fully initialized properties
-     * @param _name the new name
-     * @param _price the new price
-     * @param _sellPrice the new sell price
-     * @param _description the new description
-     * @param _stats the new stats
+     * @param newName the new name
+     * @param newPrice the new price
+     * @param newSellPrice the new sell price
+     * @param newDescription the new description
+     * @param newStats the new stats
      */
-    public Purchasable(String _name, int _price, int _sellPrice, String _description, int[] _stats) {
-        name = _name;
-        price = _price;
-        sellPrice = _sellPrice;
-        description = _description;
-        stats = _stats;
+    public Purchasable(String newName, int newPrice, int newSellPrice, String newDescription, int[] newStats) {
+        name = newName;
+        price = newPrice;
+        sellPrice = newSellPrice;
+        description = newDescription;
+        stats = newStats;
     }
 
     /**
@@ -71,10 +71,10 @@ public class Purchasable {
     
     /**
      * Setter for the name
-     * @param _name the new name
+     * @param newName the new name
      */
-    public void setName(String _name) {
-        name = _name;
+    public void setName(String newName) {
+        name = newName;
     }
     
     /**
@@ -87,10 +87,10 @@ public class Purchasable {
     
     /**
      * Setter for the price
-     * @param _price the new price
+     * @param newPrice the new price
      */
-    public void setPrice(int _price) {
-        price = _price;
+    public void setPrice(int newPrice) {
+        price = newPrice;
     }
     
     /**
@@ -103,10 +103,10 @@ public class Purchasable {
     
     /**
      * Setter for the sell price
-     * @param _sellPrice the new sell price
+     * @param newSellPrice the new sell price
      */
-    public void setSellPrice(int _sellPrice) {
-		sellPrice = _sellPrice;
+    public void setSellPrice(int newSellPrice) {
+		sellPrice = newSellPrice;
 	}
     
     /**
@@ -119,10 +119,10 @@ public class Purchasable {
     
     /**
      * Setter for the description
-     * @param _description the new description
+     * @param newDescription the new description
      */
-    public void setDescription(String _description) {
-        description = _description;
+    public void setDescription(String newDescription) {
+        description = newDescription;
     }
     
     /**
@@ -135,10 +135,10 @@ public class Purchasable {
     
     /**
      * Setter for the stats
-     * @param _stats the new stats
+     * @param newStats the new stats
      */
-    public void setStats(int[] _stats) {
-		stats = _stats;
+    public void setStats(int[] newStats) {
+		stats = newStats;
 	}
     
     /**
