@@ -77,11 +77,6 @@ public class MarketScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
-		btnHelp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Here, you can BUY and SELL Items and Athletes.\nThe list on the left contains stuff of your own that you can sell,\nand the other list contains the available Items or Athletes to purchase for the week.\nYou can toggle between the item market and the athlete market using the aptly named buttons.", "Info", 1);
-			}
-		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -390,6 +385,12 @@ public class MarketScreen {
 			public void actionPerformed(ActionEvent e) {
 				manager.launchHomeScreen();
 				finishedWindow();
+			}
+		});
+
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Here, you can BUY and SELL Items and Athletes.\nThe list on the left contains stuff of your own that you can sell,\nand the other list contains the available Items or Athletes to purchase for the week.\nYou can toggle between the item market and the athlete market using the aptly named buttons.", "Info", 1);
 			}
 		});
 	}
