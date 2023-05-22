@@ -98,8 +98,8 @@ public class HomeScreen {
 		JButton visitStadiumButton = new JButton("Visit the Stadium");
 		visitStadiumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!GameEnvironment.hasFullTeam()) {
-					JOptionPane.showMessageDialog(null, "You need at least 7 healthy players to visit the Stadium.", "Error", 0);
+				if (!GameEnvironment.hasHealthyStarters()) {
+					JOptionPane.showMessageDialog(null, "You need at least 7 healthy players in your starting lineup to visit the Stadium.", "Error", 0);
 					return;
 				} else if (GameEnvironment.getWeeklyGamePlayed()) {
 					JOptionPane.showMessageDialog(null, "You have already played your weekly match.", "Error", 0);
@@ -213,12 +213,12 @@ public class HomeScreen {
 
 				        int playerToBuff = rand.nextInt(numPlayers);
 			        	GameEnvironment.getPlayerTeam().getPlayers().get(playerToBuff).addItem(freeItem);
-			        	JOptionPane.showMessageDialog(null, "Random Event: " + GameEnvironment.getPlayerTeam().getPlayers().get(playerToBuff).getName() + " got a " + statInc + " point increase to their " + Purchasable.statNames[statIndex] + " Stat.", "Random Event", 1);
+			        	JOptionPane.showMessageDialog(null, "Random Event: " + GameEnvironment.getPlayerTeam().getPlayers().get(playerToBuff) + " got a " + statInc + " point increase to their " + Purchasable.statNames[statIndex] + " Stat.", "Random Event", 1);
 			        } else if (eventProb == 1) {
 			        	if (numPlayers != 12) {
 			        		Athlete newAthlete = Athlete.generateAthlete(9);
 			        		GameEnvironment.getPlayerTeam().getPlayers().add(newAthlete);
-			        		JOptionPane.showMessageDialog(null, "Random Event: " + newAthlete.getName() + " has joined your team!","Random Event", 1);
+			        		JOptionPane.showMessageDialog(null, "Random Event: " + newAthlete + " has joined your team!","Random Event", 1);
 			        	}
 			        } else if (eventProb == 2) {
 			        	if (numPlayers != 0) {
@@ -231,7 +231,7 @@ public class HomeScreen {
 					        	}
 					        }
 					        GameEnvironment.getPlayerTeam().getPlayers().remove(minAthlete);
-					        JOptionPane.showMessageDialog(null, "Random Event: " + minAthlete.getName() + " has left your team!","Random Event", 1);
+					        JOptionPane.showMessageDialog(null, "Random Event: " + minAthlete + " has left your team!","Random Event", 1);
 			        	}
 				        
 			        }
