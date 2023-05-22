@@ -78,39 +78,14 @@ public class HomeScreen {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnVisitClubhouse = new JButton("Visit " + teamName + "'s Clubhouse");
-		btnVisitClubhouse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				manager.launchClubScreen();
-				finishedWindow();
-			}
-		});
 		btnVisitClubhouse.setBounds(150, 130, 300, 50);
 		frame.getContentPane().add(btnVisitClubhouse);
 		
 		JButton btnVisitMarket = new JButton("Visit the Market");
-		btnVisitMarket.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				manager.launchMarketScreen();
-				finishedWindow();
-			}
-		});
 		btnVisitMarket.setBounds(150, 190, 300, 50);
 		frame.getContentPane().add(btnVisitMarket);
 		
 		JButton btnVisitStadium = new JButton("Visit the Stadium");
-		btnVisitStadium.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (!GameEnvironment.hasHealthyStarters()) {
-					JOptionPane.showMessageDialog(null, "You need at least 7 healthy players in your starting lineup to visit the Stadium.", "Error", 0);
-					return;
-				} else if (GameEnvironment.getWeeklyGamePlayed()) {
-					JOptionPane.showMessageDialog(null, "You have already played your weekly match.", "Error", 0);
-					return;
-				}
-				manager.launchStadiumScreen();
-				finishedWindow();
-			}
-		});
 		btnVisitStadium.setBounds(150, 250, 300, 50);
 		frame.getContentPane().add(btnVisitStadium);
 		
@@ -121,11 +96,6 @@ public class HomeScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
-		btnHelp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "From the Home Screen you can, \nvisit your Clubhouse to see your team, \nvisit the Market to find new additions for your team, \nvisit the Stadium to play against other teams, \nor choose to move on to the next week.", "Info", 1);
-			}
-		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -154,13 +124,49 @@ public class HomeScreen {
 		lblWeek.setBounds(350, 80, 100, 50);
 		frame.getContentPane().add(lblWeek);
 		
-		
 		JButton btnTakeBye = new JButton("Take a Bye");
 		if (week == GameEnvironment.getFinalWeek()){
 			btnTakeBye.setText("Finish Game");
 		} else if (GameEnvironment.getWeeklyGamePlayed()) {
 			btnTakeBye.setText("Go to Next Week");
 		}
+		btnTakeBye.setBounds(150, 310, 300, 50);
+		frame.getContentPane().add(btnTakeBye);
+		
+		JButton btnQuit = new JButton("Quit Game");
+		btnQuit.setBounds(481, 310, 107, 50);
+		frame.getContentPane().add(btnQuit);
+		
+		//Events
+
+		btnVisitClubhouse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager.launchClubScreen();
+				finishedWindow();
+			}
+		});
+
+		btnVisitMarket.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manager.launchMarketScreen();
+				finishedWindow();
+			}
+		});
+
+		btnVisitStadium.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!GameEnvironment.hasHealthyStarters()) {
+					JOptionPane.showMessageDialog(null, "You need at least 7 healthy players in your starting lineup to visit the Stadium.", "Error", 0);
+					return;
+				} else if (GameEnvironment.getWeeklyGamePlayed()) {
+					JOptionPane.showMessageDialog(null, "You have already played your weekly match.", "Error", 0);
+					return;
+				}
+				manager.launchStadiumScreen();
+				finishedWindow();
+			}
+		});
+		
 		btnTakeBye.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean isFinalWeek = (week == GameEnvironment.getFinalWeek());
@@ -242,10 +248,7 @@ public class HomeScreen {
 				
 			}
 		});
-		btnTakeBye.setBounds(150, 310, 300, 50);
-		frame.getContentPane().add(btnTakeBye);
 		
-		JButton btnQuit = new JButton("Quit Game");
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int quitCheck = JOptionPane.showConfirmDialog(null, "Are you sure you want to Quit?", "Confirm", 0);
@@ -256,8 +259,11 @@ public class HomeScreen {
 				}
 			}
 		});
-		btnQuit.setBounds(481, 310, 107, 50);
-		frame.getContentPane().add(btnQuit);
+
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "From the Home Screen you can, \nvisit your Clubhouse to see your team, \nvisit the Market to find new additions for your team, \nvisit the Stadium to play against other teams, \nor choose to move on to the next week.", "Info", 1);
+			}
+		});
 	}
-	
 }
