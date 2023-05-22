@@ -71,7 +71,6 @@ public class NicknameScreen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		
 		JPanel panelTop = new JPanel();
 		panelTop.setLayout(null);
 		panelTop.setBackground(new Color(153, 193, 241));
@@ -79,11 +78,6 @@ public class NicknameScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
-		btnHelp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Select a player and give them a sick new nickname.", "Info", 1);
-			}
-		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -129,6 +123,8 @@ public class NicknameScreen {
 			lblDescription.setText(GameEnvironment.getPlayerTeam().getPlayers().get(0).getDescription().replaceAll("\n", " "));
 		}
 		
+		//Events
+		
 		listTeam.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (listTeam.isSelectionEmpty()) {
@@ -163,7 +159,11 @@ public class NicknameScreen {
 				listTeam.setSelectedIndex(selectedIndex);
 			}
 		});
-		
-		
+
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Select a player and give them a sick new nickname.", "Info", 1);
+			}
+		});
 	}
 }
