@@ -252,14 +252,6 @@ public class GameEnvironment {
     public static void setMatches(ArrayList<Match> _matches) {
 		GameEnvironment.matches = _matches;
 	}
-    
-    /**
-   	 * appends a match to the Player/User's past match record
-   	 * @param match the new match to append to the Player/User's past match record
-   	 */
-    public static void addMatch(Match match) {
-    	GameEnvironment.matches.add(match);
-    }
  
     /**
    	 * Returns the value of the weekly game played
@@ -318,6 +310,14 @@ public class GameEnvironment {
     }
     
     /**
+   	 * appends a match to the Player/User's past match record
+   	 * @param match the new match to append to the Player/User's past match record
+   	 */
+    public static void addMatch(Match match) {
+    	GameEnvironment.matches.add(match);
+    }
+    
+    /**
    	 * If the Player/User can make a valid team with their current athletes
    	 * @return If the Player/User can make a valid team with their current athletes as a boolean
    	 */
@@ -336,6 +336,9 @@ public class GameEnvironment {
    	 * @return If the Player/User's current line up is valid as a boolean
    	 */
     public static boolean hasHealthyStarters() {
+    	if (playerTeam.size() < 7) {
+    		return false;
+    	}
     	for (int i = 0; i < 7; i++) {
     		if (playerTeam.get(i).getStats()[0] == 0) {
     			return false;
