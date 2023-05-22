@@ -1,6 +1,6 @@
+package main;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.*;
 import javax.swing.JButton;
@@ -15,8 +15,13 @@ import javax.swing.SwingConstants;
 
 
 /**
+ * The EndScreen is where the user views a summary of their season, 
+ * before the program finishes<br>
+ * Launched from HomeScreen<br>
+ * Program ends upon closing
+ * 
  * This class implements the end screen where the user views a summary of their game and 
- * their best athlete is one exists, and has the option to close the game
+ * their best athlete if one exists, and has the option to close the game
  *
  * @author Lachlan Stewart and Stephen Hockey
  * @version 1.1, May 2023.
@@ -27,36 +32,15 @@ public class EndScreen {
 	 * The frame on which elements are placed
 	 */
 	private JFrame frame;
+	
 	/**
 	 * The manager of the current instance of club screen
 	 */
 	private GameManager manager;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EndScreen window = new EndScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public EndScreen() {
-		initialize();
-	}
 	
 	/**
-	 * Create the application with a manager to oversee closing and launching the window
+	 * Create the window with a GameManager object to oversee closing and launching the window
+	 * @param incomingManager the GameManager object
 	 */
 	public EndScreen(GameManager incomingManager) {
 		manager = incomingManager;
@@ -65,7 +49,7 @@ public class EndScreen {
 	}
 	
 	/**
-	 * Close the window instance
+	 * Close the window
 	 */
 	public void closeWindow() {
 		frame.dispose();
@@ -127,49 +111,49 @@ public class EndScreen {
 		lblStamina.setBounds(12, 35, 70, 15);
 		panelAthleteInfoBox.add(lblStamina);
 		
-		JProgressBar pBarStamina = new JProgressBar();
-		pBarStamina.setMaximum(99);
-		pBarStamina.setBounds(86, 35, 108, 15);
-		panelAthleteInfoBox.add(pBarStamina);
+		JProgressBar pbarStamina = new JProgressBar();
+		pbarStamina.setMaximum(99);
+		pbarStamina.setBounds(86, 35, 108, 15);
+		panelAthleteInfoBox.add(pbarStamina);
 		
 		JLabel lblOffence = new JLabel("Offence");
 		lblOffence.setBounds(12, 55, 70, 15);
 		panelAthleteInfoBox.add(lblOffence);
 		
-		JProgressBar pBarOffence = new JProgressBar();
-		pBarOffence.setMaximum(99);
-		pBarOffence.setBounds(86, 55, 108, 15);
-		panelAthleteInfoBox.add(pBarOffence);
+		JProgressBar pbarOffence = new JProgressBar();
+		pbarOffence.setMaximum(99);
+		pbarOffence.setBounds(86, 55, 108, 15);
+		panelAthleteInfoBox.add(pbarOffence);
 		
 		JLabel lblDefence = new JLabel("Defence");
 		lblDefence.setBounds(12, 75, 70, 15);
 		panelAthleteInfoBox.add(lblDefence);
 		
 		
-		JProgressBar pBarDefence = new JProgressBar();
-		pBarDefence.setMaximum(99);
-		pBarDefence.setBounds(86, 75, 108, 15);
-		panelAthleteInfoBox.add(pBarDefence);
+		JProgressBar pbarDefence = new JProgressBar();
+		pbarDefence.setMaximum(99);
+		pbarDefence.setBounds(86, 75, 108, 15);
+		panelAthleteInfoBox.add(pbarDefence);
 		
-		JLabel descriptionLabel = new JLabel();
-		descriptionLabel.setBounds(12, 95, 199, 64);
-		panelAthleteInfoBox.add(descriptionLabel);
+		JLabel lblDescription = new JLabel();
+		lblDescription.setBounds(12, 95, 199, 64);
+		panelAthleteInfoBox.add(lblDescription);
 		
 		if (bestAthlete != null) {
 			lblName.setText(bestAthlete.getName());
-			pBarStamina.setValue(bestAthlete.getStats()[0]);
-			pBarOffence.setValue(bestAthlete.getStats()[1]);
-			pBarDefence.setValue(bestAthlete.getStats()[2]);
-			descriptionLabel.setText(bestAthlete.getDescription().replaceAll("\n", " "));
+			pbarStamina.setValue(bestAthlete.getStats()[0]);
+			pbarOffence.setValue(bestAthlete.getStats()[1]);
+			pbarDefence.setValue(bestAthlete.getStats()[2]);
+			lblDescription.setText(bestAthlete.getDescription().replaceAll("\n", " "));
 		} else {
 			lblName.setText("No Athlete");
 			
 		}
 		
 		
-		JLabel lblHome = new JLabel(playerName + "'s Journey");
-		lblHome.setBounds(12, 10, 366, 15);
-		panelTop.add(lblHome);
+		JLabel lblTopText = new JLabel(playerName + "'s Journey");
+		lblTopText.setBounds(12, 10, 366, 15);
+		panelTop.add(lblTopText);
 		
 		String introText = "Well played ";
 		if (!gameSuccess) {
@@ -189,32 +173,32 @@ public class EndScreen {
 		String moneyText = " and $" + money + ".";
 		
 		String gameInfoText = "<html>" + introText + "<br>" + durText + "<br>" + manText + "<br>" + teamText + "<br>" + difText + "<br>" + scoreText + "<br>" + moneyText + "</html>";
-		JLabel gameInfoLabel = new JLabel(gameInfoText);
-		gameInfoLabel.setVerticalAlignment(SwingConstants.TOP);
-		gameInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		gameInfoLabel.setBounds(10, 83, 205, 149);
-		frame.getContentPane().add(gameInfoLabel);
+		JLabel lblGameInfo = new JLabel(gameInfoText);
+		lblGameInfo.setVerticalAlignment(SwingConstants.TOP);
+		lblGameInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGameInfo.setBounds(10, 83, 205, 149);
+		frame.getContentPane().add(lblGameInfo);
 		
-		JButton closeGameButton = new JButton("Close Game");
-		closeGameButton.addActionListener(new ActionListener() {
+		JButton btnCloseGame = new JButton("Close Game");
+		btnCloseGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedWindow();
 			}
 		});
-		closeGameButton.setBounds(165, 237, 117, 29);
-		frame.getContentPane().add(closeGameButton);
+		btnCloseGame.setBounds(165, 237, 117, 29);
+		frame.getContentPane().add(btnCloseGame);
 		
-		JLabel bestAthleteLabel = new JLabel("Star Athlete");
-		bestAthleteLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		bestAthleteLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		bestAthleteLabel.setBounds(248, 44, 169, 16);
-		frame.getContentPane().add(bestAthleteLabel);
+		JLabel lblBestAthlete = new JLabel("Star Athlete");
+		lblBestAthlete.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblBestAthlete.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBestAthlete.setBounds(248, 44, 169, 16);
+		frame.getContentPane().add(lblBestAthlete);
 		
-		JLabel gameSummaryLabel = new JLabel("Game Summary");
-		gameSummaryLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		gameSummaryLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		gameSummaryLabel.setBounds(23, 45, 169, 16);
-		frame.getContentPane().add(gameSummaryLabel);
+		JLabel lblGameSummary = new JLabel("Game Summary");
+		lblGameSummary.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGameSummary.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblGameSummary.setBounds(23, 45, 169, 16);
+		frame.getContentPane().add(lblGameSummary);
 		
 	}
 }
