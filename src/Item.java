@@ -2,21 +2,43 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+
+/**
+ * The Item class describes a usable item with certain stat boosts.
+ * It contains some static methods to randomly generate said items.
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class Item extends Purchasable {
 
+	/**
+	 * Calls the constructor of the parent class Purchasable with no given parameters
+	 */
     public Item() {
         super();
     }
 
+    /**
+	 * Calls the constructor of the parent class Purchasable with all parameters
+	 */
     public Item(String _name, int _price, int _sellPrice, String _description, int[] _stats) {
         super(_name, _price, _sellPrice, _description, _stats);
     }
     
+    /**
+     * Overrides the sellPrice getter from the parent class Purchasable to return a lower number
+     * @return A lowered sellPrice
+     */
     @Override
     public int getSellPrice() {
-        return (int) (0.5 * getPrice());
+        return (int) (0.5 * super.getSellPrice());
     }
     
+    /**
+     * Generates a new Item object with randomized properties
+     * @return Randomly generated Item object
+     */
     public static Item generateItem() {
         String[] names = { "Shoes", "Headband", "Playbook", "Tape", "Water Bottle", "Ankle Brace", "Preworkout" };
         int[][] buffs = { { 1, 1, 1 }, { 1, 0, 1 }, { 0, 1, 1 }, { 1, 1, 0 }, { 1, 0, 0 }, { 0, 0, 1 }, { 0, 1, 0 } };
@@ -55,6 +77,11 @@ public class Item extends Purchasable {
 
     }
     
+    /**
+     * Calls generateItem to make an ArrayList of random Items
+     * @param numItems Desired length of Item ArrayList
+     * @return ArrayList of randomly generated Items
+     */
     public static ArrayList<Item> generateItems(int numItems) {
         ArrayList<Item> items = new ArrayList<Item>();
         for (int i = 0; i < numItems; i++) {
