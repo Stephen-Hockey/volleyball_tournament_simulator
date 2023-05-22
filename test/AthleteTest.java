@@ -12,6 +12,16 @@ import main.Item;
 public class AthleteTest {
 	
 	@Test
+	public void toStringTest() {
+		Athlete testAthlete = new Athlete();
+		testAthlete.setName("John Smith");
+		assertEquals("John Smith", testAthlete.toString());
+	}
+	
+	
+	
+	
+	@Test
 	public void addItemTest() {
 		Athlete testAthlete = new Athlete();
 		int[] initialAthleteStats = {1, 1, 0};
@@ -32,9 +42,33 @@ public class AthleteTest {
 	}
 	
 	@Test
-	public void generateAthleteTest() {
+	public void generateAthleteTypeTest() {
 		Athlete testAthlete = Athlete.generateAthlete(5);
-		assertEquals(testAthlete.getClass(), Athlete.class);
+		assertEquals(Athlete.class, testAthlete.getClass());
+	}
+	
+	@Test
+	public void generateAthleteNameNotNullTest() {
+		Athlete testAthlete = Athlete.generateAthlete(5);
+		assertNotEquals(null, testAthlete.getName());
+	}
+	
+	@Test
+	public void generateAthletePricesTest() {
+		Athlete testAthlete = Athlete.generateAthlete(5);
+		assertTrue(testAthlete.getPrice() > testAthlete.getSellPrice());
+	}
+
+	@Test
+	public void generateAthleteStatsRangeTest() {
+		Athlete testAthlete = Athlete.generateAthlete(5);
+		assertTrue((0 <= testAthlete.getStats()[0]) && (testAthlete.getStats()[0] <= 99));
+	}
+	
+	@Test
+	public void generateAthleteDescriptionNotNullTest() {
+		Athlete testAthlete = Athlete.generateAthlete(5);
+		assertNotEquals(null, testAthlete.getDescription());
 	}
 	
 	@Test
@@ -42,5 +76,4 @@ public class AthleteTest {
 		ArrayList<Athlete> testAthletes = Athlete.generateAthletes(22, 0);
 		assertEquals(22, testAthletes.size());
 	}
-
 }
