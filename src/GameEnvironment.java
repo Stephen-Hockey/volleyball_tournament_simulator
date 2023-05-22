@@ -1,10 +1,13 @@
+package main;
 
 import java.util.ArrayList;
 
 /**
- * This class implements the environment for the game
- * all current game variables and methods are stored 
- *
+ * The GameEnvironment class stores all game variables that made
+ * sense to be static, such as the user's team and inventory. <br>
+ * The class also contains static methods that made sense to be available to all classes
+ * without creating an instance of the GameEnvironment class.
+ * 
  * @author Lachlan Stewart and Stephen Hockey
  * @version 1.1, May 2023.
  */
@@ -14,62 +17,77 @@ public class GameEnvironment {
 	 * The name of the Player/User
 	 */
     private static String playerName;
+    
     /**
 	 * The current week of the game
 	 */
     private static int week;
+    
     /**
 	 * The number of weeks given by the user for game duration
 	 */
     private static int finalWeek;
+    
     /**
 	 * The Player/User's Team
 	 */
     private static Team playerTeam;
+    
     /**
 	 * The game difficulty
 	 */
     private static int difficulty;
+    
     /**
 	 * The Player/User's money
 	 */
     private static int money;
+    
     /**
 	 * The Player/User's current games rating
 	 */
     private static int playerRating;
+    
     /**
 	 * A record of the current game's wins, losses and byes without a game {wins, losses, byes}
 	 */
     private static int[] record;
+    
     /**
 	 * The Player/User's items
 	 */
     private static ArrayList<Item> inventory;
+    
     /**
 	 * The Athletes currently available to purchase in the marketplace
 	 */
     private static ArrayList<Athlete> currentWeekMarketAthletes;
+    
     /**
 	 * The Items currently available to purchase in the marketplace
 	 */
     private static ArrayList<Item> currentWeekMarketItems;
+    
     /**
    	 * The Opponents currently available to play in the Stadium
    	 */
     private static ArrayList<Team> currentWeekOpposingTeams;
+    
     /**
    	 * A record of past matches against opponent teams
    	 */
     private static ArrayList<Match> matches;
+    
     /**
    	 * A record of if the Player/User has played their weekly alloted game
    	 */
     private static boolean weeklyGamePlayed;
+    
     /**
    	 * Represents if the Player/User successfully completed the game
    	 */
     private static boolean gameSuccess;
+    
     /**
    	 * Sets the maximum number of players and items allowed in the Player/User's team
    	 */
@@ -237,7 +255,7 @@ public class GameEnvironment {
     
     /**
    	 * appends a match to the Player/User's past match record
-   	 * @param the new match to append to the Player/User's past match record
+   	 * @param match the new match to append to the Player/User's past match record
    	 */
     public static void addMatch(Match match) {
     	GameEnvironment.matches.add(match);
