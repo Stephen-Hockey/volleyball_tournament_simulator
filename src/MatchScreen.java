@@ -1,69 +1,66 @@
+package main;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import java.awt.Font;
 import javax.swing.JProgressBar;
-import javax.swing.UIManager;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.IconifyAction;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.AbstractListModel;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
-
+/**
+ * The MatchScreen is where the user can view and interact with a volleyball match<br>
+ * Launched from StadiumScreen<br>
+ * Launches HomeScreen upon closing
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class MatchScreen {
 
+	/**
+	 * The frame on which elements are placed
+	 */
 	private JFrame frame;
-	private GameManager manager;
-	private Match match;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MatchScreen window = new MatchScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public MatchScreen() {
-		initialize();
-	}
 	
+	/**
+	 * The manager of the current instance of draft screen
+	 */
+	private GameManager manager;
+	
+	/**
+	 * The match related to this MatchScreen
+	 */
+	private Match match;
+	
+	/**
+	 * Create the window with a GameManager object to oversee closing and launching the window
+	 * @param incomingManager the GameManager object
+	 */
 	public MatchScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Closes the window
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Runs the closeMatchScreen method of its manager to close itself
+	 */
 	public void finishedWindow() {
 		manager.closeMatchScreen(this);
 	}
@@ -117,11 +114,6 @@ public class MatchScreen {
 		JLabel lblStamina = new JLabel("Stamina", SwingConstants.CENTER);
 		lblStamina.setBounds(265, 125, 70, 15);
 		frame.getContentPane().add(lblStamina);
-		
-		JProgressBar pBarDefenceR = new JProgressBar();
-		pBarDefenceR.setBounds(0, 0, 150, 14);
-		frame.getContentPane().add(pBarDefenceR);
-		pBarDefenceR.setMaximum(99);
 		
 		JLabel lblOffence = new JLabel("Offence", SwingConstants.CENTER);
 		lblOffence.setBounds(265, 145, 70, 15);
