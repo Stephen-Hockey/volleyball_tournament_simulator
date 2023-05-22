@@ -7,21 +7,43 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+
+/**
+ * This class implements an Athlete with certain stats,
+ * name, age, and nationality.
+ * Athlete extends the class Purchasable
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class Athlete extends Purchasable {
     
+	/**
+	 * Calls the constructor of the parent class Purchasable with a blank input
+	 */
     public Athlete() {
         super();
     }
 
+    /**
+	 * Calls the constructor of the parent class Purchasable with values input
+	 */
     public Athlete(String _name, int _price, int _sellPrice, String _description, int[] _stats) {
         super(_name, _price, _sellPrice, _description, _stats);
     }
     
+    /**
+	 * Overrides the getSellPrice method from the parent class Purchasable
+	 */
     @Override
     public int getSellPrice() {
         return (int) (getPrice() * 0.8);
     }
 
+    /**
+	 * Applies an Item to the player, increasing the relevant stats while bounding the stat at 99
+	 * @param the item to be applied as an Item object
+	 */
     public void addItem(Item item) {
         int[] itemEffect = item.getStats();
     	for (int i = 0; i < itemEffect.length; i++) {
@@ -33,7 +55,15 @@ public class Athlete extends Purchasable {
     	}
     }
  
+    /**
+	 * A static method which returns a randomly generated Athlete
+	 * @param the quality of the athlete from 0-9 as an integer
+	 */
     public static Athlete generateAthlete(int quality) {
+    	
+    	if (quality > 9) {
+    		quality = 9;
+    	}
     	
         /* name generation */
         Random rand = new Random();
@@ -123,13 +153,15 @@ public class Athlete extends Purchasable {
         /* description generation */
         String description = age + " years old, \nfrom " + country;
         
-        /* items generation */
-        ArrayList<Item> items = new ArrayList<Item>();
-        
         return new Athlete(name, price, sellPrice, description, stats);
 
     }
     
+    /**
+	 * A static method which returns a randomly generated Arraylist of Athletes
+	 * @param quantity the number of athletes wanted in the returned list as an integer
+	 * @param the quality of the athletes from 0-9 as an integer
+	 */
     public static ArrayList<Athlete> generateAthletes(int quantity, int quality) {
         ArrayList<Athlete> athletes = new ArrayList<Athlete>();
         for (int i = 0; i < quantity; i++) {
