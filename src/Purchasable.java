@@ -4,17 +4,19 @@ public class Purchasable {
     private int price;
     private int sellPrice;
     private String description;
+    private int[] stats;
 
     public static final String[] statNames = new String[] { "STAMINA", "OFFENSE", "DEFENSE" };
 
     public Purchasable() {
     }
 
-    public Purchasable(String _name, int _price, int _sellPrice, String _description) {
+    public Purchasable(String _name, int _price, int _sellPrice, String _description, int[] _stats) {
         name = _name;
         price = _price;
         sellPrice = _sellPrice;
         description = _description;
+        stats = _stats;
     }
 
     public String getName() {
@@ -49,9 +51,16 @@ public class Purchasable {
         description = _description;
     }
     
+    public int[] getStats() {
+		return stats;
+	}
+    
+    public void setStats(int[] _stats) {
+		stats = _stats;
+	}
+    
     @Override
     public String toString() {
-    	// TODO Auto-generated method stub
     	return name;
     }
 }
