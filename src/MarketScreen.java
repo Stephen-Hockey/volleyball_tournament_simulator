@@ -1,4 +1,4 @@
-import java.awt.EventQueue;
+package main;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,53 +13,50 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
-import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
-
+/**
+ * The MarketScreen is where the user buys and sells athletes and items<br>
+ * Launched from HomeScreen<br>
+ * Launches HomeScreen upon closing
+ *
+ * @author Lachlan Stewart and Stephen Hockey
+ * @version 1.1, May 2023.
+ */
 public class MarketScreen {
 
+	/**
+	 * The frame on which elements are placed
+	 */
 	private JFrame frame;
+	
+	/**
+	 * The manager of the current instance of draft screen
+	 */
 	private GameManager manager;
-	
-	//money, team, inventory are accessed via GE
-	
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MarketScreen window = new MarketScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
-	 * Create the application.
+	 * Create the application with a GameManager object to oversee closing and launching the window
+	 * @param incomingManager the GameManager object
 	 */
-	public MarketScreen() {
-		initialize();
-	}
-
 	public MarketScreen(GameManager incomingManager) {
 		manager = incomingManager;
 		initialize();
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Close the window
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Runs the closeMarketScreen method of its manager to close itself
+	 */
 	public void finishedWindow() {
 		manager.closeMarketScreen(this);
 	}
@@ -88,9 +85,9 @@ public class MarketScreen {
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
-		JLabel lblMarket = new JLabel("Market");
-		lblMarket.setBounds(12, 10, 400, 15);
-		panelTop.add(lblMarket);
+		JLabel lblTopText = new JLabel("Market");
+		lblTopText.setBounds(12, 10, 400, 15);
+		panelTop.add(lblTopText);
 		
 		JList<String> listMarket = new JList<String>();
 		listMarket.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -126,28 +123,28 @@ public class MarketScreen {
 		lblDefence.setBounds(12, 78, 70, 15);
 		panelAthleteInfoBox.add(lblDefence);
 		
-		JProgressBar pBarStamina = new JProgressBar();
-		pBarStamina.setMaximum(99);
-		pBarStamina.setBounds(86, 39, 150, 14);
-		panelAthleteInfoBox.add(pBarStamina);
+		JProgressBar pbarStamina = new JProgressBar();
+		pbarStamina.setMaximum(99);
+		pbarStamina.setBounds(86, 39, 150, 14);
+		panelAthleteInfoBox.add(pbarStamina);
 		
 		JLabel lblStamina = new JLabel("Stamina");
 		lblStamina.setBounds(12, 38, 70, 15);
 		panelAthleteInfoBox.add(lblStamina);
 		
-		JProgressBar pBarOffence = new JProgressBar();
-		pBarOffence.setMaximum(99);
-		pBarOffence.setBounds(86, 58, 150, 14);
-		panelAthleteInfoBox.add(pBarOffence);
+		JProgressBar pbarOffence = new JProgressBar();
+		pbarOffence.setMaximum(99);
+		pbarOffence.setBounds(86, 58, 150, 14);
+		panelAthleteInfoBox.add(pbarOffence);
 		
 		JLabel lblOffence = new JLabel("Offence");
 		lblOffence.setBounds(12, 58, 70, 15);
 		panelAthleteInfoBox.add(lblOffence);
 		
-		JProgressBar pBarDefence = new JProgressBar();
-		pBarDefence.setMaximum(99);
-		pBarDefence.setBounds(86, 78, 150, 14);
-		panelAthleteInfoBox.add(pBarDefence);
+		JProgressBar pbarDefence = new JProgressBar();
+		pbarDefence.setMaximum(99);
+		pbarDefence.setBounds(86, 78, 150, 14);
+		panelAthleteInfoBox.add(pbarDefence);
 		
 		JLabel lblPrice = new JLabel("");
 		lblPrice.setBounds(12, 173, 222, 15);
@@ -190,9 +187,9 @@ public class MarketScreen {
 					tglbtnAthletes.setSelected(false);
 					
 					lblPurchaseName.setText("");	
-					pBarStamina.setValue(0);
-					pBarOffence.setValue(0);
-					pBarDefence.setValue(0);
+					pbarStamina.setValue(0);
+					pbarOffence.setValue(0);
+					pbarDefence.setValue(0);
 					lblDescription.setText("");
 					lblPrice.setText("");
 					
@@ -221,9 +218,9 @@ public class MarketScreen {
 					tglbtnItems.setSelected(false);
 					
 					lblPurchaseName.setText("");
-					pBarStamina.setValue(0);
-					pBarOffence.setValue(0);
-					pBarDefence.setValue(0);
+					pbarStamina.setValue(0);
+					pbarOffence.setValue(0);
+					pbarDefence.setValue(0);
 					lblDescription.setText("");
 					lblPrice.setText("");
 					
@@ -254,17 +251,17 @@ public class MarketScreen {
 					Item selectedItem = GameEnvironment.getInventory().get(listUser.getSelectedIndex());
 					lblPurchaseName.setText(selectedItem.getName());
 					lblDescription.setText("<html>" + selectedItem.getDescription().replaceAll("\n", "<br>"));
-					pBarStamina.setValue(selectedItem.getStats()[0]);
-					pBarOffence.setValue(selectedItem.getStats()[1]);
-					pBarDefence.setValue(selectedItem.getStats()[2]);
+					pbarStamina.setValue(selectedItem.getStats()[0]);
+					pbarOffence.setValue(selectedItem.getStats()[1]);
+					pbarDefence.setValue(selectedItem.getStats()[2]);
 					lblPrice.setText("Sell Price: $" + selectedItem.getSellPrice());
 				} else {
 					Athlete selectedAthlete = GameEnvironment.getPlayerTeam().get(listUser.getSelectedIndex());
 					lblPurchaseName.setText(selectedAthlete.getName());
 					lblDescription.setText("<html>" + selectedAthlete.getDescription().replaceAll("\n", "<br>"));
-					pBarStamina.setValue(selectedAthlete.getStats()[0]);
-					pBarOffence.setValue(selectedAthlete.getStats()[1]);
-					pBarDefence.setValue(selectedAthlete.getStats()[2]);
+					pbarStamina.setValue(selectedAthlete.getStats()[0]);
+					pbarOffence.setValue(selectedAthlete.getStats()[1]);
+					pbarDefence.setValue(selectedAthlete.getStats()[2]);
 					lblPrice.setText("Sell Price: $" + selectedAthlete.getSellPrice());
 				}
 				listMarket.clearSelection();
@@ -283,17 +280,17 @@ public class MarketScreen {
 					Item selectedItem = GameEnvironment.getCurrentWeekMarketItems().get(listMarket.getSelectedIndex());
 					lblPurchaseName.setText(selectedItem.getName());
 					lblDescription.setText("<html>" + selectedItem.getDescription().replaceAll("\n", "<br>"));
-					pBarStamina.setValue(selectedItem.getStats()[0]);
-					pBarOffence.setValue(selectedItem.getStats()[1]);
-					pBarDefence.setValue(selectedItem.getStats()[2]);
+					pbarStamina.setValue(selectedItem.getStats()[0]);
+					pbarOffence.setValue(selectedItem.getStats()[1]);
+					pbarDefence.setValue(selectedItem.getStats()[2]);
 					lblPrice.setText("Cost: $" + selectedItem.getPrice());
 				} else {
 					Athlete selectedAthlete = GameEnvironment.getCurrentWeekMarketAthletes().get(listMarket.getSelectedIndex());
 					lblPurchaseName.setText(selectedAthlete.getName());
 					lblDescription.setText("<html>" + selectedAthlete.getDescription().replaceAll("\n", "<br>"));
-					pBarStamina.setValue(selectedAthlete.getStats()[0]);
-					pBarOffence.setValue(selectedAthlete.getStats()[1]);
-					pBarDefence.setValue(selectedAthlete.getStats()[2]);
+					pbarStamina.setValue(selectedAthlete.getStats()[0]);
+					pbarOffence.setValue(selectedAthlete.getStats()[1]);
+					pbarDefence.setValue(selectedAthlete.getStats()[2]);
 					lblPrice.setText("Cost: $" + selectedAthlete.getPrice());
 				}
 				listUser.clearSelection();
@@ -380,9 +377,9 @@ public class MarketScreen {
 				}
 				
 				lblPurchaseName.setText("");
-				pBarStamina.setValue(0);
-				pBarOffence.setValue(0);
-				pBarDefence.setValue(0);
+				pbarStamina.setValue(0);
+				pbarOffence.setValue(0);
+				pbarDefence.setValue(0);
 				lblDescription.setText("");
 				lblPrice.setText("");
 				lblMoney.setText("$" + GameEnvironment.getMoney());
