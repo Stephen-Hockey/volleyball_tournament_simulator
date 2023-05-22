@@ -99,6 +99,7 @@ public class ClubScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,11 +112,6 @@ public class ClubScreen {
 		frame.getContentPane().add(panelTop);
 		
 		JButton btnHelp = new JButton("?");
-		btnHelp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Welcome to your Clubhouse from here you can substitute players, \ngive players special items and nickname your players.", "Info", 1);
-			}
-		});
 		btnHelp.setBounds(538, 5, 50, 25);
 		panelTop.add(btnHelp);
 		
@@ -127,7 +123,6 @@ public class ClubScreen {
 		JButton btnBack = new JButton("Go Back");
 		btnBack.setBounds(10, 44, 117, 25);
 		frame.getContentPane().add(btnBack);
-		
 		
 		String playerName = GameEnvironment.getPlayerName();
 		JLabel lblPlayerName = new JLabel("Manager: " + playerName);
@@ -155,7 +150,6 @@ public class ClubScreen {
 		listTeam.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		listTeam.setBounds(10, 112, 260, 255);
 		frame.getContentPane().add(listTeam);
-		
 	
 		JPanel panelAthleteInfoBox = new JPanel();
 		panelAthleteInfoBox.setLayout(null);
@@ -199,8 +193,6 @@ public class ClubScreen {
 		lblDescription.setBounds(12, 95, 328, 15);
 		panelAthleteInfoBox.add(lblDescription);
 		
-		
-		
 		JButton btnMove = new JButton();
 		btnMove.setBounds(10, 370, 260, 30);
 		btnMove.setVisible(false);
@@ -210,8 +202,6 @@ public class ClubScreen {
 		lblMoveInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMoveInfo.setBounds(10, 400, 260, 20);
 		frame.getContentPane().add(lblMoveInfo);
-		
-		
 		
 		JPanel panelItemInfo = new JPanel();
 		panelItemInfo.setLayout(null);
@@ -237,15 +227,17 @@ public class ClubScreen {
 		panelItemInfo.add(listClubItems);
 		
 		JButton btnRenamePlayers = new JButton("Nickname");
+		btnRenamePlayers.setBounds(139, 44, 131, 25);
+		frame.getContentPane().add(btnRenamePlayers);
+		
+		//Events
+
 		btnRenamePlayers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				manager.launchNicknameScreen();
 				finishedWindow();
 			}
 		});
-		btnRenamePlayers.setBounds(139, 44, 131, 25);
-		frame.getContentPane().add(btnRenamePlayers);
-		
 		
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -381,6 +373,12 @@ public class ClubScreen {
 				pbarDefence.setValue(effects[2]);
 				btnMove.setText("Use Item on Player");
 				btnMove.setVisible(true);
+			}
+		});
+
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Welcome to your Clubhouse from here you can substitute players, \ngive players special items and nickname your players.", "Info", 1);
 			}
 		});
 	}
