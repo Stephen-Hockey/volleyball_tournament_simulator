@@ -103,10 +103,10 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's name
-   	 * @param _playerName the Player/User's new name
+   	 * @param newPlayerName the Player/User's new name
    	 */
-    public static void setPlayerName(String _playerName) {
-        playerName = _playerName;
+    public static void setPlayerName(String newPlayerName) {
+        playerName = newPlayerName;
     }
 
     /**
@@ -119,10 +119,10 @@ public class GameEnvironment {
 
     /**
    	 * Sets the current in game week
-   	 * @param _week the new current in game week
+   	 * @param newWeek the new current in game week
    	 */
-    public static void setWeek(int _week) {
-        week = _week;
+    public static void setWeek(int newWeek) {
+        week = newWeek;
     }
 
     /**
@@ -135,10 +135,10 @@ public class GameEnvironment {
 
     /**
    	 * Sets the chosen game length
-   	 * @param _finalWeek the new chosen game length
+   	 * @param newFinalWeek the new chosen game length
    	 */
-    public static void setFinalWeek(int _finalWeek) {
-        finalWeek = _finalWeek;
+    public static void setFinalWeek(int newFinalWeek) {
+        finalWeek = newFinalWeek;
     }
 
     /**
@@ -151,10 +151,10 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's Team
-   	 * @param _playerTeam the new Player/User's Team
+   	 * @param newPlayerTeam the new Player/User's Team
    	 */
-    public static void setPlayerTeam(Team _playerTeam) {
-        playerTeam = _playerTeam;
+    public static void setPlayerTeam(Team newPlayerTeam) {
+        playerTeam = newPlayerTeam;
     }
     
     /**
@@ -167,10 +167,10 @@ public class GameEnvironment {
 
     /**
    	 * Sets the chosen difficulty
-   	 * @param _difficulty the new chosen difficulty
+   	 * @param newDifficulty the new chosen difficulty
    	 */
-    public static void setDifficulty(int _difficulty) {
-        difficulty = _difficulty;
+    public static void setDifficulty(int newDifficulty) {
+        difficulty = newDifficulty;
     }
 
     /**
@@ -183,10 +183,10 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's inventory items
-   	 * @param _inventory the new Player/User's inventory items
+   	 * @param newInventory the new Player/User's inventory items
    	 */
-    public static void setInventory(ArrayList<Item> _inventory) {
-        inventory = _inventory;
+    public static void setInventory(ArrayList<Item> newInventory) {
+        inventory = newInventory;
     }
 
     /**
@@ -199,10 +199,10 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's inventory items
-   	 * @param _money the new Player/User's inventory items
+   	 * @param newMoney the new Player/User's inventory items
    	 */
-    public static void setMoney(int _money) {
-        money = _money;
+    public static void setMoney(int newMoney) {
+        money = newMoney;
     }
 
     /**
@@ -215,10 +215,10 @@ public class GameEnvironment {
 
     /**
    	 * Sets the Player/User's rating
-   	 * @param _playerRating the new Player/User's rating
+   	 * @param newPlayerRating the new Player/User's rating
    	 */
-    public static void setPlayerRating(int _playerRating) {
-        playerRating = _playerRating;
+    public static void setPlayerRating(int newPlayerRating) {
+        playerRating = newPlayerRating;
     }
     
     /**
@@ -231,10 +231,10 @@ public class GameEnvironment {
     
     /**
    	 * Sets the current game's wins, losses and byes
-   	 * @param _record the new current game's wins, losses and byes
+   	 * @param newRecord the new current game's wins, losses and byes
    	 */
-    public static void setRecord(int[] _record) {
-        record = _record;
+    public static void setRecord(int[] newRecord) {
+        record = newRecord;
     }
     
     /**
@@ -247,10 +247,10 @@ public class GameEnvironment {
     
     /**
    	 * Sets the Player/User's past match record
-   	 * @param _matches the new Player/User's past match record
+   	 * @param newMatches the new Player/User's past match record
    	 */
-    public static void setMatches(ArrayList<Match> _matches) {
-		GameEnvironment.matches = _matches;
+    public static void setMatches(ArrayList<Match> newMatches) {
+		GameEnvironment.matches = newMatches;
 	}
  
     /**
@@ -263,10 +263,10 @@ public class GameEnvironment {
     
     /**
    	 * Sets the value of the weekly game played
-   	 * @param _weeklyGamePlayed the new value of the weekly game played
+   	 * @param newWeeklyGamePlayed the new value of the weekly game played
    	 */
-    public static void setWeeklyGamePlayed(boolean _weeklyGamePlayed) {
-    	weeklyGamePlayed = _weeklyGamePlayed;
+    public static void setWeeklyGamePlayed(boolean newWeeklyGamePlayed) {
+    	weeklyGamePlayed = newWeeklyGamePlayed;
     }
     
     /**
@@ -279,10 +279,10 @@ public class GameEnvironment {
     
     /**
    	 * Sets the Player/User successfully completed the game
-   	 * @param _gameSuccess the new game success value
+   	 * @param newGameSuccess the new game success value
    	 */
-    public static void setGameSuccess(boolean _gameSuccess) {
-    	gameSuccess = _gameSuccess;
+    public static void setGameSuccess(boolean newGameSuccess) {
+    	gameSuccess = newGameSuccess;
     }
     
     /**
