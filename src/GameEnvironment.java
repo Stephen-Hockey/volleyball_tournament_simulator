@@ -80,173 +80,222 @@ public class GameEnvironment {
     
     /**
    	 * Returns the Player/User's name
-   	 * @return the Player/User's name
+   	 * @return the Player/User's name as a string
    	 */
     public static String getPlayerName() {
         return playerName;
     }
 
-    
+    /**
+   	 * Sets the Player/User's name
+   	 * @param the Player/User's new name
+   	 */
     public static void setPlayerName(String _playerName) {
         playerName = _playerName;
     }
 
     /**
-   	 * Returns the current in game week as an integer
+   	 * Returns the current in game week
    	 * @return the current game week as an integer
    	 */
     public static int getWeek() {
         return week;
     }
 
+    /**
+   	 * Sets the current in game week
+   	 * @param the new current in game week
+   	 */
     public static void setWeek(int _week) {
         week = _week;
     }
 
     /**
-   	 * Returns the chosen game length as an integer
-   	 * @return game length as an integer
+   	 * Returns the chosen game length
+   	 * @return the chosen game length as an integer
    	 */
     public static int getFinalWeek() {
         return finalWeek;
     }
 
+    /**
+   	 * Sets the chosen game length
+   	 * @param the new chosen game length
+   	 */
     public static void setFinalWeek(int _finalWeek) {
         finalWeek = _finalWeek;
     }
 
     /**
-   	 * Returns the Player/User's Team as a Team object
+   	 * Returns the Player/User's Team
    	 * @return the Player/User's Team as a Team object
    	 */
     public static Team getPlayerTeam() {
         return playerTeam;
     }
 
+    /**
+   	 * Sets the Player/User's Team
+   	 * @param the new Player/User's Team
+   	 */
     public static void setPlayerTeam(Team _playerTeam) {
         playerTeam = _playerTeam;
     }
     
     /**
-   	 * Returns the chosen difficulty as an integer
+   	 * Returns the chosen difficulty
    	 * @return the chosen difficulty as an integer
    	 */
     public static int getDifficulty() {
         return difficulty;
     }
 
-    
+    /**
+   	 * Sets the chosen difficulty
+   	 * @param the new chosen difficulty
+   	 */
     public static void setDifficulty(int _difficulty) {
         difficulty = _difficulty;
     }
 
     /**
-   	 * Returns the Player/User's items as an ArrayList of Item objects
-   	 * @return the Player/User's items as an ArrayList of Item objects
+   	 * Returns the Player/User's inventory items
+   	 * @return the Player/User's inventory items as an ArrayList of Item objects
    	 */
     public static ArrayList<Item> getInventory() {
         return inventory;
     }
 
+    /**
+   	 * Sets the Player/User's inventory items
+   	 * @param the new Player/User's inventory items
+   	 */
     public static void setInventory(ArrayList<Item> _inventory) {
         inventory = _inventory;
     }
 
     /**
-   	 * Returns the Player/User's money as an integer
+   	 * Returns the Player/User's money
    	 * @return the Player/User's money as an integer
    	 */
     public static int getMoney() {
         return money;
     }
 
+    /**
+   	 * Sets the Player/User's inventory items
+   	 * @param the new Player/User's inventory items
+   	 */
     public static void setMoney(int _money) {
         money = _money;
     }
 
     /**
-   	 * Returns the Player/User's rating as an integer
+   	 * Returns the Player/User's rating
    	 * @return the Player/User's rating as an integer
    	 */
     public static int getPlayerRating() {
         return playerRating;
     }
 
+    /**
+   	 * Sets the Player/User's rating
+   	 * @param the new Player/User's rating
+   	 */
     public static void setPlayerRating(int _playerRating) {
         playerRating = _playerRating;
     }
     
     /**
-   	 * Returns the current game's wins, losses and byes as an integer list of the form {wins, losses, byes}
+   	 * Returns the current game's wins, losses and byes
    	 * @return the current game's wins, losses and byes as an integer list of the form {wins, losses, byes}
    	 */
     public static int[] getRecord() {
         return record;
     }
+    
+    /**
+   	 * Sets the current game's wins, losses and byes
+   	 * @param the new current game's wins, losses and byes
+   	 */
     public static void setRecord(int[] _record) {
         record = _record;
     }
     
     /**
-   	 * Returns the Player/User's past match record as an ArrayList of Match objects
+   	 * Returns the Player/User's past match record
    	 * @return the Player/User's past match record as an ArrayList of Match objects
    	 */
     public static ArrayList<Match> getMatches() {
 		return matches;
 	}
     
-    
+    /**
+   	 * Sets the Player/User's past match record
+   	 * @param the new Player/User's past match record
+   	 */
     public static void setMatches(ArrayList<Match> _matches) {
 		GameEnvironment.matches = _matches;
 	}
     
-    
+    /**
+   	 * appends a match to the Player/User's past match record
+   	 * @param the new match to append to the Player/User's past match record
+   	 */
     public static void addMatch(Match match) {
     	GameEnvironment.matches.add(match);
     }
  
     /**
-   	 * Returns the value of the weekly game played as a boolean
+   	 * Returns the value of the weekly game played
    	 * @return the value of the weekly game played as a boolean
    	 */
     public static boolean getWeeklyGamePlayed() {
     	return weeklyGamePlayed;
     }
     
+    /**
+   	 * Sets the value of the weekly game played
+   	 * @param the new value of the weekly game played
+   	 */
     public static void setWeeklyGamePlayed(boolean _weeklyGamePlayed) {
     	weeklyGamePlayed = _weeklyGamePlayed;
     }
     
     /**
-   	 * Returns the Player/User successfully completed the game as a boolean
+   	 * Returns the Player/User successfully completed the game
    	 * @return the Player/User successfully completed the game as a boolean
    	 */
     public static boolean getGameSuccess() {
     	return gameSuccess;
     }
     
+    /**
+   	 * Sets the Player/User successfully completed the game
+   	 * @param the new game success value
+   	 */
     public static void setGameSuccess(boolean _gameSuccess) {
     	gameSuccess = _gameSuccess;
     }
     
     /**
-   	 * Returns the current athletes available for purchase from the marketplace an ArrayList of Athlete objects
-   	 * @return the current athletes available for purchase from the marketplace an ArrayList of Athlete objects
+   	 * Returns the current athletes available for purchase from the marketplace
+   	 * @return the current athletes available for purchase from the marketplace as an ArrayList of Athlete objects
    	 */
     public static ArrayList<Athlete> getCurrentWeekMarketAthletes() {
 		return currentWeekMarketAthletes;
 	}
     
     /**
-   	 * Returns the current items available for purchase from the marketplace an ArrayList of Item objects
-   	 * @return the current items available for purchase from the marketplace an ArrayList of Item objects
+   	 * Returns the current items available for purchase from the marketplace
+   	 * @return the current items available for purchase from the marketplace as an ArrayList of Item objects
    	 */
     public static ArrayList<Item> getCurrentWeekMarketItems() {
 		return currentWeekMarketItems;
 	}
     
     /**
-   	 * Returns the Opponents currently available to play in the Stadium as an ArrayList of Team objects
+   	 * Returns the Opponents currently available to play in the Stadium
    	 * @return the Opponents currently available to play in the Stadium as an ArrayList of Team objects
    	 */
     public static ArrayList<Team> getCurrentWeekOpposingTeams() {
@@ -254,7 +303,7 @@ public class GameEnvironment {
     }
     
     /**
-   	 * If the Player/User can make a valid team with their current athletes as a boolean
+   	 * If the Player/User can make a valid team with their current athletes
    	 * @return If the Player/User can make a valid team with their current athletes as a boolean
    	 */
     public static boolean hasFullTeam() {
@@ -268,7 +317,7 @@ public class GameEnvironment {
     }
     
     /**
-   	 * If the Player/User's current line up is valid as a boolean
+   	 * If the Player/User's current line up is valid
    	 * @return If the Player/User's current line up is valid as a boolean
    	 */
     public static boolean hasHealthyStarters() {
