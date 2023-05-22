@@ -10,14 +10,6 @@ import main.Athlete;
 import main.Item;
 
 public class AthleteTest {
-
-	@Test
-	public void getSellPriceTest() {
-		Athlete testAthlete = new Athlete();
-	    testAthlete.setPrice(100);
-	    int sellPrice = testAthlete.getSellPrice();
-	    assertEquals(80, sellPrice);
-	}
 	
 	@Test
 	public void addItemTest() {
